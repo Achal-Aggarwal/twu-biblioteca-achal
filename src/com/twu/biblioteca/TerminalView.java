@@ -31,7 +31,8 @@ public class TerminalView {
         output.println("--Menu--");
         output.println("1. \tList Books");
         output.println("2. \tCheckout Book");
-        output.println("3. \tQuit");
+        output.println("3. \tCheckin Book");
+        output.println("4. \tQuit");
         return input.next();
     }
 
@@ -50,6 +51,8 @@ public class TerminalView {
                     output.println("That book is not available.");
                 }
             } else if (selectedOption.equals("3")) {
+                application.checkin(input.next());
+            } else if (selectedOption.equals("4")) {
                 break;
             } else {
                 output.println("Select a valid option!");

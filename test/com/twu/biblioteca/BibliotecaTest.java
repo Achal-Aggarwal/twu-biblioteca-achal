@@ -77,4 +77,13 @@ public class BibliotecaTest {
         bookList = app.getListOfBooks();
         assertFalse(bookList.contains(galvin));
     }
+
+    @Test
+    public void testCheckinOfABook(){
+        assertFalse(app.isBookCheckedOut(letusc.getTitle()));
+        assertTrue(app.checkout(letusc.getTitle()));
+        assertTrue(app.isBookCheckedOut(letusc.getTitle()));
+        assertTrue(app.checkin(letusc.getTitle()));
+        assertFalse(app.isBookCheckedOut(letusc.getTitle()));
+    }
 }

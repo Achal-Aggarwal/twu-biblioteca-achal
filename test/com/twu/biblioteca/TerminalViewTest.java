@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.*;
 
+import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertNotEquals;
 
@@ -36,16 +37,19 @@ public class TerminalViewTest {
 
     @Test
     public void testRenderedWelcomeMessageAndMenu() {
-        runApplicationWithInput("3");
+        runApplicationWithInput("4");
         String welcomeMessage = "Welcome and thank you for taking time to visit Biblioteca.\n";
         String menu = "--Menu--\n";
         menu += "1. \tList Books\n";
+        menu += "2. \tCheckout Book\n";
+        menu += "3. \tCheckin Book\n";
+        menu += "4. \tQuit\n";
         assertTrue(output.toString().startsWith(welcomeMessage + menu));
     }
 
     @Test
     public void testRenderedListOfBooksView() {
-        runApplicationWithInput("1\n3");
+        runApplicationWithInput("1\n4");
         String viewTitle = "List of books available.\n";
         String listOfBooks = "Sr. \tBook\tAuthor\tPublicationDate\n";
         listOfBooks += "1. \t" + fivePoint + "\n";
@@ -57,13 +61,13 @@ public class TerminalViewTest {
 
     @Test
     public void testRenderedInvalidMessageOnSelectingInvalidOption(){
-        runApplicationWithInput("a\n3");
+        runApplicationWithInput("a\n4");
         assertTrue(output.toString().contains("Select a valid option!\n"));
     }
 
     @Test
     public void testRenderedMenuAfterRenderingInvalidOptionMessage(){
-        runApplicationWithInput("q\n3");
+        runApplicationWithInput("q\n4");
         String outputString = output.toString();
         String invalidOptionMessage = "Select a valid option!\n";
         int offset = outputString.lastIndexOf(invalidOptionMessage);
@@ -72,22 +76,19 @@ public class TerminalViewTest {
 
         outputString = outputString.substring(offset + invalidOptionMessage.length());
         String menu = "--Menu--\n";
-        menu += "1. \tList Books\n";
-        menu += "2. \tCheckout Book\n";
-        menu += "3. \tQuit\n";
 
         assertTrue(outputString.contains(menu));
     }
 
     @Test
     public void testCheckingOutOfABook() {
-        runApplicationWithInput("2\n" + galvin.getTitle() + "\n3");
+        runApplicationWithInput("2\n" + galvin.getTitle() + "\n4");
         assertTrue(galvin.isCheckedOut());
     }
 
     @Test
     public void testListOfBooksViewAfterCheckingOutABook() {
-        runApplicationWithInput("1\n2\n" + galvin.getTitle() + "\n1\n3");
+        runApplicationWithInput("1\n2\n" + galvin.getTitle() + "\n1\n4");
         String outputString = output.toString();
 
         String viewTitle = "List of books available.\n";
@@ -112,19 +113,25 @@ public class TerminalViewTest {
 
     @Test
     public void testSuccessMessageAfterCheckingOutABook() {
-        runApplicationWithInput("1\n2\n" + galvin.getTitle() + "\n1\n3");
+        runApplicationWithInput("1\n2\n" + galvin.getTitle() + "\n1\n4");
         assertTrue(output.toString().contains("Thank you! Enjoy the book\n"));
     }
 
     @Test
     public void testUnsuccessfulMessageAfterCheckingOutABookThatDoesntExist() {
-        runApplicationWithInput("1\n2\nFooBar\n1\n3");
+        runApplicationWithInput("1\n2\nFooBar\n1\n4");
         assertTrue(output.toString().contains("That book is not available.\n"));
     }
 
     @Test
     public void testUnsuccessfulMessageAfterCheckingOutABookThatIsCheckedOut() {
-        runApplicationWithInput("1\n2\n" + galvin.getTitle() + "\n2\n" + galvin.getTitle() +"\n3");
+        runApplicationWithInput("1\n2\n" + galvin.getTitle() + "\n2\n" + galvin.getTitle() +"\n4");
         assertTrue(output.toString().contains("That book is not available.\n"));
+    }
+
+    @Test
+    public void testReturnOfABook() {
+        runApplicationWithInput("2\n" + galvin.getTitle() + "\n3\n"+ galvin.getTitle() +"\n4");
+        assertFalse(galvin.isCheckedOut());
     }
 }

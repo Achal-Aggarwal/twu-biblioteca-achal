@@ -43,4 +43,9 @@ public class BibliotecaApp {
         Book book = (Book) books.get(bookTitle);
         return book != null ? book.isCheckedOut() : true;
     }
+
+    public boolean checkin(String bookTitle) {
+        Book book = (Book) books.get(bookTitle);
+        return book != null ? book.checkin() : false;
+    }
 }

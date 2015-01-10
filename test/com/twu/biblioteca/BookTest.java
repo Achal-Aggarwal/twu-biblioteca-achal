@@ -35,4 +35,12 @@ public class BookTest {
         assertTrue(letusc.isCheckedOut());
         assertFalse(letusc.checkOut());
     }
+
+    @Test
+    public void testBookCheckin(){
+        assertTrue(letusc.checkOut());
+        assertTrue(letusc.isCheckedOut());
+        assertTrue(letusc.checkin());
+        assertFalse(letusc.isCheckedOut());
+    }
 }
