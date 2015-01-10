@@ -7,7 +7,8 @@ import static org.junit.Assert.assertEquals;
 public class ExampleTest {
 
     @Test
-    public void test() {
-        assertEquals(1, 1);
+    public void testWelcomeMessage() {
+        BibliotecaApp app = new BibliotecaApp();
+        assertEquals("Welcome and thank you for taking time to visit Biblioteca.", app.welcomeMessage());
     }
 }
