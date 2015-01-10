@@ -115,4 +115,16 @@ public class TerminalViewTest {
         runApplicationWithInput("1\n2\n" + galvin.getTitle() + "\n1\n3");
         assertTrue(output.toString().contains("Thank you! Enjoy the book\n"));
     }
+
+    @Test
+    public void testUnsuccessfulMessageAfterCheckingOutABookThatDoesntExist() {
+        runApplicationWithInput("1\n2\nFooBar\n1\n3");
+        assertTrue(output.toString().contains("That book is not available.\n"));
+    }
+
+    @Test
+    public void testUnsuccessfulMessageAfterCheckingOutABookThatIsCheckedOut() {
+        runApplicationWithInput("1\n2\n" + galvin.getTitle() + "\n2\n" + galvin.getTitle() +"\n3");
+        assertTrue(output.toString().contains("That book is not available.\n"));
+    }
 }

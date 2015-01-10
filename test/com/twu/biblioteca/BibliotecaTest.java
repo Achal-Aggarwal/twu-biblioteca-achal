@@ -57,6 +57,19 @@ public class BibliotecaTest {
     }
 
     @Test
+    public void testCheckoutOfABookThatDoesntExist(){
+        assertTrue(app.isBookCheckedOut("Foobar"));
+        assertFalse(app.checkout("Foobar"));
+    }
+
+    @Test
+    public void testCheckoutOfABookThatIsCheckedout(){
+        assertFalse(app.isBookCheckedOut(letusc.getTitle()));
+        assertTrue(app.checkout(letusc.getTitle()));
+        assertFalse(app.checkout(letusc.getTitle()));
+    }
+
+    @Test
     public void testListOfBooksAfterCheckingOutABook(){
         List<Book> bookList = app.getListOfBooks();
         assertTrue(bookList.contains(galvin));

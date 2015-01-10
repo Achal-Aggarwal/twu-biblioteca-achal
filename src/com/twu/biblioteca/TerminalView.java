@@ -46,6 +46,8 @@ public class TerminalView {
             } else if (selectedOption.equals("2")) {
                 if(application.checkout(input.next())){
                     output.println("Thank you! Enjoy the book");
+                } else {
+                    output.println("That book is not available.");
                 }
             } else if (selectedOption.equals("3")) {
                 break;
