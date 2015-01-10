@@ -30,7 +30,8 @@ public class TerminalView {
     private String showMenu() {
         output.println("--Menu--");
         output.println("1. \tList Books");
-        output.println("2. \tQuit");
+        output.println("2. \tCheckout Book");
+        output.println("3. \tQuit");
         return input.next();
     }
 
@@ -43,6 +44,8 @@ public class TerminalView {
             if (selectedOption.equals("1")) {
                 showListOfBooksView();
             } else if (selectedOption.equals("2")) {
+                application.checkout(input.next());
+            } else if (selectedOption.equals("3")) {
                 break;
             } else {
                 output.println("Select a valid option!");

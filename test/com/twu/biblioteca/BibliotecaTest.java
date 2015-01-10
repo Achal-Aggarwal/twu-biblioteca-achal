@@ -4,8 +4,12 @@ package com.twu.biblioteca;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -43,5 +47,20 @@ public class BibliotecaTest {
         assertTrue(bookList.contains(galvin));
         assertTrue(bookList.contains(internetSec));
         assertTrue(bookList.contains(fivePoint));
+    }
+
+    @Test
+    public void testCheckoutOfABook(){
+        assertTrue(app.checkout(letusc.getTitle()));
+        assertTrue(app.isBookCheckedOut(letusc.getTitle()));
+    }
+
+    @Test
+    public void testListOfBooksAfterCheckingOutABook(){
+        List<Book> bookList = app.getListOfBooks();
+        assertTrue(bookList.contains(galvin));
+        assertTrue(app.checkout(galvin.getTitle()));
+        bookList = app.getListOfBooks();
+        assertFalse(bookList.contains(galvin));
     }
 }
