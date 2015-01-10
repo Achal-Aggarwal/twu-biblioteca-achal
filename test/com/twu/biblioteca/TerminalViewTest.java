@@ -12,10 +12,10 @@ import static org.junit.Assert.assertEquals;
 public class TerminalViewTest {
     TerminalView terminal;
     ByteArrayOutputStream output;
-    String letusc = "Let Us C";
-    String galvin = "Galvin";
-    String internetSec = "Internet Security";
-    String fivePoint = "Five Point Someone";
+    Book letusc = new Book("Let Us C");
+    Book galvin = new Book("Galvin");
+    Book internetSec = new Book("Internet Security");
+    Book fivePoint = new Book("Five Point Someone");
 
     @Before
     public void setUp() throws UnsupportedEncodingException {

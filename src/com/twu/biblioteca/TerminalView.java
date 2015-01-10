@@ -17,10 +17,10 @@ public class TerminalView {
     public int runApplication(PrintStream output){
         output.println(application.welcomeMessage());
 
-        List<String> books = application.getListOfBooks();
+        List<Book> books = application.getListOfBooks();
         output.println("Sr. \tBook");
         for (int i = 0; i < books.size(); i++) {
-            String book = books.get(i);
+            Book book = books.get(i);
             output.println((i+1)+ ". \t" + book);
         }
 

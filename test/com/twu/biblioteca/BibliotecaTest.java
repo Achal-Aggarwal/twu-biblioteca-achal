@@ -19,7 +19,7 @@ public class BibliotecaTest {
     @Test
     public void testAddBook() {
         BibliotecaApp app = new BibliotecaApp();
-        String letusc = "Let Us C";
+        Book letusc = new Book("Let Us C");
         app.addBook(letusc);
         assertTrue(app.isPresent(letusc));
     }
@@ -27,16 +27,16 @@ public class BibliotecaTest {
     @Test
     public void testListOfBooks() {
         BibliotecaApp app = new BibliotecaApp();
-        String letusc = "Let Us C";
+        Book letusc = new Book("Let Us C");
         app.addBook(letusc);
-        String galvin = "Galvin";
+        Book galvin = new Book("Galvin");
         app.addBook(galvin);
-        String internetSec = "Internet Security";
+        Book internetSec = new Book("Internet Security");
         app.addBook(internetSec);
-        String fivePoint = "Five Point Someone";
+        Book fivePoint = new Book("Five Point Someone");
         app.addBook(fivePoint);
 
-        List<String> bookList = app.getListOfBooks();
+        List<Book> bookList = app.getListOfBooks();
         assertTrue(bookList.contains(letusc));
         assertTrue(bookList.contains(galvin));
         assertTrue(bookList.contains(internetSec));

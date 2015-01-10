@@ -5,30 +5,30 @@ import java.util.List;
 
 public class BibliotecaApp {
 
-    private List<String> books = new ArrayList<String>();
+    private List<Book> books = new ArrayList<Book>();
 
     public String welcomeMessage(){
         return "Welcome and thank you for taking time to visit Biblioteca.";
     }
 
-    public void addBook(String bookTitle) {
+    public void addBook(Book bookTitle) {
         books.add(bookTitle);
     }
 
-    public boolean isPresent(String bookTitle) {
+    public boolean isPresent(Book bookTitle) {
         return books.contains(bookTitle);
     }
 
-    public List<String> getListOfBooks() {
+    public List<Book> getListOfBooks() {
         return books;
     }
 
     public static void main(String[] args) {
         BibliotecaApp application = new BibliotecaApp();
-        String letusc = "Let Us C";
-        String galvin = "Galvin";
-        String internetSec = "Internet Security";
-        String fivePoint = "Five Point Someone";
+        Book letusc = new Book("Let Us C");
+        Book galvin = new Book("Galvin");
+        Book internetSec = new Book("Internet Security");
+        Book fivePoint = new Book("Five Point Someone");
         application.addBook(letusc);
         application.addBook(galvin);
         application.addBook(internetSec);
