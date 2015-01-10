@@ -33,7 +33,7 @@ public class BibliotecaApp {
         application.addBook(galvin);
         application.addBook(internetSec);
         application.addBook(fivePoint);
-        TerminalView terminal = new TerminalView(application);
-        terminal.runApplication(System.out);
+        TerminalView terminal = new TerminalView(application,System.out, System.in);
+        terminal.runApplication();
     }
 }
