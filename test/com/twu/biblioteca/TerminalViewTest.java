@@ -7,6 +7,7 @@ import java.io.*;
 
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class TerminalViewTest {
     TerminalView terminal;
@@ -35,14 +36,16 @@ public class TerminalViewTest {
 
     @Test
     public void testRenderedWelcomeMessageAndMenu() {
-        runApplicationWithInput("0");
+        runApplicationWithInput("2");
         String welcomeMessage = "Welcome and thank you for taking time to visit Biblioteca.\n";
-        String menu = "1. \tList Books\n";
+        String menu = "--Menu--\n";
+        menu += "1. \tList Books\n";
         assertTrue(output.toString().startsWith(welcomeMessage + menu));
     }
+
     @Test
     public void testRenderedListOfBooksView() {
-        runApplicationWithInput("1");
+        runApplicationWithInput("1\n2");
         String viewTitle = "List of books available.\n";
         String listOfBooks = "Sr. \tBook\tAuthor\tPublicationDate\n";
         listOfBooks += "1. \t" + letusc + "\n";
@@ -51,9 +54,27 @@ public class TerminalViewTest {
         listOfBooks += "4. \t" + fivePoint + "\n";
         assertTrue(output.toString().contains(viewTitle + listOfBooks));
     }
+
     @Test
     public void testRenderedInvalidMessageOnSelectingInvalidOption(){
-        runApplicationWithInput("a");
+        runApplicationWithInput("a\n2");
         assertTrue(output.toString().contains("Select a valid option!\n"));
+    }
+
+    @Test
+    public void testRenderedMenuAfterRenderingInvalidOptionMessage(){
+        runApplicationWithInput("q\n2");
+        String outputString = output.toString();
+        String invalidOptionMessage = "Select a valid option!\n";
+        int offset = outputString.lastIndexOf(invalidOptionMessage);
+
+        assertNotEquals(-1, offset);
+
+        outputString = outputString.substring(offset + invalidOptionMessage.length());
+        String menu = "--Menu--\n";
+        menu += "1. \tList Books\n";
+        menu += "2. \tQuit\n";
+
+        assertTrue(outputString.contains(menu));
     }
 }

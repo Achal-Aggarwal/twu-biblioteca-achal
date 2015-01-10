@@ -14,6 +14,7 @@ public class TerminalView {
         this.application = app;
         this.output = output;
         this.input = new Scanner(inputStream);
+        this.input.useDelimiter("\n");
     }
 
     private void showListOfBooksView(){
@@ -27,21 +28,26 @@ public class TerminalView {
     }
 
     private String showMenu() {
+        output.println("--Menu--");
         output.println("1. \tList Books");
+        output.println("2. \tQuit");
         return input.next();
     }
 
     public int runApplication() {
         output.println(application.welcomeMessage());
 
-        String selectedOption = showMenu();
+        do {
+            String selectedOption = showMenu();
 
-        if (selectedOption.equals("1")){
-            showListOfBooksView();
-        } else {
-            output.println("Select a valid option!");
-        }
-
+            if (selectedOption.equals("1")) {
+                showListOfBooksView();
+            } else if (selectedOption.equals("2")) {
+                break;
+            } else {
+                output.println("Select a valid option!");
+            }
+        }while(true);
         return 0;
     }
 }
