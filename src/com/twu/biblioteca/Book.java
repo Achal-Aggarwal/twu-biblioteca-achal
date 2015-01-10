@@ -36,6 +36,9 @@ public class Book {
     }
 
     public boolean checkin() {
+        if(!checkedOut){
+            return false;
+        }
         checkedOut = false;
         return true;
     }

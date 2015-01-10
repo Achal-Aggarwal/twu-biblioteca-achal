@@ -43,4 +43,10 @@ public class BookTest {
         assertTrue(letusc.checkin());
         assertFalse(letusc.isCheckedOut());
     }
+
+    @Test
+    public void testBookCheckinFailure(){
+        assertFalse(letusc.isCheckedOut());
+        assertFalse(letusc.checkin());
+    }
 }

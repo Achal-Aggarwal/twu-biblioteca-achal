@@ -86,4 +86,16 @@ public class BibliotecaTest {
         assertTrue(app.checkin(letusc.getTitle()));
         assertFalse(app.isBookCheckedOut(letusc.getTitle()));
     }
+
+    @Test
+    public void testCheckinOfABookThatDoesntExist(){
+        assertTrue(app.isBookCheckedOut("Foobar"));
+        assertFalse(app.checkin("Foobar"));
+    }
+
+    @Test
+    public void testCheckinOfABookThatIsCheckedinAlready(){
+        assertFalse(app.isBookCheckedOut(letusc.getTitle()));
+        assertFalse(app.checkin(letusc.getTitle()));
+    }
 }
