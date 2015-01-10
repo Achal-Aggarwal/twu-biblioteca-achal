@@ -50,4 +50,18 @@ public class TerminalView {
         }while(true);
         return 0;
     }
+
+    public static void main(String[] args) {
+        BibliotecaApp application = new BibliotecaApp();
+        Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
+        Book galvin = new Book("Operating System", "Galvin", "2005");
+        Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
+        Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
+        application.addBook(letusc);
+        application.addBook(galvin);
+        application.addBook(internetSec);
+        application.addBook(fivePoint);
+        TerminalView terminal = new TerminalView(application,System.out, System.in);
+        terminal.runApplication();
+    }
 }

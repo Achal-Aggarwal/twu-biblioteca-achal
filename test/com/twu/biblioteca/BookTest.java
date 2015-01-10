@@ -4,9 +4,6 @@ import org.junit.Test;
 
 import static junit.framework.TestCase.assertEquals;
 
-/**
- * Created by achalaggarwal on 1/10/15.
- */
 public class BookTest {
     @Test
     public void testStringRepresentationOfBookWithAuthorPresent(){
