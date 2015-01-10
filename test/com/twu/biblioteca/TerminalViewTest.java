@@ -109,4 +109,10 @@ public class TerminalViewTest {
         listOfBooks += "3. \t" + internetSec + "\n";
         assertTrue(outputString.contains(viewTitle + listOfBooks));
     }
+
+    @Test
+    public void testSuccessMessageAfterCheckingOutABook() {
+        runApplicationWithInput("1\n2\n" + galvin.getTitle() + "\n1\n3");
+        assertTrue(output.toString().contains("Thank you! Enjoy the book\n"));
+    }
 }

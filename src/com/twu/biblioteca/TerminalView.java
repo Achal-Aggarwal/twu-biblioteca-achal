@@ -44,7 +44,9 @@ public class TerminalView {
             if (selectedOption.equals("1")) {
                 showListOfBooksView();
             } else if (selectedOption.equals("2")) {
-                application.checkout(input.next());
+                if(application.checkout(input.next())){
+                    output.println("Thank you! Enjoy the book");
+                }
             } else if (selectedOption.equals("3")) {
                 break;
             } else {

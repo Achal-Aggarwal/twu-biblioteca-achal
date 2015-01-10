@@ -51,6 +51,7 @@ public class BibliotecaTest {
 
     @Test
     public void testCheckoutOfABook(){
+        assertFalse(app.isBookCheckedOut(letusc.getTitle()));
         assertTrue(app.checkout(letusc.getTitle()));
         assertTrue(app.isBookCheckedOut(letusc.getTitle()));
     }
