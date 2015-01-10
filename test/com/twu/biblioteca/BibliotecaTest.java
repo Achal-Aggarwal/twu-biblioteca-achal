@@ -9,6 +9,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class BibliotecaTest {
+    Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
+    Book galvin = new Book("Operating System", "Galvin", "2005");
+    Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
+    Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
 
     @Test
     public void testWelcomeMessage() {
@@ -19,7 +23,6 @@ public class BibliotecaTest {
     @Test
     public void testAddBook() {
         BibliotecaApp app = new BibliotecaApp();
-        Book letusc = new Book("Let Us C");
         app.addBook(letusc);
         assertTrue(app.isPresent(letusc));
     }
@@ -27,13 +30,9 @@ public class BibliotecaTest {
     @Test
     public void testListOfBooks() {
         BibliotecaApp app = new BibliotecaApp();
-        Book letusc = new Book("Let Us C");
         app.addBook(letusc);
-        Book galvin = new Book("Galvin");
         app.addBook(galvin);
-        Book internetSec = new Book("Internet Security");
         app.addBook(internetSec);
-        Book fivePoint = new Book("Five Point Someone");
         app.addBook(fivePoint);
 
         List<Book> bookList = app.getListOfBooks();

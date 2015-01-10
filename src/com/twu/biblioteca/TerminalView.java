@@ -18,7 +18,7 @@ public class TerminalView {
         output.println(application.welcomeMessage());
 
         List<Book> books = application.getListOfBooks();
-        output.println("Sr. \tBook");
+        output.println("Sr. \tBook\tAuthor\tPublicationDate");
         for (int i = 0; i < books.size(); i++) {
             Book book = books.get(i);
             output.println((i+1)+ ". \t" + book);
