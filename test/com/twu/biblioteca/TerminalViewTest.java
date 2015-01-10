@@ -38,7 +38,7 @@ public class TerminalViewTest {
         runApplicationWithInput("0");
         String welcomeMessage = "Welcome and thank you for taking time to visit Biblioteca.\n";
         String menu = "1. \tList Books\n";
-        assertEquals(welcomeMessage + menu, output.toString());
+        assertTrue(output.toString().startsWith(welcomeMessage + menu));
     }
     @Test
     public void testRenderedListOfBooksView() {
@@ -50,5 +50,10 @@ public class TerminalViewTest {
         listOfBooks += "3. \t" + internetSec + "\n";
         listOfBooks += "4. \t" + fivePoint + "\n";
         assertTrue(output.toString().contains(viewTitle + listOfBooks));
+    }
+    @Test
+    public void testRenderedInvalidMessageOnSelectingInvalidOption(){
+        runApplicationWithInput("a");
+        assertTrue(output.toString().contains("Select a valid option!\n"));
     }
 }

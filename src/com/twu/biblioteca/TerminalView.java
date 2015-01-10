@@ -26,18 +26,20 @@ public class TerminalView {
         }
     }
 
-    private int showMenu() {
+    private String showMenu() {
         output.println("1. \tList Books");
-        return input.nextInt();
+        return input.next();
     }
 
     public int runApplication() {
         output.println(application.welcomeMessage());
 
-        int selectedOption = showMenu();
+        String selectedOption = showMenu();
 
-        if (selectedOption == 1){
+        if (selectedOption.equals("1")){
             showListOfBooksView();
+        } else {
+            output.println("Select a valid option!");
         }
 
         return 0;
