@@ -36,16 +36,16 @@ public class BibliotecaApp {
 
     public boolean checkout(String bookTitle) {
         Book book = (Book) books.get(bookTitle);
-        return book != null ? book.checkOut() : false;
+        return book != null && book.checkOut();
     }
 
     public boolean isBookCheckedOut(String bookTitle) {
         Book book = (Book) books.get(bookTitle);
-        return book != null ? book.isCheckedOut() : true;
+        return book == null || book.isCheckedOut();
     }
 
     public boolean checkin(String bookTitle) {
         Book book = (Book) books.get(bookTitle);
-        return book != null ? book.checkin() : false;
+        return book != null && book.checkin();
     }
 }

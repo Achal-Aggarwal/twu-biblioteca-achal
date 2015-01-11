@@ -27,6 +27,22 @@ public class TerminalView {
         }
     }
 
+    private void checkinBookView() {
+        if(application.checkin(input.next())){
+            output.println("Thank you for returning the book.");
+        } else {
+            output.println("That is not a valid book to return.");
+        }
+    }
+
+    private void checkoutBookView() {
+        if(application.checkout(input.next())){
+            output.println("Thank you! Enjoy the book");
+        } else {
+            output.println("That book is not available.");
+        }
+    }
+
     private String showMenu() {
         output.println("--Menu--");
         output.println("1. \tList Books");
@@ -45,26 +61,18 @@ public class TerminalView {
             if (selectedOption.equals("1")) {
                 showListOfBooksView();
             } else if (selectedOption.equals("2")) {
-                if(application.checkout(input.next())){
-                    output.println("Thank you! Enjoy the book");
-                } else {
-                    output.println("That book is not available.");
-                }
+                checkoutBookView();
             } else if (selectedOption.equals("3")) {
-                if(application.checkin(input.next())){
-                    output.println("Thank you for returning the book.");
-                } else {
-                    output.println("That is not a valid book to return.");
-                }
+                checkinBookView();
             } else if (selectedOption.equals("4")) {
                 break;
             } else {
                 output.println("Select a valid option!");
             }
         }while(true);
-        return 0;
-    }
+    return 0;
 
+    }
     public static void main(String[] args) {
         BibliotecaApp application = new BibliotecaApp();
         Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
