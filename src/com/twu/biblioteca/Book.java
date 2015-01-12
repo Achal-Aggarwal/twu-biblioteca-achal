@@ -13,8 +13,7 @@ public class Book {
         this.checkedOut = false;
     }
 
-    @Override
-    public String toString() {
+    public String getFormattedString() {
         return "|" + title + "|\t|" + author + "|\t|" + publicationDate + "|";
     }
 

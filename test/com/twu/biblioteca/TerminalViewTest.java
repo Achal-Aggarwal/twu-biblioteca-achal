@@ -51,10 +51,10 @@ public class TerminalViewTest {
         runApplicationWithInput("1\n4");
         String viewTitle = "List of books available.\n";
         String listOfBooks = "";
-        listOfBooks += "1. \t" + fivePoint + "\n";
-        listOfBooks += "2. \t" + letusc + "\n";
-        listOfBooks += "3. \t" + galvin + "\n";
-        listOfBooks += "4. \t" + internetSec + "\n";
+        listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
+        listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";
+        listOfBooks += "3. \t" + galvin.getFormattedString() + "\n";
+        listOfBooks += "4. \t" + internetSec.getFormattedString() + "\n";
         assertTrue(output.toString().contains(viewTitle + listOfBooks));
     }
 
@@ -92,10 +92,10 @@ public class TerminalViewTest {
 
         String viewTitle = "List of books available.\n";
         String listOfBooks = "";
-        listOfBooks += "1. \t" + fivePoint + "\n";
-        listOfBooks += "2. \t" + letusc + "\n";
-        listOfBooks += "3. \t" + galvin + "\n";
-        listOfBooks += "4. \t" + internetSec + "\n";
+        listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
+        listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";
+        listOfBooks += "3. \t" + galvin.getFormattedString() + "\n";
+        listOfBooks += "4. \t" + internetSec.getFormattedString() + "\n";
 
         int offset = outputString.lastIndexOf(viewTitle + listOfBooks);
 
@@ -104,9 +104,9 @@ public class TerminalViewTest {
         outputString = outputString.substring(offset + (viewTitle + listOfBooks).length());
 
         listOfBooks = "";
-        listOfBooks += "1. \t" + fivePoint + "\n";
-        listOfBooks += "2. \t" + letusc + "\n";
-        listOfBooks += "3. \t" + internetSec + "\n";
+        listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
+        listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";
+        listOfBooks += "3. \t" + internetSec.getFormattedString() + "\n";
         assertTrue(outputString.contains(viewTitle + listOfBooks));
     }
 
@@ -141,9 +141,9 @@ public class TerminalViewTest {
 
         String viewTitle = "List of books available.\n";
         String listOfBooks = "";
-        listOfBooks += "1. \t" + fivePoint + "\n";
-        listOfBooks += "2. \t" + letusc + "\n";
-        listOfBooks += "3. \t" + internetSec + "\n";
+        listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
+        listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";
+        listOfBooks += "3. \t" + internetSec.getFormattedString() + "\n";
 
         int offset = outputString.lastIndexOf(viewTitle + listOfBooks);
 
@@ -152,10 +152,10 @@ public class TerminalViewTest {
         outputString = outputString.substring(offset + (viewTitle + listOfBooks).length());
 
         listOfBooks = "";
-        listOfBooks += "1. \t" + fivePoint + "\n";
-        listOfBooks += "2. \t" + letusc + "\n";
-        listOfBooks += "3. \t" + galvin + "\n";
-        listOfBooks += "4. \t" + internetSec + "\n";
+        listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
+        listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";
+        listOfBooks += "3. \t" + galvin.getFormattedString() + "\n";
+        listOfBooks += "4. \t" + internetSec.getFormattedString() + "\n";
         assertTrue(outputString.contains(viewTitle + listOfBooks));
     }
 

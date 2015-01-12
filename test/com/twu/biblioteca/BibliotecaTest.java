@@ -40,10 +40,10 @@ public class BibliotecaTest {
     @Test
     public void testListOfBooks() {
         List<String> bookList = app.getListOfBooks();
-        assertTrue(bookList.contains(letusc.toString()));
-        assertTrue(bookList.contains(galvin.toString()));
-        assertTrue(bookList.contains(internetSec.toString()));
-        assertTrue(bookList.contains(fivePoint.toString()));
+        assertTrue(bookList.contains(letusc.getFormattedString()));
+        assertTrue(bookList.contains(galvin.getFormattedString()));
+        assertTrue(bookList.contains(internetSec.getFormattedString()));
+        assertTrue(bookList.contains(fivePoint.getFormattedString()));
     }
 
     @Test
@@ -69,10 +69,10 @@ public class BibliotecaTest {
     @Test
     public void testListOfBooksAfterCheckingOutABook(){
         List<String> bookList = app.getListOfBooks();
-        assertTrue(bookList.contains(galvin.toString()));
+        assertTrue(bookList.contains(galvin.getFormattedString()));
         assertTrue(app.checkout(galvin.getTitle()));
         bookList = app.getListOfBooks();
-        assertFalse(bookList.contains(galvin.toString()));
+        assertFalse(bookList.contains(galvin.getFormattedString()));
     }
 
     @Test

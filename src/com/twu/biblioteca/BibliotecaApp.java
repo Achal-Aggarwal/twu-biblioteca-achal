@@ -27,7 +27,7 @@ public class BibliotecaApp {
         List<String> availableBooks = new ArrayList<String>();
         for (Object book : allBooks) {
             if(!((Book)book).isCheckedOut()){
-                availableBooks.add(book.toString());
+                availableBooks.add(((Book) book).getFormattedString());
             }
         }
 
