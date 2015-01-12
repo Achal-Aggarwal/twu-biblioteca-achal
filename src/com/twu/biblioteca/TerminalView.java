@@ -43,7 +43,7 @@ public class TerminalView {
         }
     }
 
-    private String showMenu() {
+    private String menuView() {
         output.println("--Menu--");
         output.println("1. \tList Books");
         output.println("2. \tCheckout Book");
@@ -56,7 +56,7 @@ public class TerminalView {
         output.println(application.welcomeMessage());
 
         do {
-            String selectedOption = showMenu();
+            String selectedOption = menuView();
 
             if (selectedOption.equals("1")) {
                 showListOfBooksView();
