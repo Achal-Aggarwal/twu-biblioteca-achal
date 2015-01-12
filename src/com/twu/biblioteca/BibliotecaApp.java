@@ -9,10 +9,6 @@ public class BibliotecaApp {
 
     private HashMap books = new HashMap();
 
-    public String welcomeMessage(){
-        return "Welcome and thank you for taking time to visit Biblioteca.";
-    }
-
     public void addBook(Book book) {
         books.put(book.getTitle(), book);
     }

@@ -27,12 +27,6 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void testWelcomeMessage() {
-        assertEquals("Welcome and thank you for taking time to visit Biblioteca.",
-                app.welcomeMessage());
-    }
-
-    @Test
     public void testAddBook() {
         assertTrue(app.isPresent(letusc));
     }

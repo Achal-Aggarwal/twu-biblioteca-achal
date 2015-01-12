@@ -51,7 +51,7 @@ public class TerminalView {
     }
 
     public int runApplication() {
-        output.println(application.welcomeMessage());
+        output.println("Welcome and thank you for taking time to visit Biblioteca.");
 
         do {
             String selectedOption = menuView();
