@@ -17,7 +17,7 @@ public class BilbliotecaApp {
         this.input.useDelimiter("\n");
     }
 
-    private void showListOfBooksView(){
+    private void listOfBooksView(){
         List<String> books = library.getListOfAvailableBooks();
         output.println("List of books available.");
         for (int i = 0; i < books.size(); i++) {
@@ -57,7 +57,7 @@ public class BilbliotecaApp {
             String selectedOption = menuView();
 
             if (selectedOption.equals("1")) {
-                showListOfBooksView();
+                listOfBooksView();
             } else if (selectedOption.equals("2")) {
                 checkoutBookView();
             } else if (selectedOption.equals("3")) {
