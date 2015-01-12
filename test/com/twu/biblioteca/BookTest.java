@@ -20,7 +20,7 @@ public class BookTest {
 
     @Test
     public void testStringRepresentationOfBookWithAuthorPresent(){
-        assertEquals(title + "\t" + author + "\t" + publicationDate, letusc.toString());
+        assertEquals("|" + title + "|\t|" + author + "|\t|" + publicationDate + "|", letusc.toString());
     }
 
     @Test

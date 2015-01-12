@@ -50,7 +50,7 @@ public class TerminalViewTest {
     public void testRenderedListOfBooksView() {
         runApplicationWithInput("1\n4");
         String viewTitle = "List of books available.\n";
-        String listOfBooks = "Sr. \tBook\tAuthor\tPublicationDate\n";
+        String listOfBooks = "";
         listOfBooks += "1. \t" + fivePoint + "\n";
         listOfBooks += "2. \t" + letusc + "\n";
         listOfBooks += "3. \t" + galvin + "\n";
@@ -91,7 +91,7 @@ public class TerminalViewTest {
         String outputString = output.toString();
 
         String viewTitle = "List of books available.\n";
-        String listOfBooks = "Sr. \tBook\tAuthor\tPublicationDate\n";
+        String listOfBooks = "";
         listOfBooks += "1. \t" + fivePoint + "\n";
         listOfBooks += "2. \t" + letusc + "\n";
         listOfBooks += "3. \t" + galvin + "\n";
@@ -103,7 +103,7 @@ public class TerminalViewTest {
 
         outputString = outputString.substring(offset + (viewTitle + listOfBooks).length());
 
-        listOfBooks = "Sr. \tBook\tAuthor\tPublicationDate\n";
+        listOfBooks = "";
         listOfBooks += "1. \t" + fivePoint + "\n";
         listOfBooks += "2. \t" + letusc + "\n";
         listOfBooks += "3. \t" + internetSec + "\n";
@@ -140,7 +140,7 @@ public class TerminalViewTest {
         String outputString = output.toString();
 
         String viewTitle = "List of books available.\n";
-        String listOfBooks = "Sr. \tBook\tAuthor\tPublicationDate\n";
+        String listOfBooks = "";
         listOfBooks += "1. \t" + fivePoint + "\n";
         listOfBooks += "2. \t" + letusc + "\n";
         listOfBooks += "3. \t" + internetSec + "\n";
@@ -151,7 +151,7 @@ public class TerminalViewTest {
 
         outputString = outputString.substring(offset + (viewTitle + listOfBooks).length());
 
-        listOfBooks = "Sr. \tBook\tAuthor\tPublicationDate\n";
+        listOfBooks = "";
         listOfBooks += "1. \t" + fivePoint + "\n";
         listOfBooks += "2. \t" + letusc + "\n";
         listOfBooks += "3. \t" + galvin + "\n";

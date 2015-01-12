@@ -15,7 +15,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return title + "\t" + author + "\t" + publicationDate;
+        return "|" + title + "|\t|" + author + "|\t|" + publicationDate + "|";
     }
 
     public String getTitle() {

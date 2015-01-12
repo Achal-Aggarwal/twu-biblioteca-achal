@@ -20,7 +20,6 @@ public class TerminalView {
     private void showListOfBooksView(){
         List<String> books = application.getListOfBooks();
         output.println("List of books available.");
-        output.println("Sr. \tBook\tAuthor\tPublicationDate");
         for (int i = 0; i < books.size(); i++) {
             output.println((i+1)+ ". \t" + books.get(i));
         }
