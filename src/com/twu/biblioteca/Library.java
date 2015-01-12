@@ -1,11 +1,10 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
-public class BibliotecaApp {
+public class Library {
 
     private HashMap books = new HashMap();
 
@@ -18,10 +17,9 @@ public class BibliotecaApp {
     }
 
     public List<String> getListOfBooks() {
-        Collection allBooks = books.values();
 
         List<String> availableBooks = new ArrayList<String>();
-        for (Object book : allBooks) {
+        for (Object book : books.values()) {
             if(!((Book)book).isCheckedOut()){
                 availableBooks.add(((Book) book).getFormattedString());
             }

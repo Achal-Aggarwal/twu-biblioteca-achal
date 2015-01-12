@@ -5,20 +5,20 @@ import java.io.PrintStream;
 import java.util.List;
 import java.util.Scanner;
 
-public class TerminalView {
-    private BibliotecaApp application;
+public class BilbliotecaApp {
+    private Library library;
     private PrintStream output;
     private Scanner input;
 
-    public TerminalView(BibliotecaApp app, PrintStream output, InputStream inputStream){
-        this.application = app;
+    public BilbliotecaApp(Library library, PrintStream output, InputStream inputStream){
+        this.library = library;
         this.output = output;
         this.input = new Scanner(inputStream);
         this.input.useDelimiter("\n");
     }
 
     private void showListOfBooksView(){
-        List<String> books = application.getListOfBooks();
+        List<String> books = library.getListOfBooks();
         output.println("List of books available.");
         for (int i = 0; i < books.size(); i++) {
             output.println((i+1)+ ". \t" + books.get(i));
@@ -26,7 +26,7 @@ public class TerminalView {
     }
 
     private void checkinBookView() {
-        if(application.checkin(input.next())){
+        if(library.checkin(input.next())){
             output.println("Thank you for returning the book.");
         } else {
             output.println("That is not a valid book to return.");
@@ -34,7 +34,7 @@ public class TerminalView {
     }
 
     private void checkoutBookView() {
-        if(application.checkout(input.next())){
+        if(library.checkout(input.next())){
             output.println("Thank you! Enjoy the book");
         } else {
             output.println("That book is not available.");
@@ -73,16 +73,11 @@ public class TerminalView {
 
     }
     public static void main(String[] args) {
-        BibliotecaApp application = new BibliotecaApp();
-        Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
-        Book galvin = new Book("Operating System", "Galvin", "2005");
-        Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
-        Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
-        application.addBook(letusc);
-        application.addBook(galvin);
-        application.addBook(internetSec);
-        application.addBook(fivePoint);
-        TerminalView terminal = new TerminalView(application, System.out, System.in);
-        terminal.runApplication();
+        Library library = new Library();
+        library.addBook(new Book("Let Us C", "Yashwant Kanetkar", "2000"));
+        library.addBook(new Book("Operating System", "Galvin", "2005"));
+        library.addBook(new Book("Internet Security", "Ankit Fadia", "1995"));
+        library.addBook(new Book("Five Point Someone", "Chetan Bhagat", "2012"));
+        new BilbliotecaApp(library, System.out, System.in).runApplication();
     }
 }

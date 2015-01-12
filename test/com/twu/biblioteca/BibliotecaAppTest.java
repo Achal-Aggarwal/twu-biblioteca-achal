@@ -9,10 +9,10 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertNotEquals;
 
-public class TerminalViewTest {
-    TerminalView terminal;
+public class BibliotecaAppTest {
+    BilbliotecaApp application;
     ByteArrayOutputStream output;
-    BibliotecaApp app;
+    Library library;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
@@ -20,18 +20,18 @@ public class TerminalViewTest {
 
     @Before
     public void setUp() {
-        app = new BibliotecaApp();
-        app.addBook(letusc);
-        app.addBook(galvin);
-        app.addBook(internetSec);
-        app.addBook(fivePoint);
+        library = new Library();
+        library.addBook(letusc);
+        library.addBook(galvin);
+        library.addBook(internetSec);
+        library.addBook(fivePoint);
     }
 
     private void runApplicationWithInput(String input){
         output = new ByteArrayOutputStream();
-        terminal = new TerminalView(app, new PrintStream(output),
+        application = new BilbliotecaApp(library, new PrintStream(output),
                 new ByteArrayInputStream(input.getBytes()));
-        terminal.runApplication();
+        application.runApplication();
     }
 
     @Test
