@@ -21,13 +21,13 @@ public class BibliotecaApp {
         return books.containsKey(book.getTitle());
     }
 
-    public List<Book> getListOfBooks() {
+    public List<String> getListOfBooks() {
         Collection allBooks = books.values();
 
-        List<Book> availableBooks = new ArrayList<Book>();
+        List<String> availableBooks = new ArrayList<String>();
         for (Object book : allBooks) {
             if(!((Book)book).isCheckedOut()){
-                availableBooks.add((Book) book);
+                availableBooks.add(book.toString());
             }
         }
 

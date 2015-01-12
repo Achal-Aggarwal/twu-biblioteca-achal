@@ -18,12 +18,11 @@ public class TerminalView {
     }
 
     private void showListOfBooksView(){
-        List<Book> books = application.getListOfBooks();
+        List<String> books = application.getListOfBooks();
         output.println("List of books available.");
         output.println("Sr. \tBook\tAuthor\tPublicationDate");
         for (int i = 0; i < books.size(); i++) {
-            Book book = books.get(i);
-            output.println((i+1)+ ". \t" + book);
+            output.println((i+1)+ ". \t" + books.get(i));
         }
     }
 
@@ -70,7 +69,8 @@ public class TerminalView {
                 output.println("Select a valid option!");
             }
         }while(true);
-    return 0;
+
+        return 0;
 
     }
     public static void main(String[] args) {
@@ -83,7 +83,7 @@ public class TerminalView {
         application.addBook(galvin);
         application.addBook(internetSec);
         application.addBook(fivePoint);
-        TerminalView terminal = new TerminalView(application,System.out, System.in);
+        TerminalView terminal = new TerminalView(application, System.out, System.in);
         terminal.runApplication();
     }
 }
