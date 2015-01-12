@@ -31,22 +31,22 @@ public class BookTest {
 
     @Test
     public void testBookCheckoutFailure(){
-        assertTrue(letusc.checkOut());
-        assertTrue(letusc.isCheckedOut());
+        letusc.checkOut();
+        letusc.isCheckedOut();
         assertFalse(letusc.checkOut());
     }
 
     @Test
     public void testBookCheckin(){
-        assertTrue(letusc.checkOut());
-        assertTrue(letusc.isCheckedOut());
+        letusc.checkOut();
+        letusc.isCheckedOut();
         assertTrue(letusc.checkin());
         assertFalse(letusc.isCheckedOut());
     }
 
     @Test
     public void testBookCheckinFailure(){
-        assertFalse(letusc.isCheckedOut());
+        letusc.isCheckedOut();
         assertFalse(letusc.checkin());
     }
 }
