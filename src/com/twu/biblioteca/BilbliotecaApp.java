@@ -18,7 +18,7 @@ public class BilbliotecaApp {
     }
 
     private void showListOfBooksView(){
-        List<String> books = library.getListOfBooks();
+        List<String> books = library.getListOfAvailableBooks();
         output.println("List of books available.");
         for (int i = 0; i < books.size(); i++) {
             output.println((i+1)+ ". \t" + books.get(i));

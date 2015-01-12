@@ -32,7 +32,7 @@ public class LibraryTest {
 
     @Test
     public void testListOfBooks() {
-        List<String> bookList = library.getListOfBooks();
+        List<String> bookList = library.getListOfAvailableBooks();
         assertTrue(bookList.contains(letusc.getFormattedString()));
         assertTrue(bookList.contains(galvin.getFormattedString()));
         assertTrue(bookList.contains(internetSec.getFormattedString()));
@@ -61,10 +61,10 @@ public class LibraryTest {
 
     @Test
     public void testListOfBooksAfterCheckingOutABook(){
-        List<String> bookList = library.getListOfBooks();
+        List<String> bookList = library.getListOfAvailableBooks();
         assertTrue(bookList.contains(galvin.getFormattedString()));
         assertTrue(library.checkout(galvin.getTitle()));
-        bookList = library.getListOfBooks();
+        bookList = library.getListOfAvailableBooks();
         assertFalse(bookList.contains(galvin.getFormattedString()));
     }
 

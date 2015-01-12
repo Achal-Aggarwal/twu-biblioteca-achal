@@ -16,7 +16,7 @@ public class Library {
         return books.containsKey(book.getTitle());
     }
 
-    public List<String> getListOfBooks() {
+    public List<String> getListOfAvailableBooks() {
 
         List<String> availableBooks = new ArrayList<String>();
         for (Object book : books.values()) {
