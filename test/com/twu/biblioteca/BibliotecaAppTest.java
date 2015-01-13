@@ -36,13 +36,13 @@ public class BibliotecaAppTest {
 
     @Test
     public void testRenderedWelcomeMessageAndMenu() {
-        runApplicationWithInput("4");
+        runApplicationWithInput("4\n");
         String welcomeMessage = "Welcome and thank you for taking time to visit Biblioteca.\n";
-        String menu = "--Menu--\n";
-        menu += "1. \tList Books\n";
-        menu += "2. \tCheckout Book\n";
-        menu += "3. \tCheckin Book\n";
-        menu += "4. \tQuit\n";
+        String menu = "Main Menu.\n";
+        menu += "1. \tList of books available.\n";
+        menu += "2. \tCheckout book.\n";
+        menu += "3. \tCheckin book.\n";
+        menu += "4. \tQuit.\n";
         assertTrue(output.toString().startsWith(welcomeMessage + menu));
     }
 
@@ -74,9 +74,9 @@ public class BibliotecaAppTest {
         assertNotEquals(-1, offset);
 
         outputString = outputString.substring(offset + invalidOptionMessage.length());
-        String menu = "--Menu--\n";
+        String menu = "Main Menu.\n";
 
-        assertTrue(outputString.contains(menu));
+        assertTrue(outputString.startsWith(menu));
     }
 
     @Test
