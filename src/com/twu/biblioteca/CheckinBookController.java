@@ -1,17 +1,21 @@
 package com.twu.biblioteca;
 
 public class CheckinBookController extends Controller {
+    private CheckinBookView view;
     public CheckinBookController(Library library, InputOutputManger inputOutputManger) {
         super(library, inputOutputManger);
+        view = new CheckinBookView(inputOutputManger);
     }
 
     @Override
     public boolean execute() {
-        if(library.checkin(io.readLine())){
-            io.printLine("Thank you for returning the book.");
+        if(library.checkin(view.getBookName())){
+            view.setStatus(CheckinBookView.Status.CHECKIN_SUCCESSFUL);
         } else {
-            io.printLine("That is not a valid book to return.");
+            view.setStatus(CheckinBookView.Status.CHECKIN_UNSUCCESSFUL);
         }
+
+        view.render();
 
         return true;
     }

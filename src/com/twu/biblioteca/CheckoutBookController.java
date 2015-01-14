@@ -1,17 +1,21 @@
 package com.twu.biblioteca;
 
 public class CheckoutBookController extends Controller {
+    private CheckoutBookView view;
     public CheckoutBookController(Library library, InputOutputManger inputOutputManger) {
         super(library, inputOutputManger);
+        view = new CheckoutBookView(inputOutputManger);
     }
 
     @Override
     public boolean execute() {
-        if(library.checkout(io.readLine())){
-            io.printLine("Thank you! Enjoy the book");
+        if(library.checkout(view.getBookName())){
+            view.setStatus(CheckoutBookView.Status.CHECKOUT_SUCCESSFUL);
         } else {
-            io.printLine("That book is not available.");
+            view.setStatus(CheckoutBookView.Status.CHECKOUT_UNSUCCESSFUL);
         }
+
+        view.render();
 
         return true;
     }

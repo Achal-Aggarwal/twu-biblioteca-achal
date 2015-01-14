@@ -1,13 +1,15 @@
 package com.twu.biblioteca;
 
 public class QuitMenuController extends Controller {
+    private QuitMenuView view;
     public QuitMenuController(Library library, InputOutputManger inputOutputManger) {
         super(library, inputOutputManger);
+        view = new QuitMenuView(inputOutputManger);
     }
 
     @Override
     public boolean execute() {
-        //output.println("Do not forget to return issues books.");
+        view.render();
         return false;
     }
 
