@@ -1,8 +1,5 @@
 package com.twu.biblioteca;
 
-/**
- * Created by achalaggarwal on 1/14/15.
- */
 public class Movie extends Item {
     private String name;
     private String year;

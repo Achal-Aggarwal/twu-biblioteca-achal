@@ -1,13 +1,13 @@
 package com.twu.biblioteca;
 
-public class CheckoutBookView extends View {
+public class CheckoutMovieView extends View {
     public enum Status {
         NONE, CHECKOUT_SUCCESSFUL, CHECKOUT_UNSUCCESSFUL
     }
 
     private Status status = Status.NONE;
 
-    public CheckoutBookView(InputOutputManger inputOutputManger) {
+    public CheckoutMovieView(InputOutputManger inputOutputManger) {
         super(inputOutputManger);
     }
 
@@ -18,13 +18,13 @@ public class CheckoutBookView extends View {
     @Override
     public void render() {
         if(status == Status.CHECKOUT_SUCCESSFUL){
-            io.printLine("Thank you! Enjoy the book");
+            io.printLine("Thank you! Enjoy the movie");
         } else if(status == Status.CHECKOUT_UNSUCCESSFUL){
-            io.printLine("That book is not available.");
+            io.printLine("That movie is not available.");
         }
     }
 
-    public String getBookName() {
+    public String getMovieName() {
         return io.readLine();
     }
 }

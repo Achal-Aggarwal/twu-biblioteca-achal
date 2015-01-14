@@ -1,13 +1,13 @@
 package com.twu.biblioteca;
 
-public class CheckinBookView extends View {
+public class CheckinMovieView extends View {
     public enum Status {
         NONE, CHECKIN_SUCCESSFUL, CHECKIN_UNSUCCESSFUL
     }
 
     private Status status = Status.NONE;
 
-    public CheckinBookView(InputOutputManger inputOutputManger) {
+    public CheckinMovieView(InputOutputManger inputOutputManger) {
         super(inputOutputManger);
     }
 
@@ -18,13 +18,13 @@ public class CheckinBookView extends View {
     @Override
     public void render() {
         if(status == Status.CHECKIN_SUCCESSFUL){
-            io.printLine("Thank you for returning the book.");
+            io.printLine("Thank you for returning the movie.");
         } else if(status == Status.CHECKIN_UNSUCCESSFUL){
-            io.printLine("That is not a valid book to return.");
+            io.printLine("That is not a valid movie to return.");
         }
     }
 
-    public String getBookName() {
+    public String getMovieName() {
         return io.readLine();
     }
 }

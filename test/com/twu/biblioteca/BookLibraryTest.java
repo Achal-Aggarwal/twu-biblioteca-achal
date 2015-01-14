@@ -16,7 +16,6 @@ public class BookLibraryTest {
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
-    Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
 
     @Before
     public void setUp() {

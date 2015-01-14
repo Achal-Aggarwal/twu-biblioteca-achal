@@ -23,6 +23,5 @@ public class QuitMenuControllerTest {
                 );
 
         assertFalse(quitVC.execute());
-        //assertEquals("Do not forget to return issues books.\n", output.toString());
     }
 }

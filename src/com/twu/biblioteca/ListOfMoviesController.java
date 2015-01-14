@@ -1,8 +1,5 @@
 package com.twu.biblioteca;
 
-/**
- * Created by achalaggarwal on 1/14/15.
- */
 public class ListOfMoviesController extends Controller {
     private ListOfMoviesView view;
     public ListOfMoviesController(LibraryManager libraryManager, InputOutputManger inputOutputManger) {
