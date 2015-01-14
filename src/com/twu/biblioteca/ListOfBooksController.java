@@ -1,11 +1,9 @@
 package com.twu.biblioteca;
 
-import java.util.List;
-
 public class ListOfBooksController extends Controller {
     private ListOfBooksView view;
     public ListOfBooksController(Library library, InputOutputManger inputOutputManger) {
-        super(library, inputOutputManger);
+        super(library);
         view = new ListOfBooksView(inputOutputManger);
     }
 

@@ -3,7 +3,7 @@ package com.twu.biblioteca;
 public class CheckinBookController extends Controller {
     private CheckinBookView view;
     public CheckinBookController(Library library, InputOutputManger inputOutputManger) {
-        super(library, inputOutputManger);
+        super(library);
         view = new CheckinBookView(inputOutputManger);
     }
 

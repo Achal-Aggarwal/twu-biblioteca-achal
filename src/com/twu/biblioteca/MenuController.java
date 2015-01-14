@@ -6,7 +6,7 @@ public class MenuController extends Controller {
     private LinkedHashMap menuItems = new LinkedHashMap();
     private MenuView view;
     public MenuController(Library library, InputOutputManger inputOutputManger) {
-        super(library, inputOutputManger);
+        super(library);
         view = new MenuView(inputOutputManger);
     }
 

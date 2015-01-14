@@ -3,7 +3,7 @@ package com.twu.biblioteca;
 public class QuitMenuController extends Controller {
     private QuitMenuView view;
     public QuitMenuController(Library library, InputOutputManger inputOutputManger) {
-        super(library, inputOutputManger);
+        super(library);
         view = new QuitMenuView(inputOutputManger);
     }
 
