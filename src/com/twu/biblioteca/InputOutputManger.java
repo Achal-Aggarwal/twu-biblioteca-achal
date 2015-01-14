@@ -1,13 +1,9 @@
 package com.twu.biblioteca;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-/**
- * Created by achalaggarwal on 1/14/15.
- */
 public class InputOutputManger {
     private PrintStream outputStream;
     private Scanner inputStream;
