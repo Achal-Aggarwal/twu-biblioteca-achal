@@ -1,10 +1,10 @@
 package com.twu.biblioteca;
 
-public abstract class ViewController {
+public abstract class Controller {
     protected Library library;
     protected InputOutputManger io;
 
-    public ViewController(Library library, InputOutputManger inputOutputManger) {
+    public Controller(Library library, InputOutputManger inputOutputManger) {
         this.library = library;
         this.io = inputOutputManger;
     }

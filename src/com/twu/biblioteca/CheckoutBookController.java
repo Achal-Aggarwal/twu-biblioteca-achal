@@ -1,7 +1,7 @@
 package com.twu.biblioteca;
 
-public class CheckoutBookViewController extends ViewController{
-    public CheckoutBookViewController(Library library, InputOutputManger inputOutputManger) {
+public class CheckoutBookController extends Controller {
+    public CheckoutBookController(Library library, InputOutputManger inputOutputManger) {
         super(library, inputOutputManger);
     }
 

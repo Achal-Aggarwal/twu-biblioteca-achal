@@ -18,7 +18,7 @@ public class MenuViewControllerTest {
     Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
     private ByteArrayOutputStream output;
     private InputOutputManger io;
-    private MenuViewController menuVC;
+    private MenuController menuVC;
 
     @Before
     public void setUp() {
@@ -35,14 +35,14 @@ public class MenuViewControllerTest {
                 new ByteArrayInputStream(input.getBytes()),
                 new PrintStream(output)
         );
-        menuVC = new MenuViewController(library, io);
+        menuVC = new MenuController(library, io);
     }
 
     @Test
     public void shouldDisplayOptionToPerformListOfBooksAction(){
         runTestCaseWithInput("\n");
 
-        menuVC.setAction("1", new ListOfBooksViewController(library, io));
+        menuVC.setAction("1", new ListOfBooksController(library, io));
         assertTrue(menuVC.execute());
         assertEquals("Main Menu.\n1. \tList of books available.\n", output.toString());
     }
@@ -50,7 +50,7 @@ public class MenuViewControllerTest {
     @Test
     public void shouldPerformListOfBooksActionOnItsSelection(){
         runTestCaseWithInput("1\n");
-        menuVC.setAction("1", new ListOfBooksViewController(library, io));
+        menuVC.setAction("1", new ListOfBooksController(library, io));
         menuVC.execute();
         String viewTitle = "List of books available.\n";
         String listOfBooks = "";
@@ -64,7 +64,7 @@ public class MenuViewControllerTest {
     @Test
     public void shouldDisplayErrorMessageOnInvalidSelectionOfMenuItem(){
         runTestCaseWithInput("2\n");
-        menuVC.setAction("1", new ListOfBooksViewController(library, io));
+        menuVC.setAction("1", new ListOfBooksController(library, io));
         assertTrue(menuVC.execute());
 
         assertTrue(output.toString().contains("Select a valid option!"));
@@ -73,7 +73,7 @@ public class MenuViewControllerTest {
     @Test
     public void shouldDisplayOptionToPerformCheckoutOfBookAction(){
         runTestCaseWithInput("\n");
-        menuVC.setAction("1", new CheckoutBookViewController(library, io));
+        menuVC.setAction("1", new CheckoutBookController(library, io));
         menuVC.execute();
         assertEquals("Main Menu.\n1. \tCheckout book.\n", output.toString());
     }

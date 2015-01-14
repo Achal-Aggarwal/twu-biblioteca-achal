@@ -2,10 +2,10 @@ package com.twu.biblioteca;
 
 import java.util.*;
 
-public class MenuViewController extends ViewController {
+public class MenuController extends Controller {
     private LinkedHashMap menuItems = new LinkedHashMap();
 
-    public MenuViewController(Library library, InputOutputManger inputOutputManger) {
+    public MenuController(Library library, InputOutputManger inputOutputManger) {
         super(library, inputOutputManger);
     }
 
@@ -15,7 +15,7 @@ public class MenuViewController extends ViewController {
         Iterator menuItemSet = menuItems.entrySet().iterator();
         while (menuItemSet.hasNext()) {
             Map.Entry menuItem = (Map.Entry)menuItemSet.next();
-            io.printLine(menuItem.getKey() + ". \t" + ((ViewController) menuItem.getValue()).getTitle());
+            io.printLine(menuItem.getKey() + ". \t" + ((Controller) menuItem.getValue()).getTitle());
         }
 
         String selectedAction = io.readLine();
@@ -23,12 +23,12 @@ public class MenuViewController extends ViewController {
         if(!menuItems.containsKey(selectedAction) && selectedAction.length() > 0){
             io.printLine("Select a valid option!");
         } else if(menuItems.containsKey(selectedAction)){
-            return ((ViewController) menuItems.get(selectedAction)).execute();
+            return ((Controller) menuItems.get(selectedAction)).execute();
         }
         return true;
     }
 
-    public void setAction(String onUserInput, ViewController viewController) {
+    public void setAction(String onUserInput, Controller viewController) {
         menuItems.put(onUserInput, viewController);
     }
 

@@ -2,8 +2,8 @@ package com.twu.biblioteca;
 
 import java.util.List;
 
-public class ListOfBooksViewController extends ViewController {
-    public ListOfBooksViewController(Library library, InputOutputManger inputOutputManger) {
+public class ListOfBooksController extends Controller {
+    public ListOfBooksController(Library library, InputOutputManger inputOutputManger) {
         super(library, inputOutputManger);
     }
 
@@ -11,7 +11,7 @@ public class ListOfBooksViewController extends ViewController {
         List<String> books = library.getListOfAvailableBooks();
         io.printLine(getTitle());
         for (int i = 0; i < books.size(); i++) {
-            io.printLine((i+1)+ ". \t" + books.get(i));
+            io.printLine((i + 1) + ". \t" + books.get(i));
         }
 
         return true;

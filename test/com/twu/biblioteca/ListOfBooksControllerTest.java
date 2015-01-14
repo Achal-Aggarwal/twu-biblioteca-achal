@@ -6,14 +6,11 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Scanner;
 
-import static org.junit.Assert.assertFalse;
+import static junit.framework.TestCase.assertTrue;
 
-/**
- * Created by achalaggarwal on 1/13/15.
- */
-public class QuitMenuViewControllerTest {
+public class ListOfBooksControllerTest {
+
     Library library;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
@@ -30,19 +27,26 @@ public class QuitMenuViewControllerTest {
     }
 
     @Test
-    public void shouldDisplayQuitMessage(){
+    public void shouldPrintListOfBooks(){
         String input = "\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-        QuitMenuViewController quitVC =
-                new QuitMenuViewController(library,
+        ListOfBooksController listOfBooksVC =
+                new ListOfBooksController(library,
                         new InputOutputManger(
-                            new ByteArrayInputStream(input.getBytes()),
-                            new PrintStream(output)
+                                new ByteArrayInputStream(input.getBytes()),
+                                new PrintStream(output)
                         )
                 );
 
-        assertFalse(quitVC.execute());
-        //assertEquals("Do not forget to return issues books.\n", output.toString());
+        listOfBooksVC.execute();
+
+        String viewTitle = "List of books available.\n";
+        String listOfBooks = "";
+        listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
+        listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";
+        listOfBooks += "3. \t" + galvin.getFormattedString() + "\n";
+        listOfBooks += "4. \t" + internetSec.getFormattedString() + "\n";
+        assertTrue(output.toString().contains(viewTitle + listOfBooks));
     }
 }

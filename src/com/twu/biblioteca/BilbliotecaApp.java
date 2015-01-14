@@ -10,13 +10,13 @@ public class BilbliotecaApp {
     }
 
     public int runApplication() {
-        io.printLine("Welcome and thank you for taking time to visit Biblioteca.");
-        MenuViewController mainMenuView = new MenuViewController(library, io);
-        mainMenuView.setAction("1", new ListOfBooksViewController(library, io));
-        mainMenuView.setAction("2", new CheckoutBookViewController(library, io));
-        mainMenuView.setAction("3", new CheckinBookViewController(library, io));
-        mainMenuView.setAction("4", new QuitMenuViewController(library, io));
+        MenuController mainMenuView = new MenuController(library, io);
+        mainMenuView.setAction("1", new ListOfBooksController(library, io));
+        mainMenuView.setAction("2", new CheckoutBookController(library, io));
+        mainMenuView.setAction("3", new CheckinBookController(library, io));
+        mainMenuView.setAction("4", new QuitMenuController(library, io));
 
+        io.printLine("Welcome and thank you for taking time to visit Biblioteca.");
         while(mainMenuView.execute());
 
         return 0;

@@ -10,7 +10,7 @@ import java.io.PrintStream;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class CheckoutBookViewControllerTest {
+public class CheckoutBookControllerTest {
     Library library;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
@@ -18,7 +18,7 @@ public class CheckoutBookViewControllerTest {
     Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
     private ByteArrayOutputStream output;
     private InputOutputManger io;
-    private CheckoutBookViewController checkoutBookVC;
+    private CheckoutBookController checkoutBookVC;
 
     @Before
     public void setUp() {
@@ -35,7 +35,7 @@ public class CheckoutBookViewControllerTest {
                 new ByteArrayInputStream(input.getBytes()),
                 new PrintStream(output)
         );
-        checkoutBookVC = new CheckoutBookViewController(library, io);
+        checkoutBookVC = new CheckoutBookController(library, io);
     }
 
     @Test

@@ -6,13 +6,12 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Scanner;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class CheckinBookViewControllerTest {
+public class CheckinBookControllerTest {
     Library library;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
@@ -20,7 +19,7 @@ public class CheckinBookViewControllerTest {
     Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
     private ByteArrayOutputStream output;
     private InputOutputManger io;
-    private CheckinBookViewController checkinBookVC;
+    private CheckinBookController checkinBookVC;
 
     @Before
     public void setUp() {
@@ -37,7 +36,7 @@ public class CheckinBookViewControllerTest {
                 new ByteArrayInputStream(input.getBytes()),
                 new PrintStream(output)
         );
-        checkinBookVC = new CheckinBookViewController(library, io);
+        checkinBookVC = new CheckinBookController(library, io);
     }
 
     @Test
