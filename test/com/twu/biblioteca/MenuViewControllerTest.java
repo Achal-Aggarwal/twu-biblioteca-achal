@@ -39,20 +39,21 @@ public class MenuViewControllerTest {
                 new PrintStream(output)
         );
         menuVC = new MenuController(manager, io);
+        menuVC.setAction("q", new QuitMenuController(manager, io));
+
     }
 
     @Test
-    public void shouldDisplayOptionToPerformListOfBooksAction(){
-        runTestCaseWithInput("\n");
+    public void shouldDisplayOptionToPerformQuitAction(){
+        runTestCaseWithInput("q\n");
 
-        menuVC.setAction("1", new ListOfBooksController(manager, io));
         assertTrue(menuVC.execute());
-        assertEquals("Main Menu.\n1. \tList of books available.\n", output.toString());
+        assertEquals("Main Menu.\nq. \tQuit.\n", output.toString());
     }
 
     @Test
     public void shouldPerformListOfBooksActionOnItsSelection(){
-        runTestCaseWithInput("1\n");
+        runTestCaseWithInput("1\nq\n");
         menuVC.setAction("1", new ListOfBooksController(manager, io));
         menuVC.execute();
         String viewTitle = "List of books available.\n";
@@ -66,18 +67,10 @@ public class MenuViewControllerTest {
 
     @Test
     public void shouldDisplayErrorMessageOnInvalidSelectionOfMenuItem(){
-        runTestCaseWithInput("2\n");
+        runTestCaseWithInput("2\nq\n");
         menuVC.setAction("1", new ListOfBooksController(manager, io));
         assertTrue(menuVC.execute());
 
         assertTrue(output.toString().contains("Select a valid option!"));
-    }
-
-    @Test
-    public void shouldDisplayOptionToPerformCheckoutOfBookAction(){
-        runTestCaseWithInput("\n");
-        menuVC.setAction("1", new CheckoutBookController(manager, io));
-        menuVC.execute();
-        assertEquals("Main Menu.\n1. \tCheckout book.\n", output.toString());
     }
 }

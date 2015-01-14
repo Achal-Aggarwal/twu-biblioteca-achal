@@ -19,9 +19,10 @@ public class BilbliotecaApp {
         mainMenuView.setAction("6", new CheckinMovieController(libraryManager, io));
         mainMenuView.setAction("10", new QuitMenuController(libraryManager, io));
 
-        io.printLine("Welcome and thank you for taking time to visit Biblioteca.");
-        while(mainMenuView.execute());
-
+        libraryManager.registerUser(new User("000-0000","achal"));
+        LoginController loginController = new LoginController(libraryManager, io);
+        loginController.setAction(mainMenuView);
+        loginController.execute();
         return 0;
 
     }

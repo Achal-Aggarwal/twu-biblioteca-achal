@@ -8,6 +8,7 @@ public class LibraryManager {
     private BookLibrary bookLibrary;
     private MovieLibrary movieLibrary;
     private HashMap issuedMovies = new HashMap();
+    private HashMap users = new HashMap();
 
     public LibraryManager(BookLibrary bookLibrary, MovieLibrary movieLibrary) {
         this.bookLibrary = bookLibrary;
@@ -85,5 +86,23 @@ public class LibraryManager {
 
     public boolean isBookCheckedOut(String bookTitle) {
         return issuedBooks.containsKey(bookTitle);
+    }
+
+    public void registerUser(User user) {
+        users.put(user.getLibraryNumber(), user);
+    }
+
+    public boolean isUserPresent(String libraryNumber) {
+        return users.containsKey(libraryNumber);
+    }
+
+    public boolean isUserValid(String libraryNumber, String password) {
+        User user = (User) users.get(libraryNumber);
+
+        if (user == null){
+            return false;
+        }
+
+        return user.getPassword().equals(password);
     }
 }

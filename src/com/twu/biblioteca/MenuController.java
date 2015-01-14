@@ -17,15 +17,19 @@ public class MenuController extends Controller {
             view.addMenuItem((String) menuItem.getKey(), ((Controller) menuItem.getValue()).getTitle());
         }
 
-        view.render();
+        boolean returnValue = true;
+        while(returnValue) {
+            view.render();
 
-        String selectedAction = view.getSelectedAction();
-
-        if(!menuItems.containsKey(selectedAction) && selectedAction.length() > 0){
-            view.invalidOptionSelected();
-        } else if(menuItems.containsKey(selectedAction)){
-            return ((Controller) menuItems.get(selectedAction)).execute();
+            String selectedAction = view.getSelectedAction();
+            if ((!menuItems.containsKey(selectedAction) && selectedAction.length() > 0) ||
+                    selectedAction.length() == 0) {
+                view.invalidOptionSelected();
+            } else {
+                returnValue = ((Controller) menuItems.get(selectedAction)).execute();
+            }
         }
+
         return true;
     }
 

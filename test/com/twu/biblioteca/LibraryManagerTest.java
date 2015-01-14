@@ -84,4 +84,28 @@ public class LibraryManagerTest {
         assertTrue(movieList.contains(seven.getFormattedString()));
         assertTrue(movieList.contains(darkKnight.getFormattedString()));
     }
+
+    @Test
+    public void testRegistrationOfUser(){
+        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
+
+        manager.registerUser(new User("000-0000", "achal"));
+        assertTrue(manager.isUserPresent("000-0000"));
+    }
+
+    @Test
+    public void testValidationOfValidUser(){
+        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
+
+        manager.registerUser(new User("000-0000", "achal"));
+        assertTrue(manager.isUserValid("000-0000", "achal"));
+    }
+
+    @Test
+    public void testValidationOfInvalidUser(){
+        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
+
+        manager.registerUser(new User("000-0000", "achal"));
+        assertFalse(manager.isUserValid("000-0000", "asd"));
+    }
 }
