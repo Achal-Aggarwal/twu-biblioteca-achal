@@ -11,7 +11,7 @@ import static junit.framework.TestCase.assertTrue;
 
 public class ListOfBooksControllerTest {
 
-    Library library;
+    BookLibrary bookLibrary;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
@@ -19,11 +19,11 @@ public class ListOfBooksControllerTest {
 
     @Before
     public void setUp() {
-        library = new Library();
-        library.addBook(letusc);
-        library.addBook(galvin);
-        library.addBook(internetSec);
-        library.addBook(fivePoint);
+        bookLibrary = new BookLibrary();
+        bookLibrary.addBook(letusc);
+        bookLibrary.addBook(galvin);
+        bookLibrary.addBook(internetSec);
+        bookLibrary.addBook(fivePoint);
     }
 
     @Test
@@ -32,7 +32,7 @@ public class ListOfBooksControllerTest {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         ListOfBooksController listOfBooksVC =
-                new ListOfBooksController(new LibraryManager(library),
+                new ListOfBooksController(new LibraryManager(bookLibrary),
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)

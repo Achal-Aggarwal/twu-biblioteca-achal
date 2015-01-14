@@ -9,7 +9,7 @@ import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class LibraryManagerTest {
-    Library library;
+    BookLibrary bookLibrary;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
@@ -17,23 +17,23 @@ public class LibraryManagerTest {
 
     @Before
     public void setUp() {
-        library = new Library();
-        library.addBook(letusc);
-        library.addBook(galvin);
-        library.addBook(internetSec);
-        library.addBook(fivePoint);
+        bookLibrary = new BookLibrary();
+        bookLibrary.addBook(letusc);
+        bookLibrary.addBook(galvin);
+        bookLibrary.addBook(internetSec);
+        bookLibrary.addBook(fivePoint);
     }
 
     @Test
     public void testCheckingOutABook() {
-        LibraryManager manager = new LibraryManager(library);
+        LibraryManager manager = new LibraryManager(bookLibrary);
         assertTrue(manager.checkoutBook(letusc.getTitle()));
         assertTrue(manager.isBookCheckedOut(letusc.getTitle()));
     }
 
     @Test
     public void testCheckingInABook() {
-        LibraryManager manager = new LibraryManager(library);
+        LibraryManager manager = new LibraryManager(bookLibrary);
         manager.checkoutBook(letusc.getTitle());
 
         assertTrue(manager.checkinBook(letusc.getTitle()));
@@ -42,7 +42,7 @@ public class LibraryManagerTest {
 
     @Test
     public void testListOfAvailableBooks() {
-        LibraryManager manager = new LibraryManager(library);
+        LibraryManager manager = new LibraryManager(bookLibrary);
 
         List<String> bookList = manager.getListOfAvailableBooks();
         assertTrue(bookList.contains(letusc.getFormattedString()));

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Library {
+public class BookLibrary {
 
     private HashMap books = new HashMap();
 
@@ -16,9 +16,7 @@ public class Library {
 
         List<String> availableBooks = new ArrayList<String>();
         for (Object book : books.values()) {
-            //if(!((Book)book).isCheckedOut()){
-                availableBooks.add(((Book) book).getFormattedString());
-            //}
+            availableBooks.add(((Book) book).getFormattedString());
         }
 
         return availableBooks;

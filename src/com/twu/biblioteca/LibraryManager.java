@@ -5,10 +5,10 @@ import java.util.List;
 
 public class LibraryManager {
     private HashMap issuedBooks = new HashMap();
-    private Library library;
+    private BookLibrary bookLibrary;
 
-    public LibraryManager(Library library) {
-        this.library = library;
+    public LibraryManager(BookLibrary bookLibrary) {
+        this.bookLibrary = bookLibrary;
     }
 
     public boolean checkoutBook(String bookTitle) {
@@ -17,7 +17,7 @@ public class LibraryManager {
             return false;
         }
 
-        book = library.removeBook(bookTitle);
+        book = bookLibrary.removeBook(bookTitle);
         if(book == null){
             return false;
         }
@@ -37,13 +37,13 @@ public class LibraryManager {
             return false;
         }
 
-        library.addBook(book);
+        bookLibrary.addBook(book);
         issuedBooks.remove(bookTitle);
 
         return true;
     }
 
     public List<String> getListOfAvailableBooks() {
-        return library.getListOfAvailableBooks();
+        return bookLibrary.getListOfAvailableBooks();
     }
 }

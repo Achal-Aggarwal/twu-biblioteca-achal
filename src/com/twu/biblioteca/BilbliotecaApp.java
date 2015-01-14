@@ -23,14 +23,14 @@ public class BilbliotecaApp {
 
     }
     public static void main(String[] args) {
-        Library library = new Library();
-        library.addBook(new Book("Let Us C", "Yashwant Kanetkar", "2000"));
-        library.addBook(new Book("Operating System", "Galvin", "2005"));
-        library.addBook(new Book("Internet Security", "Ankit Fadia", "1995"));
-        library.addBook(new Book("Five Point Someone", "Chetan Bhagat", "2012"));
+        BookLibrary bookLibrary = new BookLibrary();
+        bookLibrary.addBook(new Book("Let Us C", "Yashwant Kanetkar", "2000"));
+        bookLibrary.addBook(new Book("Operating System", "Galvin", "2005"));
+        bookLibrary.addBook(new Book("Internet Security", "Ankit Fadia", "1995"));
+        bookLibrary.addBook(new Book("Five Point Someone", "Chetan Bhagat", "2012"));
 
         new BilbliotecaApp(
-                new LibraryManager(library),
+                new LibraryManager(bookLibrary),
                 new InputOutputManger(System.in, System.out)).runApplication();
     }
 }

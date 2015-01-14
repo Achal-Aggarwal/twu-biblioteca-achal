@@ -1,6 +1,5 @@
 package com.twu.biblioteca;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -16,7 +15,7 @@ public class QuitMenuControllerTest {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         QuitMenuController quitVC =
-                new QuitMenuController(new LibraryManager(new Library()),
+                new QuitMenuController(new LibraryManager(new BookLibrary()),
                         new InputOutputManger(
                             new ByteArrayInputStream(input.getBytes()),
                             new PrintStream(output)

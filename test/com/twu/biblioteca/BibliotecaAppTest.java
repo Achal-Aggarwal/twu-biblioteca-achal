@@ -20,13 +20,13 @@ public class BibliotecaAppTest {
 
     @Before
     public void setUp() {
-        Library library;
-        library = new Library();
-        library.addBook(letusc);
-        library.addBook(galvin);
-        library.addBook(internetSec);
-        library.addBook(fivePoint);
-        manager = new LibraryManager(library);
+        BookLibrary bookLibrary;
+        bookLibrary = new BookLibrary();
+        bookLibrary.addBook(letusc);
+        bookLibrary.addBook(galvin);
+        bookLibrary.addBook(internetSec);
+        bookLibrary.addBook(fivePoint);
+        manager = new LibraryManager(bookLibrary);
     }
 
     private void runApplicationWithInput(String input){
