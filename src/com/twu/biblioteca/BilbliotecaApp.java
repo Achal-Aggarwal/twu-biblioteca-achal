@@ -14,7 +14,8 @@ public class BilbliotecaApp {
         mainMenuView.setAction("1", new ListOfBooksController(libraryManager, io));
         mainMenuView.setAction("2", new CheckoutBookController(libraryManager, io));
         mainMenuView.setAction("3", new CheckinBookController(libraryManager, io));
-        mainMenuView.setAction("4", new QuitMenuController(libraryManager, io));
+        mainMenuView.setAction("4", new ListOfMoviesController(libraryManager, io));
+        mainMenuView.setAction("5", new QuitMenuController(libraryManager, io));
 
         io.printLine("Welcome and thank you for taking time to visit Biblioteca.");
         while(mainMenuView.execute());

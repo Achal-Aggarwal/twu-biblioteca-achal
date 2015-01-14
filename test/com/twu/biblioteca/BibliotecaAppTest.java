@@ -42,19 +42,20 @@ public class BibliotecaAppTest {
 
     @Test
     public void testRenderedWelcomeMessageAndMenu() {
-        runApplicationWithInput("4\n");
+        runApplicationWithInput("5\n");
         String welcomeMessage = "Welcome and thank you for taking time to visit Biblioteca.\n";
         String menu = "Main Menu.\n";
         menu += "1. \tList of books available.\n";
         menu += "2. \tCheckout book.\n";
         menu += "3. \tCheckin book.\n";
-        menu += "4. \tQuit.\n";
+        menu += "4. \tList of movies available.\n";
+        menu += "5. \tQuit.\n";
         assertTrue(output.toString().startsWith(welcomeMessage + menu));
     }
 
     @Test
     public void testRenderedListOfBooksView() {
-        runApplicationWithInput("1\n4");
+        runApplicationWithInput("1\n5");
         String viewTitle = "List of books available.\n";
         String listOfBooks = "";
         listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
@@ -66,13 +67,13 @@ public class BibliotecaAppTest {
 
     @Test
     public void testRenderedInvalidMessageOnSelectingInvalidOption(){
-        runApplicationWithInput("a\n4");
+        runApplicationWithInput("a\n5");
         assertTrue(output.toString().contains("Select a valid option!\n"));
     }
 
     @Test
     public void testRenderedMenuAfterRenderingInvalidOptionMessage(){
-        runApplicationWithInput("q\n4");
+        runApplicationWithInput("q\n5");
         String outputString = output.toString();
         String invalidOptionMessage = "Select a valid option!\n";
         int offset = outputString.lastIndexOf(invalidOptionMessage);
@@ -87,13 +88,13 @@ public class BibliotecaAppTest {
 
     @Test
     public void testCheckingOutOfABook() {
-        runApplicationWithInput("2\n" + galvin.getTitle() + "\n4");
+        runApplicationWithInput("2\n" + galvin.getTitle() + "\n5");
         assertTrue(manager.isBookCheckedOut(galvin.getTitle()));
     }
 
     @Test
     public void testListOfBooksViewAfterCheckingOutABook() {
-        runApplicationWithInput("1\n2\n" + galvin.getTitle() + "\n1\n4");
+        runApplicationWithInput("1\n2\n" + galvin.getTitle() + "\n1\n5");
         String outputString = output.toString();
 
         String viewTitle = "List of books available.\n";
@@ -118,31 +119,31 @@ public class BibliotecaAppTest {
 
     @Test
     public void testSuccessMessageAfterCheckingOutABook() {
-        runApplicationWithInput("2\n" + galvin.getTitle() + "\n4");
+        runApplicationWithInput("2\n" + galvin.getTitle() + "\n5");
         assertTrue(output.toString().contains("Thank you! Enjoy the book\n"));
     }
 
     @Test
     public void testUnsuccessfulMessageAfterCheckingOutABookThatDoesntExist() {
-        runApplicationWithInput("2\nFooBar\n4");
+        runApplicationWithInput("2\nFooBar\n5");
         assertTrue(output.toString().contains("That book is not available.\n"));
     }
 
     @Test
     public void testUnsuccessfulMessageAfterCheckingOutABookThatIsCheckedOut() {
-        runApplicationWithInput("2\n" + galvin.getTitle() + "\n2\n" + galvin.getTitle() +"\n4");
+        runApplicationWithInput("2\n" + galvin.getTitle() + "\n2\n" + galvin.getTitle() +"\n5");
         assertTrue(output.toString().contains("That book is not available.\n"));
     }
 
     @Test
     public void testReturnOfABook() {
-        runApplicationWithInput("2\n" + galvin.getTitle() + "\n3\n" + galvin.getTitle() + "\n4");
+        runApplicationWithInput("2\n" + galvin.getTitle() + "\n3\n" + galvin.getTitle() + "\n5");
         assertFalse(manager.isBookCheckedOut(galvin.getTitle()));
     }
 
     @Test
     public void testListOfBooksViewAfterReturningABook() {
-        runApplicationWithInput("2\n" + galvin.getTitle() + "\n1\n3\n"+galvin.getTitle()+"\n1\n4");
+        runApplicationWithInput("2\n" + galvin.getTitle() + "\n1\n3\n"+galvin.getTitle()+"\n1\n5");
         String outputString = output.toString();
 
         String viewTitle = "List of books available.\n";
@@ -167,19 +168,19 @@ public class BibliotecaAppTest {
 
     @Test
     public void testSuccessMessageAfterReturningABook() {
-        runApplicationWithInput("2\n" + galvin.getTitle() + "\n3\n"+ galvin.getTitle() +"\n4");
+        runApplicationWithInput("2\n" + galvin.getTitle() + "\n3\n"+ galvin.getTitle() +"\n5");
         assertTrue(output.toString().contains("Thank you for returning the book.\n"));
     }
 
     @Test
     public void testUnSuccessfulMessageAfterReturningABookThatDoesntExist() {
-        runApplicationWithInput("\n3\nFoobar\n4");
+        runApplicationWithInput("\n3\nFoobar\n5");
         assertTrue(output.toString().contains("That is not a valid book to return.\n"));
     }
 
     @Test
     public void testUnSuccessfulMessageAfterReturningABookThatIsCheckedInAlready() {
-        runApplicationWithInput("\n3\n"+ galvin.getTitle() +"\n4");
+        runApplicationWithInput("\n3\n"+ galvin.getTitle() +"\n5");
         assertTrue(output.toString().contains("That is not a valid book to return.\n"));
     }
 }
