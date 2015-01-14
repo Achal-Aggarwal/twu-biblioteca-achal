@@ -1,19 +1,16 @@
 package com.twu.biblioteca;
 
-import java.io.PrintStream;
-import java.util.Scanner;
-
 public class CheckinBookViewController extends ViewController {
-    public CheckinBookViewController(Library library, PrintStream output, Scanner input) {
-        super(library, output, input);
+    public CheckinBookViewController(Library library, InputOutputManger inputOutputManger) {
+        super(library, inputOutputManger);
     }
 
     @Override
     public boolean execute() {
-        if(library.checkin(input.nextLine())){
-            output.println("Thank you for returning the book.");
+        if(library.checkin(io.readLine())){
+            io.printLine("Thank you for returning the book.");
         } else {
-            output.println("That is not a valid book to return.");
+            io.printLine("That is not a valid book to return.");
         }
 
         return true;

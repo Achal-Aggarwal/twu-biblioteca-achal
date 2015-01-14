@@ -6,21 +6,19 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Scanner;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by achalaggarwal on 1/13/15.
- */
 public class MenuViewControllerTest {
     Library library;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
     Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
+    private ByteArrayOutputStream output;
+    private InputOutputManger io;
+    private MenuViewController menuVC;
 
     @Before
     public void setUp() {
@@ -31,34 +29,28 @@ public class MenuViewControllerTest {
         library.addBook(fivePoint);
     }
 
+    private void runTestCaseWithInput(String input) {
+        output = new ByteArrayOutputStream();
+        io = new InputOutputManger(
+                new ByteArrayInputStream(input.getBytes()),
+                new PrintStream(output)
+        );
+        menuVC = new MenuViewController(library, io);
+    }
+
     @Test
     public void shouldDisplayOptionToPerformListOfBooksAction(){
-        String input = "\n";
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        Scanner inputScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        inputScanner.useDelimiter("\n");
+        runTestCaseWithInput("\n");
 
-        MenuViewController menuVC =
-                new MenuViewController(library, new PrintStream(output),
-                        inputScanner);
-
-        menuVC.setAction("1", new ListOfBooksViewController(library, new PrintStream(output), inputScanner));
+        menuVC.setAction("1", new ListOfBooksViewController(library, io));
         assertTrue(menuVC.execute());
         assertEquals("Main Menu.\n1. \tList of books available.\n", output.toString());
     }
 
     @Test
     public void shouldPerformListOfBooksActionOnItsSelection(){
-        String input = "1\n";
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        Scanner inputScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        inputScanner.useDelimiter("\n");
-
-        MenuViewController menuVC =
-                new MenuViewController(library, new PrintStream(output),
-                        inputScanner);
-
-        menuVC.setAction("1", new ListOfBooksViewController(library, new PrintStream(output), inputScanner));
+        runTestCaseWithInput("1\n");
+        menuVC.setAction("1", new ListOfBooksViewController(library, io));
         menuVC.execute();
         String viewTitle = "List of books available.\n";
         String listOfBooks = "";
@@ -71,16 +63,8 @@ public class MenuViewControllerTest {
 
     @Test
     public void shouldDisplayErrorMessageOnInvalidSelectionOfMenuItem(){
-        String input = "2\n";
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        Scanner inputScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        inputScanner.useDelimiter("\n");
-
-        MenuViewController menuVC =
-                new MenuViewController(library, new PrintStream(output),
-                        inputScanner);
-
-        menuVC.setAction("1", new ListOfBooksViewController(library, new PrintStream(output), inputScanner));
+        runTestCaseWithInput("2\n");
+        menuVC.setAction("1", new ListOfBooksViewController(library, io));
         assertTrue(menuVC.execute());
 
         assertTrue(output.toString().contains("Select a valid option!"));
@@ -88,16 +72,8 @@ public class MenuViewControllerTest {
 
     @Test
     public void shouldDisplayOptionToPerformCheckoutOfBookAction(){
-        String input = "\n";
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        Scanner inputScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        inputScanner.useDelimiter("\n");
-
-        MenuViewController menuVC =
-                new MenuViewController(library, new PrintStream(output),
-                        inputScanner);
-
-        menuVC.setAction("1", new CheckoutBookViewController(library, new PrintStream(output), inputScanner));
+        runTestCaseWithInput("\n");
+        menuVC.setAction("1", new CheckoutBookViewController(library, io));
         menuVC.execute();
         assertEquals("Main Menu.\n1. \tCheckout book.\n", output.toString());
     }

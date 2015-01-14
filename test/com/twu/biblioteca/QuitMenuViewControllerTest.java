@@ -8,9 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by achalaggarwal on 1/13/15.
@@ -35,12 +33,14 @@ public class QuitMenuViewControllerTest {
     public void shouldDisplayQuitMessage(){
         String input = "\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        Scanner inputScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        inputScanner.useDelimiter("\n");
 
         QuitMenuViewController quitVC =
-                new QuitMenuViewController(library, new PrintStream(output),
-                        inputScanner);
+                new QuitMenuViewController(library,
+                        new InputOutputManger(
+                            new ByteArrayInputStream(input.getBytes()),
+                            new PrintStream(output)
+                        )
+                );
 
         assertFalse(quitVC.execute());
         //assertEquals("Do not forget to return issues books.\n", output.toString());

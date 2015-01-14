@@ -34,12 +34,14 @@ public class ListOfBooksViewControllerTest {
     public void shouldPrintListOfBooks(){
         String input = "\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        Scanner inputScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        inputScanner.useDelimiter("\n");
 
         ListOfBooksViewController listOfBooksVC =
-                new ListOfBooksViewController(library, new PrintStream(output),
-                        inputScanner);
+                new ListOfBooksViewController(library,
+                        new InputOutputManger(
+                                new ByteArrayInputStream(input.getBytes()),
+                                new PrintStream(output)
+                        )
+                );
 
         listOfBooksVC.execute();
 

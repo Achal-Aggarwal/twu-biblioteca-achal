@@ -1,27 +1,21 @@
 package com.twu.biblioteca;
 
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.util.Scanner;
-
 public class BilbliotecaApp {
     private Library library;
-    private PrintStream output;
-    private Scanner input;
+    private InputOutputManger io;
 
-    public BilbliotecaApp(Library library, PrintStream output, InputStream inputStream){
+    public BilbliotecaApp(Library library, InputOutputManger inputOutputManger) {
         this.library = library;
-        this.output = output;
-        this.input = new Scanner(inputStream);
+        this.io = inputOutputManger;
     }
 
     public int runApplication() {
-        output.println("Welcome and thank you for taking time to visit Biblioteca.");
-        MenuViewController mainMenuView = new MenuViewController(library, output, input);
-        mainMenuView.setAction("1", new ListOfBooksViewController(library, output, input));
-        mainMenuView.setAction("2", new CheckoutBookViewController(library, output, input));
-        mainMenuView.setAction("3", new CheckinBookViewController(library, output, input));
-        mainMenuView.setAction("4", new QuitMenuViewController(library, output, input));
+        io.printLine("Welcome and thank you for taking time to visit Biblioteca.");
+        MenuViewController mainMenuView = new MenuViewController(library, io);
+        mainMenuView.setAction("1", new ListOfBooksViewController(library, io));
+        mainMenuView.setAction("2", new CheckoutBookViewController(library, io));
+        mainMenuView.setAction("3", new CheckinBookViewController(library, io));
+        mainMenuView.setAction("4", new QuitMenuViewController(library, io));
 
         while(mainMenuView.execute());
 
@@ -34,6 +28,6 @@ public class BilbliotecaApp {
         library.addBook(new Book("Operating System", "Galvin", "2005"));
         library.addBook(new Book("Internet Security", "Ankit Fadia", "1995"));
         library.addBook(new Book("Five Point Someone", "Chetan Bhagat", "2012"));
-        new BilbliotecaApp(library, System.out, System.in).runApplication();
+        new BilbliotecaApp(library, new InputOutputManger(System.in, System.out)).runApplication();
     }
 }

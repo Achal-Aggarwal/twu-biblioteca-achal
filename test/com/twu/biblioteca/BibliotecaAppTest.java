@@ -29,8 +29,12 @@ public class BibliotecaAppTest {
 
     private void runApplicationWithInput(String input){
         output = new ByteArrayOutputStream();
-        application = new BilbliotecaApp(library, new PrintStream(output),
-                new ByteArrayInputStream(input.getBytes()));
+        application = new BilbliotecaApp(library,
+                new InputOutputManger(
+                        new ByteArrayInputStream(input.getBytes()),
+                        new PrintStream(output)
+                    )
+                );
         application.runApplication();
     }
 

@@ -6,21 +6,19 @@ import org.junit.Test;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Scanner;
 
-import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by achalaggarwal on 1/13/15.
- */
 public class CheckoutBookViewControllerTest {
     Library library;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
     Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
+    private ByteArrayOutputStream output;
+    private InputOutputManger io;
+    private CheckoutBookViewController checkoutBookVC;
 
     @Before
     public void setUp() {
@@ -31,47 +29,32 @@ public class CheckoutBookViewControllerTest {
         library.addBook(fivePoint);
     }
 
+    private void runTestCaseWithInput(String input) {
+        output = new ByteArrayOutputStream();
+        io = new InputOutputManger(
+                new ByteArrayInputStream(input.getBytes()),
+                new PrintStream(output)
+        );
+        checkoutBookVC = new CheckoutBookViewController(library, io);
+    }
+
     @Test
     public void shouldCheckinLetUsCBook(){
-        String input = letusc.getTitle() + "\n";
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        Scanner inputScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        inputScanner.useDelimiter("\n");
-
-        CheckoutBookViewController checkoutBookVC =
-                new CheckoutBookViewController(library, new PrintStream(output),
-                        inputScanner);
-
+        runTestCaseWithInput(letusc.getTitle() + "\n");
         checkoutBookVC.execute();
         assertTrue(letusc.isCheckedOut());
     }
 
     @Test
     public void shouldPrintSuccessfulMessageOnSuccessfulCheckout(){
-        String input = letusc.getTitle() + "\n";
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        Scanner inputScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        inputScanner.useDelimiter("\n");
-
-        CheckoutBookViewController checkoutBookVC =
-                new CheckoutBookViewController(library, new PrintStream(output),
-                        inputScanner);
-
+        runTestCaseWithInput(letusc.getTitle() + "\n");
         checkoutBookVC.execute();
         assertEquals("Thank you! Enjoy the book\n", output.toString());
     }
 
     @Test
     public void shouldPrintUnSuccessfulMessageOnUnSuccessfulCheckoutIfBookCheckedoutAlready(){
-        String input = letusc.getTitle() + "\n";
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        Scanner inputScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        inputScanner.useDelimiter("\n");
-
-        CheckoutBookViewController checkoutBookVC =
-                new CheckoutBookViewController(library, new PrintStream(output),
-                        inputScanner);
-
+        runTestCaseWithInput(letusc.getTitle() + "\n");
         letusc.checkOut();
         checkoutBookVC.execute();
         assertEquals("That book is not available.\n", output.toString());
@@ -79,15 +62,7 @@ public class CheckoutBookViewControllerTest {
 
     @Test
     public void shouldPrintUnSuccessfulMessageOnUnSuccessfulCheckoutIfBookDoesntExist(){
-        String input = "Programing C\n";
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        Scanner inputScanner = new Scanner(new ByteArrayInputStream(input.getBytes()));
-        inputScanner.useDelimiter("\n");
-
-        CheckoutBookViewController checkoutBookVC =
-                new CheckoutBookViewController(library, new PrintStream(output),
-                        inputScanner);
-
+        runTestCaseWithInput("Programing C\n");
         checkoutBookVC.execute();
         assertEquals("That book is not available.\n", output.toString());
     }

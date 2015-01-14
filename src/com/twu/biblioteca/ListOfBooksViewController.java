@@ -1,19 +1,17 @@
 package com.twu.biblioteca;
 
-import java.io.PrintStream;
 import java.util.List;
-import java.util.Scanner;
 
 public class ListOfBooksViewController extends ViewController {
-    public ListOfBooksViewController(Library library, PrintStream output, Scanner input) {
-        super(library, output, input);
+    public ListOfBooksViewController(Library library, InputOutputManger inputOutputManger) {
+        super(library, inputOutputManger);
     }
 
     public boolean execute() {
         List<String> books = library.getListOfAvailableBooks();
-        output.println(getTitle());
+        io.printLine(getTitle());
         for (int i = 0; i < books.size(); i++) {
-            output.println((i+1)+ ". \t" + books.get(i));
+            io.printLine((i+1)+ ". \t" + books.get(i));
         }
 
         return true;
