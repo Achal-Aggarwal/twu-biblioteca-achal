@@ -25,23 +25,23 @@ public class BookLibraryTest {
 
     @Test
     public void testAddBookShouldReturnReferenceOfAddedBook() {
-        assertSame(letusc, bookLibrary.addBook(letusc));
-        assertTrue(bookLibrary.isBookPresent(letusc.getTitle()));
+        assertSame(letusc, bookLibrary.addItem(letusc));
+        assertTrue(bookLibrary.isItemPresent(letusc.getTitle()));
     }
 
     @Test
     public void testAddBookShouldReturnNullIfAddedBookIsAlreadyPresent() {
-        bookLibrary.addBook(letusc);
-        assertNull(bookLibrary.addBook(letusc));
+        bookLibrary.addItem(letusc);
+        assertNull(bookLibrary.addItem(letusc));
     }
 
     @Test
     public void testListOfBooks() {
-        bookLibrary.addBook(letusc);
-        bookLibrary.addBook(galvin);
-        bookLibrary.addBook(internetSec);
+        bookLibrary.addItem(letusc);
+        bookLibrary.addItem(galvin);
+        bookLibrary.addItem(internetSec);
 
-        List<String> bookList = bookLibrary.getListOfAvailableBooks();
+        List<String> bookList = bookLibrary.getListOfAvailableItems();
         assertTrue(bookList.contains(letusc.getFormattedString()));
         assertTrue(bookList.contains(galvin.getFormattedString()));
         assertTrue(bookList.contains(internetSec.getFormattedString()));
@@ -49,19 +49,19 @@ public class BookLibraryTest {
 
     @Test
     public void testRemoveBookShouldRemoveBookFromLibrary(){
-        bookLibrary.addBook(letusc);
-        bookLibrary.removeBook(letusc.getTitle());
-        assertFalse(bookLibrary.isBookPresent(letusc.getTitle()));
+        bookLibrary.addItem(letusc);
+        bookLibrary.removeItem(letusc.getTitle());
+        assertFalse(bookLibrary.isItemPresent(letusc.getTitle()));
     }
 
     @Test
     public void testRemoveBookShouldReturnReferenceOfRemovedBook() {
-        bookLibrary.addBook(letusc);
-        assertSame(letusc, bookLibrary.removeBook(letusc.getTitle()));
+        bookLibrary.addItem(letusc);
+        assertSame(letusc, bookLibrary.removeItem(letusc.getTitle()));
     }
 
     @Test
     public void testRemoveBookShouldReturnNullIfBookIsNotPresent() {
-        assertNull(bookLibrary.removeBook(letusc.getTitle()));
+        assertNull(bookLibrary.removeItem(letusc.getTitle()));
     }
 }

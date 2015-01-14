@@ -23,14 +23,14 @@ public class LibraryManagerTest {
     @Before
     public void setUp() {
         bookLibrary = new BookLibrary();
-        bookLibrary.addBook(letusc);
-        bookLibrary.addBook(galvin);
-        bookLibrary.addBook(internetSec);
-        bookLibrary.addBook(fivePoint);
+        bookLibrary.addItem(letusc);
+        bookLibrary.addItem(galvin);
+        bookLibrary.addItem(internetSec);
+        bookLibrary.addItem(fivePoint);
 
         movieLibrary = new MovieLibrary();
-        movieLibrary.addMovie(seven);
-        movieLibrary.addMovie(darkKnight);
+        movieLibrary.addItem(seven);
+        movieLibrary.addItem(darkKnight);
     }
 
     @Test
@@ -43,8 +43,8 @@ public class LibraryManagerTest {
     @Test
     public void testCheckingOutAMovie() {
         LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
-        assertTrue(manager.checkoutMovie(seven.getName()));
-        assertTrue(manager.isMovieCheckedOut(seven.getName()));
+        assertTrue(manager.checkoutMovie(seven.getTitle()));
+        assertTrue(manager.isMovieCheckedOut(seven.getTitle()));
     }
 
     @Test
@@ -59,10 +59,10 @@ public class LibraryManagerTest {
     @Test
     public void testCheckingInAMovie() {
         LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
-        manager.checkoutMovie(seven.getName());
+        manager.checkoutMovie(seven.getTitle());
 
-        assertTrue(manager.checkinMovie(seven.getName()));
-        assertFalse(manager.isMovieCheckedOut(seven.getName()));
+        assertTrue(manager.checkinMovie(seven.getTitle()));
+        assertFalse(manager.isMovieCheckedOut(seven.getTitle()));
     }
 
     @Test

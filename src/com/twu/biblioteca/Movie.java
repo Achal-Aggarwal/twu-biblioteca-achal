@@ -3,7 +3,7 @@ package com.twu.biblioteca;
 /**
  * Created by achalaggarwal on 1/14/15.
  */
-public class Movie {
+public class Movie extends Item {
     private String name;
     private String year;
     private String director;
@@ -16,7 +16,7 @@ public class Movie {
         this.movieRating = movieRating;
     }
 
-    public String getName() {
+    public String getTitle() {
         return name;
     }
 

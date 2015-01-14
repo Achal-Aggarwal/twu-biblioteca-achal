@@ -23,10 +23,10 @@ public class CheckoutBookControllerTest {
     @Before
     public void setUp() {
         BookLibrary bookLibrary = new BookLibrary();
-        bookLibrary.addBook(letusc);
-        bookLibrary.addBook(galvin);
-        bookLibrary.addBook(internetSec);
-        bookLibrary.addBook(fivePoint);
+        bookLibrary.addItem(letusc);
+        bookLibrary.addItem(galvin);
+        bookLibrary.addItem(internetSec);
+        bookLibrary.addItem(fivePoint);
         manager = new LibraryManager(bookLibrary, new MovieLibrary());
     }
 

@@ -22,41 +22,41 @@ public class MovieLibraryTest {
 
     @Test
     public void testAddMovieShouldReturnReferenceOfAddedMovie() {
-        assertSame(seven, movieLibrary.addMovie(seven));
-        assertTrue(movieLibrary.isMoviePresent(seven.getName()));
+        assertSame(seven, movieLibrary.addItem(seven));
+        assertTrue(movieLibrary.isItemPresent(seven.getTitle()));
     }
 
     @Test
     public void testAddMovieShouldReturnNullIfAddedMovieIsAlreadyPresent() {
-        movieLibrary.addMovie(seven);
-        assertNull(movieLibrary.addMovie(seven));
+        movieLibrary.addItem(seven);
+        assertNull(movieLibrary.addItem(seven));
     }
 
     @Test
     public void testListOfMovies() {
-        movieLibrary.addMovie(seven);
-        movieLibrary.addMovie(darkKnight);
+        movieLibrary.addItem(seven);
+        movieLibrary.addItem(darkKnight);
 
-        List<String> movieList = movieLibrary.getListOfAvailableMovies();
+        List<String> movieList = movieLibrary.getListOfAvailableItems();
         assertTrue(movieList.contains(seven.getFormattedString()));
         assertTrue(movieList.contains(darkKnight.getFormattedString()));
     }
 
     @Test
     public void testRemoveMovieShouldRemoveMovieFromLibrary(){
-        movieLibrary.addMovie(seven);
-        movieLibrary.removeMovie(seven.getName());
-        assertFalse(movieLibrary.isMoviePresent(seven.getName()));
+        movieLibrary.addItem(seven);
+        movieLibrary.removeItem(seven.getTitle());
+        assertFalse(movieLibrary.isItemPresent(seven.getTitle()));
     }
 
     @Test
     public void testRemoveMovieShouldReturnReferenceOfRemovedMovie() {
-        movieLibrary.addMovie(seven);
-        assertSame(seven, movieLibrary.removeMovie(seven.getName()));
+        movieLibrary.addItem(seven);
+        assertSame(seven, movieLibrary.removeItem(seven.getTitle()));
     }
 
     @Test
     public void testRemoveBookShouldReturnNullIfBookIsNotPresent() {
-        assertNull(movieLibrary.removeMovie(seven.getName()));
+        assertNull(movieLibrary.removeItem(seven.getTitle()));
     }
 }

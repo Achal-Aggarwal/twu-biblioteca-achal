@@ -20,6 +20,6 @@ public class MovieTest {
     @Test
     public void testNameGetter(){
         seven = new Movie(name, year, director, movieRating);
-        assertEquals(name, seven.getName());
+        assertEquals(name, seven.getTitle());
     }
 }
