@@ -15,6 +15,11 @@ public class LibraryManagerTest {
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
     Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
 
+    MovieLibrary movieLibrary;
+    Movie seven = new Movie("Seven", "1995", "David Fincher", "8");
+    Movie darkKnight = new Movie("The Dark Knight", "2008", "Christopher Nolan", "unrated");
+
+
     @Before
     public void setUp() {
         bookLibrary = new BookLibrary();
@@ -22,18 +27,29 @@ public class LibraryManagerTest {
         bookLibrary.addBook(galvin);
         bookLibrary.addBook(internetSec);
         bookLibrary.addBook(fivePoint);
+
+        movieLibrary = new MovieLibrary();
+        movieLibrary.addMovie(seven);
+        movieLibrary.addMovie(darkKnight);
     }
 
     @Test
     public void testCheckingOutABook() {
-        LibraryManager manager = new LibraryManager(bookLibrary);
+        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
         assertTrue(manager.checkoutBook(letusc.getTitle()));
         assertTrue(manager.isBookCheckedOut(letusc.getTitle()));
     }
 
     @Test
+    public void testCheckingOutAMovie() {
+        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
+        assertTrue(manager.checkoutMovie(seven.getName()));
+        assertTrue(manager.isMovieCheckedOut(seven.getName()));
+    }
+
+    @Test
     public void testCheckingInABook() {
-        LibraryManager manager = new LibraryManager(bookLibrary);
+        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
         manager.checkoutBook(letusc.getTitle());
 
         assertTrue(manager.checkinBook(letusc.getTitle()));
@@ -41,13 +57,31 @@ public class LibraryManagerTest {
     }
 
     @Test
+    public void testCheckingInAMovie() {
+        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
+        manager.checkoutMovie(seven.getName());
+
+        assertTrue(manager.checkinMovie(seven.getName()));
+        assertFalse(manager.isMovieCheckedOut(seven.getName()));
+    }
+
+    @Test
     public void testListOfAvailableBooks() {
-        LibraryManager manager = new LibraryManager(bookLibrary);
+        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
 
         List<String> bookList = manager.getListOfAvailableBooks();
         assertTrue(bookList.contains(letusc.getFormattedString()));
         assertTrue(bookList.contains(galvin.getFormattedString()));
         assertTrue(bookList.contains(internetSec.getFormattedString()));
         assertTrue(bookList.contains(fivePoint.getFormattedString()));
+    }
+
+    @Test
+    public void testListOfAvailableMovies() {
+        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
+
+        List<String> movieList = manager.getListOfAvailableMovies();
+        assertTrue(movieList.contains(seven.getFormattedString()));
+        assertTrue(movieList.contains(darkKnight.getFormattedString()));
     }
 }

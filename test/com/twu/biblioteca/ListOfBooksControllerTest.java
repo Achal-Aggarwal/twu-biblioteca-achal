@@ -32,7 +32,7 @@ public class ListOfBooksControllerTest {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         ListOfBooksController listOfBooksVC =
-                new ListOfBooksController(new LibraryManager(bookLibrary),
+                new ListOfBooksController(new LibraryManager(bookLibrary, new MovieLibrary()),
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)

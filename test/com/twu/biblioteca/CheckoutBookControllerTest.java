@@ -27,7 +27,7 @@ public class CheckoutBookControllerTest {
         bookLibrary.addBook(galvin);
         bookLibrary.addBook(internetSec);
         bookLibrary.addBook(fivePoint);
-        manager = new LibraryManager(bookLibrary);
+        manager = new LibraryManager(bookLibrary, new MovieLibrary());
     }
 
     private void runTestCaseWithInput(String input) {

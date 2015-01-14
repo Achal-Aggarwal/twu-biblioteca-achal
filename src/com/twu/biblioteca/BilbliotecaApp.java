@@ -29,8 +29,15 @@ public class BilbliotecaApp {
         bookLibrary.addBook(new Book("Internet Security", "Ankit Fadia", "1995"));
         bookLibrary.addBook(new Book("Five Point Someone", "Chetan Bhagat", "2012"));
 
+        MovieLibrary movieLibrary = new MovieLibrary();
+        Movie seven = new Movie("Seven", "1995", "David Fincher", "8");
+        Movie darkKnight = new Movie("The Dark Knight", "2008", "Christopher Nolan", "unrated");
+        movieLibrary.addMovie(seven);
+        movieLibrary.addMovie(darkKnight);
+
+
         new BilbliotecaApp(
-                new LibraryManager(bookLibrary),
+                new LibraryManager(bookLibrary, movieLibrary),
                 new InputOutputManger(System.in, System.out)).runApplication();
     }
 }

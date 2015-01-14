@@ -16,6 +16,7 @@ public class MenuViewControllerTest {
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
     Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
+
     private ByteArrayOutputStream output;
     private InputOutputManger io;
     private MenuController menuVC;
@@ -27,7 +28,8 @@ public class MenuViewControllerTest {
         bookLibrary.addBook(galvin);
         bookLibrary.addBook(internetSec);
         bookLibrary.addBook(fivePoint);
-        manager = new LibraryManager(bookLibrary);
+
+        manager = new LibraryManager(bookLibrary, new MovieLibrary());
     }
 
     private void runTestCaseWithInput(String input) {

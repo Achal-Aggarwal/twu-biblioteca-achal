@@ -15,7 +15,7 @@ public class QuitMenuControllerTest {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         QuitMenuController quitVC =
-                new QuitMenuController(new LibraryManager(new BookLibrary()),
+                new QuitMenuController(new LibraryManager(new BookLibrary(), new MovieLibrary()),
                         new InputOutputManger(
                             new ByteArrayInputStream(input.getBytes()),
                             new PrintStream(output)
