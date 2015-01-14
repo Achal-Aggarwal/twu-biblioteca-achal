@@ -12,7 +12,7 @@ import static org.junit.Assert.assertNotEquals;
 public class BibliotecaAppTest {
     BilbliotecaApp application;
     ByteArrayOutputStream output;
-    Library library;
+    LibraryManager manager;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
@@ -20,16 +20,18 @@ public class BibliotecaAppTest {
 
     @Before
     public void setUp() {
+        Library library;
         library = new Library();
         library.addBook(letusc);
         library.addBook(galvin);
         library.addBook(internetSec);
         library.addBook(fivePoint);
+        manager = new LibraryManager(library);
     }
 
     private void runApplicationWithInput(String input){
         output = new ByteArrayOutputStream();
-        application = new BilbliotecaApp(library,
+        application = new BilbliotecaApp(manager,
                 new InputOutputManger(
                         new ByteArrayInputStream(input.getBytes()),
                         new PrintStream(output)
@@ -86,7 +88,7 @@ public class BibliotecaAppTest {
     @Test
     public void testCheckingOutOfABook() {
         runApplicationWithInput("2\n" + galvin.getTitle() + "\n4");
-        assertTrue(galvin.isCheckedOut());
+        assertTrue(manager.isBookCheckedOut(galvin.getTitle()));
     }
 
     @Test
@@ -135,7 +137,7 @@ public class BibliotecaAppTest {
     @Test
     public void testReturnOfABook() {
         runApplicationWithInput("2\n" + galvin.getTitle() + "\n3\n" + galvin.getTitle() + "\n4");
-        assertFalse(galvin.isCheckedOut());
+        assertFalse(manager.isBookCheckedOut(galvin.getTitle()));
     }
 
     @Test

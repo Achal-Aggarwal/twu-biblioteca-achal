@@ -2,8 +2,8 @@ package com.twu.biblioteca;
 
 public class QuitMenuController extends Controller {
     private QuitMenuView view;
-    public QuitMenuController(Library library, InputOutputManger inputOutputManger) {
-        super(library);
+    public QuitMenuController(LibraryManager libraryManager, InputOutputManger inputOutputManger) {
+        super(libraryManager);
         view = new QuitMenuView(inputOutputManger);
     }
 

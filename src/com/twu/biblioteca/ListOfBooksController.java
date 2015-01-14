@@ -2,13 +2,13 @@ package com.twu.biblioteca;
 
 public class ListOfBooksController extends Controller {
     private ListOfBooksView view;
-    public ListOfBooksController(Library library, InputOutputManger inputOutputManger) {
-        super(library);
+    public ListOfBooksController(LibraryManager libraryManager, InputOutputManger inputOutputManger) {
+        super(libraryManager);
         view = new ListOfBooksView(inputOutputManger);
     }
 
     public boolean execute() {
-        view.setAvailableBooks(library.getListOfAvailableBooks());
+        view.setAvailableBooks(libraryManager.getListOfAvailableBooks());
 
         view.render();
 

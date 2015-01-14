@@ -1,10 +1,10 @@
 package com.twu.biblioteca;
 
 public abstract class Controller {
-    protected Library library;
+    protected LibraryManager libraryManager;
 
-    public Controller(Library library) {
-        this.library = library;
+    public Controller(LibraryManager libraryManger) {
+        this.libraryManager = libraryManger;
     }
 
     abstract public boolean execute();

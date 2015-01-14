@@ -8,38 +8,37 @@ public class Library {
 
     private HashMap books = new HashMap();
 
-    public void addBook(Book book) {
-        books.put(book.getTitle(), book);
-    }
-
-    public boolean isPresent(Book book) {
-        return books.containsKey(book.getTitle());
+    public boolean isBookPresent(String bookTitle) {
+        return books.containsKey(bookTitle);
     }
 
     public List<String> getListOfAvailableBooks() {
 
         List<String> availableBooks = new ArrayList<String>();
         for (Object book : books.values()) {
-            if(!((Book)book).isCheckedOut()){
+            //if(!((Book)book).isCheckedOut()){
                 availableBooks.add(((Book) book).getFormattedString());
-            }
+            //}
         }
 
         return availableBooks;
     }
 
-    public boolean checkout(String bookTitle) {
-        Book book = (Book) books.get(bookTitle);
-        return book != null && book.checkOut();
+    public Book addBook(Book book) {
+        if(isBookPresent(book.getTitle())){
+            return null;
+        }
+
+        books.put(book.getTitle(), book);
+
+        return book;
     }
 
-    public boolean isBookCheckedOut(String bookTitle) {
-        Book book = (Book) books.get(bookTitle);
-        return book == null || book.isCheckedOut();
-    }
+    public Book removeBook(String bookTitle) {
+        if(!isBookPresent(bookTitle)){
+            return null;
+        }
 
-    public boolean checkin(String bookTitle) {
-        Book book = (Book) books.get(bookTitle);
-        return book != null && book.checkin();
+        return (Book) books.remove(bookTitle);
     }
 }

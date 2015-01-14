@@ -13,40 +13,9 @@ public class BookTest {
     String publicationDate = "2000";
     Book letusc;
 
-    @Before
-    public void setUp() {
-        letusc = new Book(title,author,publicationDate);
-    }
-
     @Test
     public void testStringRepresentationOfBookWithAuthorPresent(){
+        letusc = new Book(title,author,publicationDate);
         assertEquals("|" + title + "|\t|" + author + "|\t|" + publicationDate + "|", letusc.getFormattedString());
-    }
-
-    @Test
-    public void testBookCheckout(){
-        assertTrue(letusc.checkOut());
-        assertTrue(letusc.isCheckedOut());
-    }
-
-    @Test
-    public void testBookCheckoutFailure(){
-        letusc.checkOut();
-        letusc.isCheckedOut();
-        assertFalse(letusc.checkOut());
-    }
-
-    @Test
-    public void testBookCheckin(){
-        letusc.checkOut();
-        letusc.isCheckedOut();
-        assertTrue(letusc.checkin());
-        assertFalse(letusc.isCheckedOut());
-    }
-
-    @Test
-    public void testBookCheckinFailure(){
-        letusc.isCheckedOut();
-        assertFalse(letusc.checkin());
     }
 }

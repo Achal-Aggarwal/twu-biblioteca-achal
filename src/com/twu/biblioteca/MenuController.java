@@ -5,8 +5,8 @@ import java.util.*;
 public class MenuController extends Controller {
     private LinkedHashMap menuItems = new LinkedHashMap();
     private MenuView view;
-    public MenuController(Library library, InputOutputManger inputOutputManger) {
-        super(library);
+    public MenuController(LibraryManager libraryManager, InputOutputManger inputOutputManger) {
+        super(libraryManager);
         view = new MenuView(inputOutputManger);
     }
 

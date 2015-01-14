@@ -10,28 +10,13 @@ import java.io.PrintStream;
 import static org.junit.Assert.assertFalse;
 
 public class QuitMenuControllerTest {
-    Library library;
-    Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
-    Book galvin = new Book("Operating System", "Galvin", "2005");
-    Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
-    Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
-
-    @Before
-    public void setUp() {
-        library = new Library();
-        library.addBook(letusc);
-        library.addBook(galvin);
-        library.addBook(internetSec);
-        library.addBook(fivePoint);
-    }
-
     @Test
     public void shouldDisplayQuitMessage(){
         String input = "\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         QuitMenuController quitVC =
-                new QuitMenuController(library,
+                new QuitMenuController(new LibraryManager(new Library()),
                         new InputOutputManger(
                             new ByteArrayInputStream(input.getBytes()),
                             new PrintStream(output)

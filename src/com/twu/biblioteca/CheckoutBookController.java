@@ -2,14 +2,14 @@ package com.twu.biblioteca;
 
 public class CheckoutBookController extends Controller {
     private CheckoutBookView view;
-    public CheckoutBookController(Library library, InputOutputManger inputOutputManger) {
-        super(library);
+    public CheckoutBookController(LibraryManager libraryManager, InputOutputManger inputOutputManger) {
+        super(libraryManager);
         view = new CheckoutBookView(inputOutputManger);
     }
 
     @Override
     public boolean execute() {
-        if(library.checkout(view.getBookName())){
+        if(libraryManager.checkoutBook(view.getBookName())){
             view.setStatus(CheckoutBookView.Status.CHECKOUT_SUCCESSFUL);
         } else {
             view.setStatus(CheckoutBookView.Status.CHECKOUT_UNSUCCESSFUL);

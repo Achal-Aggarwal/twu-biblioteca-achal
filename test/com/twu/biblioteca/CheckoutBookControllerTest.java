@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CheckoutBookControllerTest {
-    Library library;
+    LibraryManager manager;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
@@ -22,11 +22,12 @@ public class CheckoutBookControllerTest {
 
     @Before
     public void setUp() {
-        library = new Library();
+        Library library = new Library();
         library.addBook(letusc);
         library.addBook(galvin);
         library.addBook(internetSec);
         library.addBook(fivePoint);
+        manager = new LibraryManager(library);
     }
 
     private void runTestCaseWithInput(String input) {
@@ -35,14 +36,14 @@ public class CheckoutBookControllerTest {
                 new ByteArrayInputStream(input.getBytes()),
                 new PrintStream(output)
         );
-        checkoutBookVC = new CheckoutBookController(library, io);
+        checkoutBookVC = new CheckoutBookController(manager, io);
     }
 
     @Test
     public void shouldCheckinLetUsCBook(){
         runTestCaseWithInput(letusc.getTitle() + "\n");
         checkoutBookVC.execute();
-        assertTrue(letusc.isCheckedOut());
+        assertTrue(manager.isBookCheckedOut(letusc.getTitle()));
     }
 
     @Test
@@ -55,7 +56,7 @@ public class CheckoutBookControllerTest {
     @Test
     public void shouldPrintUnSuccessfulMessageOnUnSuccessfulCheckoutIfBookCheckedoutAlready(){
         runTestCaseWithInput(letusc.getTitle() + "\n");
-        letusc.checkOut();
+        manager.checkoutBook(letusc.getTitle());
         checkoutBookVC.execute();
         assertEquals("That book is not available.\n", output.toString());
     }

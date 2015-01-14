@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CheckinBookControllerTest {
-    Library library;
+    LibraryManager manager;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
@@ -23,11 +23,12 @@ public class CheckinBookControllerTest {
 
     @Before
     public void setUp() {
-        library = new Library();
+        Library library = new Library();
         library.addBook(letusc);
         library.addBook(galvin);
         library.addBook(internetSec);
         library.addBook(fivePoint);
+        manager = new LibraryManager(library);
     }
 
     private void runTestCaseWithInput(String input) {
@@ -36,21 +37,21 @@ public class CheckinBookControllerTest {
                 new ByteArrayInputStream(input.getBytes()),
                 new PrintStream(output)
         );
-        checkinBookVC = new CheckinBookController(library, io);
+        checkinBookVC = new CheckinBookController(manager, io);
     }
 
     @Test
     public void shouldCheckinLetUsCBook(){
         runTestCaseWithInput(letusc.getTitle() + "\n");
-        letusc.checkOut();
+        manager.checkoutBook(letusc.getTitle());
         checkinBookVC.execute();
-        assertFalse(letusc.isCheckedOut());
+        assertFalse(manager.isBookCheckedOut(letusc.getTitle()));
     }
 
     @Test
     public void shouldPrintSuccessfulMessageOnSuccessfulCheckin(){
         runTestCaseWithInput(letusc.getTitle() + "\n");
-        letusc.checkOut();
+        manager.checkoutBook(letusc.getTitle());
         checkinBookVC.execute();
         assertEquals("Thank you for returning the book.\n", output.toString());
     }
