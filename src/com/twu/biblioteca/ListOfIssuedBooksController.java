@@ -17,6 +17,6 @@ public class ListOfIssuedBooksController extends ListOfItemsController {
 
     @Override
     public boolean isHidden() {
-        return !(SessionManager.getSession().getLoggedInUser() instanceof Librarian);
+        return !(SessionManager.getSession().getLoggedInUser().isLibrarian());
     }
 }

@@ -62,7 +62,7 @@ public class MenuViewControllerTest {
     @Test
     public void shouldAbleToDisplayOptionBasedOnTypeOfUserLoggedIn(){
         runTestCaseWithInput("q\n");
-        User librarian = new Librarian("000-0000", "achal", "", "", "");
+        User librarian = new User("000-0000", "achal", "", "", "", true);
         session.registerUser(librarian);
         session.login(librarian.getLibraryNumber());
         menuVC.setAction("1", new ListOfIssuedBooksController(io, manager));

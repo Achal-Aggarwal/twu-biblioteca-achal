@@ -8,7 +8,7 @@ public class LibrarianTest {
     @Test
     public void testValidateLibrarianCreation(){
         String libraryNumber = "000-0000";
-        User user = new Librarian(libraryNumber, "achal", "", "", "");
+        User user = new User(libraryNumber, "achal", "", "", "", true);
         assertTrue(user instanceof User);
     }
 }

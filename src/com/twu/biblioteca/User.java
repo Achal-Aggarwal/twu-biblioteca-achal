@@ -6,6 +6,7 @@ public class User {
     private String name;
     private String emailid;
     private String phoneNumber;
+    private boolean isLibrarian;
 
     public User(String libraryNumber, String password, String name, String emailid, String phoneNumber) {
         this.libraryNumber = libraryNumber;
@@ -13,6 +14,11 @@ public class User {
         this.name = name;
         this.emailid = emailid;
         this.phoneNumber = phoneNumber;
+    }
+
+    public User(String libraryNumber, String password, String name, String emailid, String phoneNumber, boolean isLibrarian) {
+        this(libraryNumber, password, name, emailid, phoneNumber);
+        this.isLibrarian = isLibrarian;
     }
 
     public String getLibraryNumber() {
@@ -32,6 +38,10 @@ public class User {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public boolean isLibrarian() {
+        return isLibrarian;
     }
 
     public String contactInformation() {

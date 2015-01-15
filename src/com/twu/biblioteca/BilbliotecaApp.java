@@ -44,7 +44,7 @@ public class BilbliotecaApp {
         movieLibrary.addItem(darkKnight);
 
         LibraryManager libraryManager = new LibraryManager(bookLibrary, movieLibrary);
-        SessionManager.getSession().registerUser(new Librarian("000-0000", "achal", "Achal", "achal@thoughtworks.com", "1234567890"));
+        SessionManager.getSession().registerUser(new User("000-0000", "achal", "Achal", "achal@thoughtworks.com", "1234567890", true));
         SessionManager.getSession().registerUser(new User("000-0001", "abhishek", "Abhishek", "abhishek@thoughtworks.com", "0987654321"));
 
         new BilbliotecaApp(

@@ -75,7 +75,7 @@ public class ListOfIssuedBooksControllerTest {
                                 new PrintStream(output)
                         ), manager
                 );
-        user = new Librarian("000-0010", "abhishek", "", "", "");
+        user = new User("000-0010", "abhishek", "", "", "", true);
         session.registerUser(user);
         session.login(user.getLibraryNumber());
 
