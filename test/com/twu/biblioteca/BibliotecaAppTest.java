@@ -47,7 +47,7 @@ public class BibliotecaAppTest {
         runApplicationWithInput("10\n");
         String welcomeMessage = "Welcome and thank you for taking time to visit Biblioteca.\n";
         String menu = "Main Menu.\n";
-        menu += "1. \tList of books available.\n";
+        menu += "1. \tList of available books.\n";
         menu += "2. \tCheckout book.\n";
         menu += "3. \tCheckin book.\n";
         menu += "4. \tList of movies available.\n";

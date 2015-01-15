@@ -9,7 +9,7 @@ import java.io.PrintStream;
 
 import static junit.framework.TestCase.assertTrue;
 
-public class ListOfBooksControllerTest {
+public class ListOfAvailableBooksControllerTest {
 
     BookLibrary bookLibrary;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
@@ -31,15 +31,15 @@ public class ListOfBooksControllerTest {
         String input = "\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-        ListOfBooksController listOfBooksVC =
-                new ListOfBooksController(new LibraryManager(bookLibrary, new MovieLibrary()),
+        ListOfAvailableBooksController listOfAvailableBooksVC =
+                new ListOfAvailableBooksController(new LibraryManager(bookLibrary, new MovieLibrary()),
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)
                         )
                 );
 
-        listOfBooksVC.execute();
+        listOfAvailableBooksVC.execute();
 
         String viewTitle = "List of books available.\n";
         String listOfBooks = "";

@@ -26,8 +26,8 @@ public class ListOfMoviesControllerTest {
         String input = "\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-        ListOfMoviesController listOfMoviesVC =
-                new ListOfMoviesController(new LibraryManager(new BookLibrary(), movieLibrary),
+        ListOfAvailableMoviesController listOfMoviesVC =
+                new ListOfAvailableMoviesController(new LibraryManager(new BookLibrary(), movieLibrary),
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)

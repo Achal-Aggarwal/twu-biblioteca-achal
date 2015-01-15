@@ -15,10 +15,10 @@ public class BilbliotecaApp {
 
         io.printLine("Welcome and thank you for taking time to visit Biblioteca.");
 
-        mainMenuController.setAction("1", new ListOfBooksController(libraryManager, io));
+        mainMenuController.setAction("1", new ListOfAvailableBooksController(libraryManager, io));
         mainMenuController.setAction("2", new CheckoutBookController(libraryManager, io));
         mainMenuController.setAction("3", new CheckinBookController(libraryManager, io));
-        mainMenuController.setAction("4", new ListOfMoviesController(libraryManager, io));
+        mainMenuController.setAction("4", new ListOfAvailableMoviesController(libraryManager, io));
         mainMenuController.setAction("5", new CheckoutMovieController(libraryManager, io));
         mainMenuController.setAction("6", new CheckinMovieController(libraryManager, io));
         mainMenuController.setAction("10", new QuitMenuController(libraryManager, io));

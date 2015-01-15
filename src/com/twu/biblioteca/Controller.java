@@ -3,7 +3,7 @@ package com.twu.biblioteca;
 public abstract class Controller {
     protected LibraryManager libraryManager;
 
-    public Controller(LibraryManager libraryManger) {
+    protected Controller(LibraryManager libraryManger) {
         this.libraryManager = libraryManger;
     }
 

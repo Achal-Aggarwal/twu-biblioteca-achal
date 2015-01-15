@@ -54,7 +54,7 @@ public class MenuViewControllerTest {
     @Test
     public void shouldPerformListOfBooksActionOnItsSelection(){
         runTestCaseWithInput("1\nq\n");
-        menuVC.setAction("1", new ListOfBooksController(manager, io));
+        menuVC.setAction("1", new ListOfAvailableBooksController(manager, io));
         menuVC.execute();
         String viewTitle = "List of books available.\n";
         String listOfBooks = "";
@@ -68,7 +68,7 @@ public class MenuViewControllerTest {
     @Test
     public void shouldDisplayErrorMessageOnInvalidSelectionOfMenuItem(){
         runTestCaseWithInput("2\nq\n");
-        menuVC.setAction("1", new ListOfBooksController(manager, io));
+        menuVC.setAction("1", new ListOfAvailableBooksController(manager, io));
         assertTrue(menuVC.execute());
 
         assertTrue(output.toString().contains("Select a valid option!"));
