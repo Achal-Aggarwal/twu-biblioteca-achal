@@ -49,8 +49,8 @@ public class ListOfIssuedBooksControllerTest {
 
         String viewTitle = "List of issued books.\n";
         String listOfBooks = "";
-        listOfBooks += "1. \t" + letusc.getFormattedString() + " issued by 000-0000\n";
-        listOfBooks += "2. \t" + internetSec.getFormattedString() + " issued by 000-0000\n";
+        listOfBooks += "1. \t" + letusc.getFormattedString() + " issued by " + user.contactInformation() + "\n";
+        listOfBooks += "2. \t" + internetSec.getFormattedString() + " issued by " + user.contactInformation() + "\n";
 
         assertTrue(output.toString().contains(viewTitle + listOfBooks));
     }

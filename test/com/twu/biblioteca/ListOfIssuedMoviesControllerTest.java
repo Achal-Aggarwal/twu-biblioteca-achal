@@ -45,8 +45,8 @@ public class ListOfIssuedMoviesControllerTest {
 
         String viewTitle = "List of issued movies.\n";
         String listOfMovies = "";
-        listOfMovies += "1. \t" + darkKnight.getFormattedString() + " issued by " + darkKnight.getBorrower().getLibraryNumber() + "\n";
-        listOfMovies += "2. \t" + seven.getFormattedString() + " issued by " + darkKnight.getBorrower().getLibraryNumber() + "\n";
+        listOfMovies += "1. \t" + darkKnight.getFormattedString() + " issued by " + user.contactInformation() + "\n";
+        listOfMovies += "2. \t" + seven.getFormattedString() + " issued by " + user.contactInformation() + "\n";
         assertTrue(output.toString().contains(viewTitle + listOfMovies));
     }
 

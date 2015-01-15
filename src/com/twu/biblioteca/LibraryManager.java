@@ -41,7 +41,7 @@ public class LibraryManager {
     private List<String> getListOfIssuedItemsFrom(HashMap<String, Item> issuedItemsMap) {
         List<String> issuedItems = new ArrayList<String>();
         for (Item item : issuedItemsMap.values()) {
-            issuedItems.add(item.getFormattedString() + " issued by " + item.getBorrower().getLibraryNumber());
+            issuedItems.add(item.getFormattedString() + " issued by " + item.getBorrower().contactInformation());
         }
 
         return issuedItems;
