@@ -3,10 +3,12 @@ package com.twu.biblioteca;
 public class CheckinBookController extends Controller {
     private CheckinBookView view;
     private LoginController loginController;
-    public CheckinBookController(LibraryManager libraryManger, InputOutputManger inputOutputManger) {
-        super(libraryManger);
+    private LibraryManager libraryManager;
+
+    public CheckinBookController(InputOutputManger inputOutputManger, LibraryManager libraryManger) {
         view = new CheckinBookView(inputOutputManger);
-        loginController = new LoginController(libraryManger, inputOutputManger);
+        this.libraryManager = libraryManger;
+        loginController = new LoginController(inputOutputManger);
     }
 
     @Override

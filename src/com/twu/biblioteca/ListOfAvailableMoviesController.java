@@ -1,8 +1,8 @@
 package com.twu.biblioteca;
 
 public class ListOfAvailableMoviesController extends ListOfItemsController {
-    public ListOfAvailableMoviesController(LibraryManager libraryManager, InputOutputManger inputOutputManger) {
-        super(libraryManager, new ListOfItemsView(inputOutputManger, "List of available movies."));
+    public ListOfAvailableMoviesController(InputOutputManger inputOutputManger, LibraryManager libraryManager) {
+        super(new ListOfItemsView(inputOutputManger, "List of available movies."), libraryManager);
     }
 
     public boolean execute() {

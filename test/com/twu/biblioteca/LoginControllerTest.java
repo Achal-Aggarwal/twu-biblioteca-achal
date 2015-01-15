@@ -36,7 +36,7 @@ public class LoginControllerTest {
         SessionManager.getSession().registerUser(achal);
 
         LoginController loginVC =
-                new LoginController(libraryManager,
+                new LoginController(
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)
@@ -53,7 +53,7 @@ public class LoginControllerTest {
         session.registerUser(achal);
 
         LoginController loginVC =
-                new LoginController(libraryManager,
+                new LoginController(
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)
@@ -71,7 +71,7 @@ public class LoginControllerTest {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         LoginController loginVC =
-                new LoginController(libraryManager,
+                new LoginController(
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)
@@ -90,7 +90,7 @@ public class LoginControllerTest {
         session.registerUser(achal);
 
         LoginController loginVC =
-                new LoginController(libraryManager,
+                new LoginController(
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)
@@ -109,7 +109,7 @@ public class LoginControllerTest {
         session.registerUser(achal);
 
         LoginController loginVC =
-                new LoginController(libraryManager,
+                new LoginController(
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)
@@ -126,7 +126,7 @@ public class LoginControllerTest {
         session.registerUser(achal);
 
         LoginController loginVC =
-                new LoginController(libraryManager,
+                new LoginController(
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)

@@ -2,8 +2,7 @@ package com.twu.biblioteca;
 
 public class ProfileController extends Controller {
     private ProfileView view;
-    public ProfileController(LibraryManager libraryManger, InputOutputManger inputOutputManger) {
-        super(libraryManger);
+    public ProfileController(InputOutputManger inputOutputManger) {
         view = new ProfileView(inputOutputManger);
     }
 

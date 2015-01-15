@@ -1,11 +1,8 @@
 package com.twu.biblioteca;
 
-/**
- * Created by achalaggarwal on 1/15/15.
- */
 public class ListOfIssuedBooksController extends ListOfItemsController {
-    public ListOfIssuedBooksController(LibraryManager libraryManager, InputOutputManger inputOutputManger) {
-        super(libraryManager, new ListOfItemsView(inputOutputManger, "List of issued books."));
+    public ListOfIssuedBooksController(InputOutputManger inputOutputManger, LibraryManager libraryManager) {
+        super(new ListOfItemsView(inputOutputManger, "List of issued books."), libraryManager);
     }
 
     public boolean execute() {
@@ -19,7 +16,7 @@ public class ListOfIssuedBooksController extends ListOfItemsController {
     }
 
     @Override
-    public boolean isHidden(){
+    public boolean isHidden() {
         return !(SessionManager.getSession().getLoggedInUser() instanceof Librarian);
     }
 }

@@ -2,10 +2,9 @@ package com.twu.biblioteca;
 
 public class LoginController extends Controller {
     LoginView view;
-    Controller controller;
+    Controller nextActionController;
 
-    public LoginController(LibraryManager libraryManger, InputOutputManger inputOutputManger) {
-        super(libraryManger);
+    public LoginController(InputOutputManger inputOutputManger) {
         view = new LoginView(inputOutputManger);
     }
 
@@ -22,8 +21,8 @@ public class LoginController extends Controller {
             view.setStatus(LoginView.Status.LOGIN_SUCCESSFUL);
             SessionManager.getSession().login(libraryNumber);
             view.render();
-            if (controller != null && isUserValid) {
-                return controller.execute();
+            if (nextActionController != null && isUserValid) {
+                return nextActionController.execute();
             }
         } else {
             view.setStatus(LoginView.Status.LOGIN_UNSUCCESSFUL);
@@ -40,7 +39,7 @@ public class LoginController extends Controller {
     }
 
     public void setAction(Controller controller){
-        this.controller = controller;
+        this.nextActionController = controller;
     }
 
     @Override

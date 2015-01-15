@@ -10,10 +10,9 @@ import java.io.PrintStream;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 public class ProfileControllerTest {
-    LibraryManager libraryManager = new LibraryManager(new BookLibrary(), new MovieLibrary());
     ProfileController profileController;
     User achal = new User("000-0000", "achal", "", "", "");
     ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -25,7 +24,7 @@ public class ProfileControllerTest {
         session = SessionManager.getSession();
         session.registerUser(achal);
         profileController =
-                new ProfileController(libraryManager,
+                new ProfileController(
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)

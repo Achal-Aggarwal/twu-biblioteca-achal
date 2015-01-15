@@ -10,22 +10,21 @@ public class BilbliotecaApp {
     }
 
     public int runApplication() {
-        MenuController mainMenuController = new MenuController(libraryManager, io);
+        MenuController mainMenuController = new MenuController(io);
 
         io.printLine("Welcome and thank you for taking time to visit Biblioteca.");
 
-        mainMenuController.setAction("0", new LoginController(libraryManager, io));
-        mainMenuController.setAction("1", new ListOfAvailableBooksController(libraryManager, io));
-        mainMenuController.setAction("7", new ListOfIssuedBooksController(libraryManager, io));
-        mainMenuController.setAction("2", new CheckoutBookController(libraryManager, io));
-        mainMenuController.setAction("3", new CheckinBookController(libraryManager, io));
-        mainMenuController.setAction("4", new ListOfAvailableMoviesController(libraryManager, io));
-        mainMenuController.setAction("8", new ListOfIssuedMoviesController(libraryManager, io));
-        mainMenuController.setAction("5", new CheckoutMovieController(libraryManager, io));
-        mainMenuController.setAction("6", new CheckinMovieController(libraryManager, io));
-        mainMenuController.setAction("9", new LogoutController(libraryManager, io));
-        mainMenuController.setAction("10", new ProfileController(libraryManager, io));
-        mainMenuController.setAction("11", new QuitMenuController(libraryManager, io));
+        mainMenuController.setAction("0", new LoginController(io));
+        mainMenuController.setAction("1", new ListOfAvailableBooksController(io, libraryManager));
+        mainMenuController.setAction("2", new CheckoutBookController(io, libraryManager));
+        mainMenuController.setAction("3", new CheckinBookController(io, libraryManager));
+        mainMenuController.setAction("4", new ListOfAvailableMoviesController(io, libraryManager));
+        mainMenuController.setAction("8", new ListOfIssuedMoviesController(io, libraryManager));
+        mainMenuController.setAction("5", new CheckoutMovieController(io, libraryManager));
+        mainMenuController.setAction("6", new CheckinMovieController(io, libraryManager));
+        mainMenuController.setAction("9", new LogoutController(io));
+        mainMenuController.setAction("10", new ProfileController(io));
+        mainMenuController.setAction("11", new QuitMenuController(io));
         mainMenuController.execute();
 
         return 0;

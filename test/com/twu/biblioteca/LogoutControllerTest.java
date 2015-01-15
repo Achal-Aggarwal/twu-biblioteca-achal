@@ -10,7 +10,7 @@ import java.io.PrintStream;
 
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertNull;
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 public class LogoutControllerTest {
     User achal = new User("000-0000", "achal", "", "", "");
@@ -35,7 +35,7 @@ public class LogoutControllerTest {
         session.registerUser(achal);
         session.login(achal.getLibraryNumber());
         LogoutController logoutVC =
-                new LogoutController(libraryManager,
+                new LogoutController(
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)
@@ -52,7 +52,7 @@ public class LogoutControllerTest {
         session.registerUser(achal);
 
         LogoutController logoutVC =
-                new LogoutController(libraryManager,
+                new LogoutController(
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)
@@ -69,7 +69,7 @@ public class LogoutControllerTest {
         session.registerUser(achal);
 
         LogoutController logoutVC =
-                new LogoutController(libraryManager,
+                new LogoutController(
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)

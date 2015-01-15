@@ -1,14 +1,14 @@
 package com.twu.biblioteca;
 
 public class LogoutController extends Controller {
-    public LogoutController(LibraryManager libraryManger, InputOutputManger inputOutputManger) {
-        super(libraryManger);
+    private LogoutView view;
+    public LogoutController(InputOutputManger inputOutputManger) {
+        view = new LogoutView(inputOutputManger);
     }
-
     @Override
     public boolean execute() {
         SessionManager.getSession().logout();
-
+        view.render();
         return true;
     }
 
@@ -16,6 +16,7 @@ public class LogoutController extends Controller {
     public String getTitle() {
         return "Logout.";
     }
+
 
     @Override
     public boolean isHidden() {

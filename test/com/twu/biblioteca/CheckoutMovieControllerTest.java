@@ -49,7 +49,7 @@ public class CheckoutMovieControllerTest {
                 new ByteArrayInputStream(input.getBytes()),
                 new PrintStream(output)
         );
-        checkoutMovieVC = new CheckoutMovieController(manager, io);
+        checkoutMovieVC = new CheckoutMovieController(io, manager);
     }
 
     @Test

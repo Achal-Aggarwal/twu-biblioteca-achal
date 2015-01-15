@@ -53,7 +53,7 @@ public class CheckoutBookControllerTest {
                 new ByteArrayInputStream(input.getBytes()),
                 new PrintStream(output)
         );
-        checkoutBookVC = new CheckoutBookController(manager, io);
+        checkoutBookVC = new CheckoutBookController(io, manager);
     }
 
     @Test

@@ -1,15 +1,13 @@
 package com.twu.biblioteca;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 public class CheckoutMovieController extends Controller {
     private CheckoutMovieView view;
     private LoginController loginController;
-
-    public CheckoutMovieController(LibraryManager libraryManager, InputOutputManger inputOutputManger) {
-        super(libraryManager);
+    private LibraryManager libraryManager;
+    public CheckoutMovieController(InputOutputManger inputOutputManger, LibraryManager libraryManager) {
+        this.libraryManager = libraryManager;
         view = new CheckoutMovieView(inputOutputManger);
-        loginController = new LoginController(libraryManager, inputOutputManger);
+        loginController = new LoginController(inputOutputManger);
     }
 
     @Override

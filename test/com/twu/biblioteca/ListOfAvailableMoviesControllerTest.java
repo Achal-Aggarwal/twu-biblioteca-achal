@@ -27,11 +27,11 @@ public class ListOfAvailableMoviesControllerTest {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         ListOfAvailableMoviesController listOfMoviesVC =
-                new ListOfAvailableMoviesController(new LibraryManager(new BookLibrary(), movieLibrary),
+                new ListOfAvailableMoviesController(
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)
-                        )
+                        ), new LibraryManager(new BookLibrary(), movieLibrary)
                 );
 
         listOfMoviesVC.execute();

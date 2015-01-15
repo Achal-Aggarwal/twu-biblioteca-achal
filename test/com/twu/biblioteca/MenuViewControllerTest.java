@@ -46,8 +46,8 @@ public class MenuViewControllerTest {
                 new ByteArrayInputStream(input.getBytes()),
                 new PrintStream(output)
         );
-        menuVC = new MenuController(manager, io);
-        menuVC.setAction("q", new QuitMenuController(manager, io));
+        menuVC = new MenuController(io);
+        menuVC.setAction("q", new QuitMenuController(io));
 
     }
 
@@ -65,7 +65,7 @@ public class MenuViewControllerTest {
         User librarian = new Librarian("000-0000", "achal", "", "", "");
         session.registerUser(librarian);
         session.login(librarian.getLibraryNumber());
-        menuVC.setAction("1", new ListOfIssuedBooksController(manager, io));
+        menuVC.setAction("1", new ListOfIssuedBooksController(io, manager));
 
         assertTrue(menuVC.execute());
         assertEquals("Main Menu.\nq. \tQuit.\n1. \tList of issued books.\n", output.toString());
@@ -77,7 +77,7 @@ public class MenuViewControllerTest {
         User normal_user = new User("000-0000", "achal", "", "", "");
         session.registerUser(normal_user);
         session.login(normal_user.getLibraryNumber());
-        menuVC.setAction("1", new ListOfIssuedBooksController(manager, io));
+        menuVC.setAction("1", new ListOfIssuedBooksController(io, manager));
 
         assertTrue(menuVC.execute());
         assertEquals("Main Menu.\nq. \tQuit.\n", output.toString());
@@ -86,7 +86,7 @@ public class MenuViewControllerTest {
     @Test
     public void shouldPerformListOfBooksActionOnItsSelection(){
         runTestCaseWithInput("1\nq\n");
-        menuVC.setAction("1", new ListOfAvailableBooksController(manager, io));
+        menuVC.setAction("1", new ListOfAvailableBooksController(io, manager));
         menuVC.execute();
         String viewTitle = "List of available books.\n";
         String listOfBooks = "";
@@ -100,7 +100,7 @@ public class MenuViewControllerTest {
     @Test
     public void shouldDisplayErrorMessageOnInvalidSelectionOfMenuItem(){
         runTestCaseWithInput("2\nq\n");
-        menuVC.setAction("1", new ListOfAvailableBooksController(manager, io));
+        menuVC.setAction("1", new ListOfAvailableBooksController(io, manager));
         assertTrue(menuVC.execute());
 
         assertTrue(output.toString().contains("Select a valid option!"));

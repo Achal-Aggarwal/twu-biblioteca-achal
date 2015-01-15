@@ -49,7 +49,7 @@ public class CheckinMovieControllerTest {
                 new ByteArrayInputStream(input.getBytes()),
                 new PrintStream(output)
         );
-        checkinMovieVC = new CheckinMovieController(manager, io);
+        checkinMovieVC = new CheckinMovieController(io, manager);
     }
 
     @Test

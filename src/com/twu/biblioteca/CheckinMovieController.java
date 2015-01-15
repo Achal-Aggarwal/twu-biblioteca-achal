@@ -3,11 +3,12 @@ package com.twu.biblioteca;
 public class CheckinMovieController extends Controller {
     private CheckinMovieView view;
     private LoginController loginController;
+    private LibraryManager libraryManager;
 
-    public CheckinMovieController(LibraryManager libraryManger, InputOutputManger inputOutputManger) {
-        super(libraryManger);
+    public CheckinMovieController(InputOutputManger inputOutputManger, LibraryManager libraryManger) {
         view = new CheckinMovieView(inputOutputManger);
-        loginController = new LoginController(libraryManger, inputOutputManger);
+        this.libraryManager = libraryManger;
+        loginController = new LoginController(inputOutputManger);
     }
 
     @Override

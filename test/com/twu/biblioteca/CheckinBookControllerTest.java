@@ -52,7 +52,7 @@ public class CheckinBookControllerTest {
                 new ByteArrayInputStream(input.getBytes()),
                 new PrintStream(output)
         );
-        checkinBookVC = new CheckinBookController(manager, io);
+        checkinBookVC = new CheckinBookController(io, manager);
     }
 
     @Test

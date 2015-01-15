@@ -32,11 +32,11 @@ public class ListOfAvailableBooksControllerTest {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
         ListOfAvailableBooksController listOfAvailableBooksVC =
-                new ListOfAvailableBooksController(new LibraryManager(bookLibrary, new MovieLibrary()),
+                new ListOfAvailableBooksController(
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)
-                        )
+                        ), new LibraryManager(bookLibrary, new MovieLibrary())
                 );
 
         listOfAvailableBooksVC.execute();

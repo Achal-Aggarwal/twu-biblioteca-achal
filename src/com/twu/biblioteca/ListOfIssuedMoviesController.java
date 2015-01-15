@@ -1,8 +1,8 @@
 package com.twu.biblioteca;
 
 public class ListOfIssuedMoviesController extends ListOfItemsController {
-    public ListOfIssuedMoviesController(LibraryManager libraryManager, InputOutputManger inputOutputManger) {
-        super(libraryManager, new ListOfItemsView(inputOutputManger, "List of issued movies."));
+    public ListOfIssuedMoviesController(InputOutputManger inputOutputManger, LibraryManager libraryManager) {
+        super(new ListOfItemsView(inputOutputManger, "List of issued movies."), libraryManager);
     }
 
     public boolean execute() {
@@ -16,7 +16,7 @@ public class ListOfIssuedMoviesController extends ListOfItemsController {
     }
 
     @Override
-    public boolean isHidden(){
+    public boolean isHidden() {
         return !(SessionManager.getSession().getLoggedInUser() instanceof Librarian);
     }
 }

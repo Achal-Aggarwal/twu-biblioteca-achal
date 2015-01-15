@@ -42,11 +42,11 @@ public class ListOfIssuedBooksControllerTest {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         LibraryManager manager = new LibraryManager(bookLibrary, new MovieLibrary());
         ListOfIssuedBooksController listOfIssuedBooksVC =
-                new ListOfIssuedBooksController(manager,
+                new ListOfIssuedBooksController(
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)
-                        )
+                        ), manager
                 );
         session.registerUser(user);
         session.login(user.getLibraryNumber());
@@ -69,11 +69,11 @@ public class ListOfIssuedBooksControllerTest {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         LibraryManager manager = new LibraryManager(bookLibrary, new MovieLibrary());
         ListOfIssuedBooksController listOfIssuedBooksVC =
-                new ListOfIssuedBooksController(manager,
+                new ListOfIssuedBooksController(
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)
-                        )
+                        ), manager
                 );
         user = new Librarian("000-0010", "abhishek", "", "", "");
         session.registerUser(user);
@@ -88,11 +88,11 @@ public class ListOfIssuedBooksControllerTest {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         LibraryManager manager = new LibraryManager(bookLibrary, new MovieLibrary());
         ListOfIssuedBooksController listOfIssuedBooksVC =
-                new ListOfIssuedBooksController(manager,
+                new ListOfIssuedBooksController(
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)
-                        )
+                        ), manager
                 );
         session.registerUser(user);
         session.login(user.getLibraryNumber());

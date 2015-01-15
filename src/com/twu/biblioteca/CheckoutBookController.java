@@ -2,11 +2,13 @@ package com.twu.biblioteca;
 
 public class CheckoutBookController extends Controller {
     private CheckoutBookView view;
+    private LibraryManager libraryManager;
     LoginController loginController;
-    public CheckoutBookController(LibraryManager libraryManager, InputOutputManger inputOutputManger) {
-        super(libraryManager);
+
+    public CheckoutBookController(InputOutputManger inputOutputManger, LibraryManager libraryManager) {
         view = new CheckoutBookView(inputOutputManger);
-        loginController = new LoginController(libraryManager, inputOutputManger);
+        this.libraryManager = libraryManager;
+        loginController = new LoginController(inputOutputManger);
     }
 
     @Override
