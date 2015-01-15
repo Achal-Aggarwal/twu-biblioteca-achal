@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,6 +19,7 @@ public class ListOfIssuedBooksControllerTest {
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
     Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
     User user = new User("000-0000", "achal", "", "", "");
+    SessionManager session;
 
     @Before
     public void setUp() {
@@ -26,6 +28,12 @@ public class ListOfIssuedBooksControllerTest {
         bookLibrary.addItem(galvin);
         bookLibrary.addItem(internetSec);
         bookLibrary.addItem(fivePoint);
+        session = SessionManager.getSession();
+    }
+
+    @After
+    public void tearDown() {
+        SessionManager.clearSession();
     }
 
     @Test
@@ -40,8 +48,8 @@ public class ListOfIssuedBooksControllerTest {
                                 new PrintStream(output)
                         )
                 );
-        manager.registerUser(user);
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.registerUser(user);
+        session.login(user.getLibraryNumber());
         manager.checkoutBook(letusc.getTitle());
         manager.checkoutBook(internetSec.getTitle());
 
@@ -68,8 +76,8 @@ public class ListOfIssuedBooksControllerTest {
                         )
                 );
         user = new Librarian("000-0010", "abhishek", "", "", "");
-        manager.registerUser(user);
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.registerUser(user);
+        session.login(user.getLibraryNumber());
 
         assertFalse(listOfIssuedBooksVC.isHidden());
     }
@@ -86,8 +94,8 @@ public class ListOfIssuedBooksControllerTest {
                                 new PrintStream(output)
                         )
                 );
-        manager.registerUser(user);
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.registerUser(user);
+        session.login(user.getLibraryNumber());
 
         assertTrue(listOfIssuedBooksVC.isHidden());
     }

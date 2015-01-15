@@ -9,16 +9,16 @@ public class LibraryManager {
     private BookLibrary bookLibrary;
     private MovieLibrary movieLibrary;
     private HashMap<String, Item> issuedMovies = new HashMap<String, Item>();
-    private HashMap<String, User> users = new HashMap<String, User>();
-    private User currentUser = null;
+    private SessionManager sessionManager;
 
     public LibraryManager(BookLibrary bookLibrary, MovieLibrary movieLibrary) {
         this.bookLibrary = bookLibrary;
         this.movieLibrary = movieLibrary;
+        sessionManager = SessionManager.getSession();
     }
 
     private boolean checkoutItem(String itemTitle, Library library, HashMap<String, Item> issuedItems){
-        if(currentUser == null){
+        if(sessionManager.getLoggedInUser() == null){
             return false;
         }
 
@@ -32,7 +32,7 @@ public class LibraryManager {
             return false;
         }
 
-        item.setBorrower(currentUser);
+        item.setBorrower(sessionManager.getLoggedInUser());
         issuedItems.put(itemTitle, item);
 
         return true;
@@ -48,7 +48,7 @@ public class LibraryManager {
     }
 
     private boolean checkinItem(String itemTitle, Library library, HashMap<String, Item> issuedItems){
-        if(currentUser == null){
+        if(sessionManager.getLoggedInUser() == null){
             return false;
         }
 
@@ -57,7 +57,7 @@ public class LibraryManager {
             return false;
         }
 
-        if(item.getBorrower() != currentUser){
+        if(item.getBorrower() != sessionManager.getLoggedInUser()){
             return false;
         }
 
@@ -105,40 +105,5 @@ public class LibraryManager {
 
     public boolean isBookCheckedOut(String bookTitle) {
         return issuedBooks.containsKey(bookTitle);
-    }
-
-    public void registerUser(User user) {
-        users.put(user.getLibraryNumber(), user);
-    }
-
-    public boolean isUserPresent(String libraryNumber) {
-        return users.containsKey(libraryNumber);
-    }
-
-    public boolean isUserValid(String libraryNumber, String password) {
-        User user = users.get(libraryNumber);
-
-        if (user == null){
-            return false;
-        }
-
-        return user.getPassword().equals(password);
-    }
-
-    public boolean setCurrentUser(String userLibraryNumber) {
-        if(!isUserPresent(userLibraryNumber)){
-            return false;
-        }
-
-        currentUser = users.get(userLibraryNumber);
-        return true;
-    }
-
-    public void unSetCurrentUser() {
-        currentUser = null;
-    }
-
-    public User getCurrentUser() {
-        return currentUser;
     }
 }

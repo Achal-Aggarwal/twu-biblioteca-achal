@@ -20,6 +20,6 @@ public class ListOfIssuedBooksController extends ListOfItemsController {
 
     @Override
     public boolean isHidden(){
-        return !(libraryManager.getCurrentUser() instanceof Librarian);
+        return !(SessionManager.getSession().getLoggedInUser() instanceof Librarian);
     }
 }

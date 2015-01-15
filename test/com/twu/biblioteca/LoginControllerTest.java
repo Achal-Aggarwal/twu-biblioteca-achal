@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,17 +16,24 @@ import static junit.framework.TestCase.assertTrue;
 public class LoginControllerTest {
     User achal = new User("000-0000", "achal", "", "", "");
     LibraryManager libraryManager;
+    SessionManager session;
 
     @Before
     public void setUp() {
         libraryManager = new LibraryManager(new BookLibrary(), new MovieLibrary());
+        session = SessionManager.getSession();
+    }
+
+    @After
+    public void tearDown() {
+        SessionManager.clearSession();
     }
 
     @Test
     public void shouldLetValidUserToLogin(){
         String input = achal.getLibraryNumber() + "\n" + achal.getPassword() +"\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        libraryManager.registerUser(achal);
+        SessionManager.getSession().registerUser(achal);
 
         LoginController loginVC =
                 new LoginController(libraryManager,
@@ -42,7 +50,7 @@ public class LoginControllerTest {
     public void shouldNotLetValidUserToLoginIfPasswordIsWrong(){
         String input = achal.getLibraryNumber() + "\nasd\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        libraryManager.registerUser(achal);
+        session.registerUser(achal);
 
         LoginController loginVC =
                 new LoginController(libraryManager,
@@ -79,7 +87,7 @@ public class LoginControllerTest {
     public void shouldPassValidUserInformationToLibraryManager(){
         String input = achal.getLibraryNumber() + "\n"+ achal.getPassword() +"\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        libraryManager.registerUser(achal);
+        session.registerUser(achal);
 
         LoginController loginVC =
                 new LoginController(libraryManager,
@@ -91,14 +99,14 @@ public class LoginControllerTest {
 
         assertTrue(loginVC.execute());
 
-        assertSame(achal, libraryManager.getCurrentUser());
+        assertSame(achal, session.getLoggedInUser());
     }
 
     @Test
     public void shouldShowItselfIfNoUserIsLoggedIn(){
         String input = achal.getLibraryNumber() + "\n"+ achal.getPassword() +"\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        libraryManager.registerUser(achal);
+        session.registerUser(achal);
 
         LoginController loginVC =
                 new LoginController(libraryManager,
@@ -115,7 +123,7 @@ public class LoginControllerTest {
     public void shouldHideItselfIfUserIsLoggedInAlready(){
         String input = achal.getLibraryNumber() + "\n"+ achal.getPassword() +"\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        libraryManager.registerUser(achal);
+        session.registerUser(achal);
 
         LoginController loginVC =
                 new LoginController(libraryManager,
@@ -124,7 +132,7 @@ public class LoginControllerTest {
                                 new PrintStream(output)
                         )
                 );
-        libraryManager.setCurrentUser(achal.getLibraryNumber());
+        session.login(achal.getLibraryNumber());
 
         assertTrue(loginVC.isHidden());
     }

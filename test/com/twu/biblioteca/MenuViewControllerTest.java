@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -20,6 +21,7 @@ public class MenuViewControllerTest {
     private ByteArrayOutputStream output;
     private InputOutputManger io;
     private MenuController menuVC;
+    private SessionManager session;
 
     @Before
     public void setUp() {
@@ -30,6 +32,12 @@ public class MenuViewControllerTest {
         bookLibrary.addItem(fivePoint);
 
         manager = new LibraryManager(bookLibrary, new MovieLibrary());
+        session = SessionManager.getSession();
+    }
+
+    @After
+    public void tearDown(){
+        SessionManager.clearSession();
     }
 
     private void runTestCaseWithInput(String input) {
@@ -55,8 +63,8 @@ public class MenuViewControllerTest {
     public void shouldAbleToDisplayOptionBasedOnTypeOfUserLoggedIn(){
         runTestCaseWithInput("q\n");
         User librarian = new Librarian("000-0000", "achal", "", "", "");
-        manager.registerUser(librarian);
-        manager.setCurrentUser(librarian.getLibraryNumber());
+        session.registerUser(librarian);
+        session.login(librarian.getLibraryNumber());
         menuVC.setAction("1", new ListOfIssuedBooksController(manager, io));
 
         assertTrue(menuVC.execute());
@@ -67,8 +75,8 @@ public class MenuViewControllerTest {
     public void shouldAbleToHideOptionBasedOnTypeOfUserLoggedIn(){
         runTestCaseWithInput("q\n");
         User normal_user = new User("000-0000", "achal", "", "", "");
-        manager.registerUser(normal_user);
-        manager.setCurrentUser(normal_user.getLibraryNumber());
+        session.registerUser(normal_user);
+        session.login(normal_user.getLibraryNumber());
         menuVC.setAction("1", new ListOfIssuedBooksController(manager, io));
 
         assertTrue(menuVC.execute());

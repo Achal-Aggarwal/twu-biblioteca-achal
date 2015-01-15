@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.sun.deploy.util.StringUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,6 +24,7 @@ public class CheckoutMovieControllerTest {
     private ByteArrayOutputStream output;
     private InputOutputManger io;
     private CheckoutMovieController checkoutMovieVC;
+    private SessionManager session;
 
     @Before
     public void setUp() {
@@ -30,8 +32,15 @@ public class CheckoutMovieControllerTest {
         movieLibrary.addItem(seven);
         movieLibrary.addItem(darkKnight);
         manager = new LibraryManager(new BookLibrary(), movieLibrary);
-        manager.registerUser(user);
+        session = SessionManager.getSession();
+        session.registerUser(user);
     }
+
+    @After
+    public void tearDown() {
+        SessionManager.clearSession();
+    }
+
 
     private void runTestCaseWithInput(List<String> inputs) {
         String input = StringUtils.join(inputs, "\n");
@@ -59,7 +68,7 @@ public class CheckoutMovieControllerTest {
 
     @Test
     public void shouldPrintSuccessfulMessageOnSuccessfulCheckout(){
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.login(user.getLibraryNumber());
         runTestCaseWithInput(Arrays.asList(seven.getTitle()));
         checkoutMovieVC.execute();
         assertEquals("Thank you! Enjoy the movie\n", output.toString());
@@ -67,7 +76,7 @@ public class CheckoutMovieControllerTest {
 
     @Test
     public void shouldPrintUnSuccessfulMessageOnUnSuccessfulCheckoutIfMovieCheckedoutAlready(){
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.login(user.getLibraryNumber());
         runTestCaseWithInput(Arrays.asList(seven.getTitle()));
         manager.checkoutMovie(seven.getTitle());
         checkoutMovieVC.execute();
@@ -76,7 +85,7 @@ public class CheckoutMovieControllerTest {
 
     @Test
     public void shouldPrintUnSuccessfulMessageOnUnSuccessfulCheckoutIfMovieDoesntExist(){
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.login(user.getLibraryNumber());
         runTestCaseWithInput(Arrays.asList("Programing\n"));
         checkoutMovieVC.execute();
         assertEquals("That movie is not available.\n", output.toString());

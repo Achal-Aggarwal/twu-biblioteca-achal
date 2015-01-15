@@ -9,7 +9,7 @@ public class ProfileController extends Controller {
 
     @Override
     public boolean execute() {
-        view.setUser(libraryManager.getCurrentUser());
+        view.setUser(SessionManager.getSession().getLoggedInUser());
         view.render();
 
         return true;
@@ -22,6 +22,6 @@ public class ProfileController extends Controller {
 
     @Override
     public boolean isHidden() {
-        return libraryManager.getCurrentUser() == null;
+        return SessionManager.getSession().getLoggedInUser() == null;
     }
 }

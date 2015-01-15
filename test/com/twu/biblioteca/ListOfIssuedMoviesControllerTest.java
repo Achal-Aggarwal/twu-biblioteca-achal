@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,12 +17,19 @@ public class ListOfIssuedMoviesControllerTest {
     Movie seven = new Movie("Seven", "1995", "David Fincher", "8");
     Movie darkKnight = new Movie("The Dark Knight", "2008", "Christopher Nolan", "unrated");
     User user = new User("000-0000", "achal", "", "", "");
+    SessionManager session;
 
     @Before
     public void setUp() {
         movieLibrary = new MovieLibrary();
         movieLibrary.addItem(seven);
         movieLibrary.addItem(darkKnight);
+        session = SessionManager.getSession();
+    }
+
+    @After
+    public void tearDown() {
+        SessionManager.clearSession();
     }
 
     @Test
@@ -36,8 +44,8 @@ public class ListOfIssuedMoviesControllerTest {
                                 new PrintStream(output)
                         )
                 );
-        manager.registerUser(user);
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.registerUser(user);
+        session.login(user.getLibraryNumber());
         manager.checkoutMovie(seven.getTitle());
         manager.checkoutMovie(darkKnight.getTitle());
 
@@ -63,8 +71,8 @@ public class ListOfIssuedMoviesControllerTest {
                         )
                 );
         user = new Librarian("000-0010", "abhishek", "", "", "");
-        manager.registerUser(user);
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.registerUser(user);
+        session.login(user.getLibraryNumber());
 
         assertFalse(listOfIssuedMoviesVC.isHidden());
     }
@@ -81,8 +89,8 @@ public class ListOfIssuedMoviesControllerTest {
                                 new PrintStream(output)
                         )
                 );
-        manager.registerUser(user);
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.registerUser(user);
+        session.login(user.getLibraryNumber());
 
         assertTrue(listOfIssuedMoviesVC.isHidden());
     }

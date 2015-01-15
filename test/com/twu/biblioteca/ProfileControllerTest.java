@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,11 +17,13 @@ public class ProfileControllerTest {
     ProfileController profileController;
     User achal = new User("000-0000", "achal", "", "", "");
     ByteArrayOutputStream output = new ByteArrayOutputStream();
+    SessionManager session;
 
     @Before
     public void setUp() {
         String input = "\n";
-        libraryManager.registerUser(achal);
+        session = SessionManager.getSession();
+        session.registerUser(achal);
         profileController =
                 new ProfileController(libraryManager,
                         new InputOutputManger(
@@ -30,9 +33,14 @@ public class ProfileControllerTest {
                 );
     }
 
+    @After
+    public void tearDown(){
+        SessionManager.clearSession();
+    }
+
     @Test
     public void shouldDisplayCurrentUserProfile(){
-        libraryManager.setCurrentUser(achal.getLibraryNumber());
+        session.login(achal.getLibraryNumber());
         profileController.execute();
 
         String title = "Profile.\n";
@@ -50,7 +58,7 @@ public class ProfileControllerTest {
 
     @Test
     public void shouldShowItselfIfUserIsLoggedInAlready(){
-        libraryManager.setCurrentUser(achal.getLibraryNumber());
+        session.login(achal.getLibraryNumber());
 
         assertFalse(profileController.isHidden());
     }

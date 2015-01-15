@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.sun.deploy.util.StringUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,6 +26,7 @@ public class CheckoutBookControllerTest {
     private ByteArrayOutputStream output;
     private InputOutputManger io;
     private CheckoutBookController checkoutBookVC;
+    private SessionManager session;
 
     @Before
     public void setUp() {
@@ -34,8 +36,15 @@ public class CheckoutBookControllerTest {
         bookLibrary.addItem(internetSec);
         bookLibrary.addItem(fivePoint);
         manager = new LibraryManager(bookLibrary, new MovieLibrary());
-        manager.registerUser(user);
+        session = SessionManager.getSession();
+        session.registerUser(user);
     }
+
+    @After
+    public void tearDown() {
+        SessionManager.clearSession();
+    }
+
 
     private void runTestCaseWithInput(List<String> inputs) {
         String input = StringUtils.join(inputs, "\n");
@@ -63,7 +72,7 @@ public class CheckoutBookControllerTest {
 
     @Test
     public void shouldPrintSuccessfulMessageOnSuccessfulCheckout(){
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.login(user.getLibraryNumber());
         runTestCaseWithInput(Arrays.asList(letusc.getTitle()));
         checkoutBookVC.execute();
         assertEquals("Thank you! Enjoy the book\n", output.toString());
@@ -71,7 +80,7 @@ public class CheckoutBookControllerTest {
 
     @Test
     public void shouldPrintUnSuccessfulMessageOnUnSuccessfulCheckoutIfBookCheckedoutAlready(){
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.login(user.getLibraryNumber());
         runTestCaseWithInput(Arrays.asList(letusc.getTitle()));
         manager.checkoutBook(letusc.getTitle());
         checkoutBookVC.execute();
@@ -80,7 +89,7 @@ public class CheckoutBookControllerTest {
 
     @Test
     public void shouldPrintUnSuccessfulMessageOnUnSuccessfulCheckoutIfBookDoesntExist(){
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.login(user.getLibraryNumber());
         runTestCaseWithInput(Arrays.asList("Programing C"));
         checkoutBookVC.execute();
         assertEquals("That book is not available.\n", output.toString());

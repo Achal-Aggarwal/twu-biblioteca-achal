@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.sun.deploy.util.StringUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,6 +25,7 @@ public class CheckinBookControllerTest {
     private InputOutputManger io;
     private CheckinBookController checkinBookVC;
     User user = new User("000-0000", "achal", "", "", "");
+    private SessionManager session;
 
     @Before
     public void setUp() {
@@ -33,8 +35,15 @@ public class CheckinBookControllerTest {
         bookLibrary.addItem(internetSec);
         bookLibrary.addItem(fivePoint);
         manager = new LibraryManager(bookLibrary, new MovieLibrary());
-        manager.registerUser(user);
+        session = SessionManager.getSession();
+        session.registerUser(user);
     }
+
+    @After
+    public void tearDown() {
+        SessionManager.clearSession();
+    }
+
 
     private void runTestCaseWithInput(List<String> inputs) {
         String input = StringUtils.join(inputs, "\n");
@@ -57,9 +66,9 @@ public class CheckinBookControllerTest {
 
     @Test
     public void shouldNotCheckinLetUsCBookIfUserIsInvalid(){
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.login(user.getLibraryNumber());
         manager.checkoutBook(letusc.getTitle());
-        manager.setCurrentUser(null);
+        session.logout();
 
         runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), "asd", letusc.getTitle()));
         checkinBookVC.execute();
@@ -68,7 +77,7 @@ public class CheckinBookControllerTest {
 
     @Test
     public void shouldPrintSuccessfulMessageOnSuccessfulCheckin(){
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.login(user.getLibraryNumber());
         runTestCaseWithInput(Arrays.asList(letusc.getTitle()));
         manager.checkoutBook(letusc.getTitle());
         letusc.setBorrower(user);
@@ -78,7 +87,7 @@ public class CheckinBookControllerTest {
 
     @Test
     public void shouldPrintUnSuccessfulMessageOnUnSuccessfulCheckinIfBookCheckedinAlready(){
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.login(user.getLibraryNumber());
         runTestCaseWithInput(Arrays.asList(letusc.getTitle()));
         checkinBookVC.execute();
         assertEquals("That is not a valid book to return.\n", output.toString());
@@ -86,7 +95,7 @@ public class CheckinBookControllerTest {
 
     @Test
     public void shouldPrintUnSuccessfulMessageOnUnSuccessfulCheckinIfBookDoesntExist(){
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.login(user.getLibraryNumber());
         runTestCaseWithInput(Arrays.asList("Programing C"));
         checkinBookVC.execute();
         assertEquals("That is not a valid book to return.\n", output.toString());

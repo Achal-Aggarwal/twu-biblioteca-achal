@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.sun.deploy.util.StringUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -23,6 +24,7 @@ public class CheckinMovieControllerTest {
     private ByteArrayOutputStream output;
     private InputOutputManger io;
     private CheckinMovieController checkinMovieVC;
+    private SessionManager session;
 
     @Before
     public void setUp() {
@@ -30,8 +32,15 @@ public class CheckinMovieControllerTest {
         movieLibrary.addItem(seven);
         movieLibrary.addItem(darkKnight);
         manager = new LibraryManager(new BookLibrary(), movieLibrary);
-        manager.registerUser(user);
+        session = SessionManager.getSession();
+        session.registerUser(user);
     }
+
+    @After
+    public void tearDown() {
+        SessionManager.clearSession();
+    }
+
 
     private void runTestCaseWithInput(List<String> inputs) {
         String input = StringUtils.join(inputs, "\n");
@@ -54,9 +63,9 @@ public class CheckinMovieControllerTest {
 
     @Test
     public void shouldNotCheckinSevenMovieIfUserIsInvalid(){
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.login(user.getLibraryNumber());
         manager.checkoutMovie(seven.getTitle());
-        manager.setCurrentUser(null);
+        session.logout();
         runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), "asd", seven.getTitle()));
         checkinMovieVC.execute();
         assertTrue(manager.isMovieCheckedOut(seven.getTitle()));
@@ -64,7 +73,7 @@ public class CheckinMovieControllerTest {
 
     @Test
     public void shouldPrintSuccessfulMessageOnSuccessfulCheckin(){
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.login(user.getLibraryNumber());
         runTestCaseWithInput(Arrays.asList(seven.getTitle()));
         manager.checkoutMovie(seven.getTitle());
         checkinMovieVC.execute();
@@ -73,7 +82,7 @@ public class CheckinMovieControllerTest {
 
     @Test
     public void shouldPrintUnSuccessfulMessageOnUnSuccessfulCheckinIfMovieCheckedinAlready(){
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.login(user.getLibraryNumber());
         runTestCaseWithInput(Arrays.asList(seven.getTitle()));
         checkinMovieVC.execute();
         assertEquals("That is not a valid movie to return.\n", output.toString());
@@ -81,7 +90,7 @@ public class CheckinMovieControllerTest {
 
     @Test
     public void shouldPrintUnSuccessfulMessageOnUnSuccessfulCheckinIfMovieDoesntExist(){
-        manager.setCurrentUser(user.getLibraryNumber());
+        session.login(user.getLibraryNumber());
         runTestCaseWithInput(Arrays.asList("Programing C"));
         checkinMovieVC.execute();
         assertEquals("That is not a valid movie to return.\n", output.toString());

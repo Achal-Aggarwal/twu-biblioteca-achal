@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,9 +29,15 @@ public class BibliotecaAppTest {
         bookLibrary.addItem(internetSec);
         bookLibrary.addItem(fivePoint);
         manager = new LibraryManager(bookLibrary, new MovieLibrary());
-        manager.registerUser(new User("000-0000","achal", "", "", ""));
-        manager.setCurrentUser("000-0000");
+        SessionManager.getSession().registerUser(new User("000-0000", "achal", "", "", ""));
+        SessionManager.getSession().login("000-0000");
     }
+
+    @After
+    public void tearDown() {
+        SessionManager.clearSession();
+    }
+
 
     private void runApplicationWithInput(String input){
         output = new ByteArrayOutputStream();

@@ -7,7 +7,7 @@ public class LogoutController extends Controller {
 
     @Override
     public boolean execute() {
-        libraryManager.unSetCurrentUser();
+        SessionManager.getSession().logout();
 
         return true;
     }
@@ -19,6 +19,6 @@ public class LogoutController extends Controller {
 
     @Override
     public boolean isHidden() {
-        return libraryManager.getCurrentUser() == null;
+        return SessionManager.getSession().getLoggedInUser() == null;
     }
 }
