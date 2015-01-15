@@ -112,12 +112,16 @@ public class LibraryManager {
         return user.getPassword().equals(password);
     }
 
-    public boolean setCurrentUser(User user) {
-        if(!isUserPresent(user.getLibraryNumber())){
+    public boolean setCurrentUser(String userLibraryNumber) {
+        if(!isUserPresent(userLibraryNumber)){
             return false;
         }
 
-        currentUser = user;
+        currentUser = (User) users.get(userLibraryNumber);
         return true;
+    }
+
+    public User getCurrentUser() {
+        return currentUser;
     }
 }

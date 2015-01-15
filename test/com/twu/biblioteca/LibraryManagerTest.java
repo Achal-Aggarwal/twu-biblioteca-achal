@@ -106,18 +106,18 @@ public class LibraryManagerTest {
     @Test
     public void testSettingOfRegisterUserAsCurrentUser(){
         manager.registerUser(achal);
-        assertTrue(manager.setCurrentUser(achal));
+        assertTrue(manager.setCurrentUser(achal.getLibraryNumber()));
     }
 
     @Test
     public void testSettingOfUnregisterUserAsCurrentUser(){
-        assertFalse(manager.setCurrentUser(achal));
+        assertFalse(manager.setCurrentUser(achal.getLibraryNumber()));
     }
 
     @Test
     public void testTrackingOfUserOnCheckoutOfABook(){
         manager.registerUser(achal);
-        manager.setCurrentUser(achal);
+        manager.setCurrentUser(achal.getLibraryNumber());
         manager.checkoutBook(letusc.getTitle());
         assertSame(achal, letusc.getBorrower());
     }
@@ -125,7 +125,7 @@ public class LibraryManagerTest {
     @Test
     public void testTrackingOfUserOnCheckoutOfAMovie(){
         manager.registerUser(achal);
-        manager.setCurrentUser(achal);
+        manager.setCurrentUser(achal.getLibraryNumber());
         manager.checkoutMovie(seven.getTitle());
         assertSame(achal, seven.getBorrower());
     }
@@ -133,21 +133,21 @@ public class LibraryManagerTest {
     @Test
     public void testValidationOfValidUserOnCheckinOfAMovie(){
         manager.registerUser(achal);
-        manager.setCurrentUser(achal);
+        manager.setCurrentUser(achal.getLibraryNumber());
         manager.checkoutBook(letusc.getTitle());
         assertTrue(manager.checkinBook(letusc.getTitle()));
     }
 
     @Test
     public void testValidationOfInvalidUserOnCheckinOfAMovie(){
-        User abhishek = new User("000-0000", "abhishek");
+        User abhishek = new User("000-0001", "abhishek");
         manager.registerUser(achal);
         manager.registerUser(abhishek);
 
-        manager.setCurrentUser(achal);
+        manager.setCurrentUser(achal.getLibraryNumber());
         manager.checkoutBook(letusc.getTitle());
 
-        manager.setCurrentUser(abhishek);
+        manager.setCurrentUser(abhishek.getLibraryNumber());
         assertFalse(manager.checkinBook(letusc.getTitle()));
     }
 }
