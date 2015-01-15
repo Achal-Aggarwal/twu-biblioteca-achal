@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import org.junit.Test;
 
+import static junit.framework.Assert.assertSame;
 import static junit.framework.TestCase.assertEquals;
 
 public class MovieTest {
@@ -9,17 +10,23 @@ public class MovieTest {
     String year = "1995";
     String director = "David Fincher";
     String movieRating = "8";
-    Movie seven;
+    Movie seven = new Movie(name, year, director, movieRating);
+
 
     @Test
     public void testStringRepresentationOfBookWithAuthorPresent(){
-        seven = new Movie(name, year, director, movieRating);
         assertEquals("|" + name + "|\t|" + year + "|\t|" + director + "|\t|" + movieRating + "|", seven.getFormattedString());
     }
 
     @Test
     public void testNameGetter(){
-        seven = new Movie(name, year, director, movieRating);
         assertEquals(name, seven.getTitle());
+    }
+
+    @Test
+    public void testGetterAndSetterOfBook(){
+        User user = new User("000-0000", "achal");
+        seven.setBorrower(user);
+        assertSame(user, seven.getBorrower());
     }
 }

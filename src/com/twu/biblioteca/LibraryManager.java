@@ -37,14 +37,6 @@ public class LibraryManager {
         return true;
     }
 
-    public boolean checkoutBook(String bookTitle) {
-        return checkoutItem(bookTitle, bookLibrary);
-    }
-
-    public boolean checkoutMovie(String movieName) {
-        return checkoutItem(movieName, movieLibrary);
-    }
-
     private boolean checkinItem(String itemTitle, Library library){
         HashMap issuedItems;
         if(library instanceof BookLibrary){
@@ -62,6 +54,14 @@ public class LibraryManager {
         issuedItems.remove(itemTitle);
 
         return true;
+    }
+
+    public boolean checkoutMovie(String movieName) {
+        return checkoutItem(movieName, movieLibrary);
+    }
+
+    public boolean checkoutBook(String bookTitle) {
+        return checkoutItem(bookTitle, bookLibrary);
     }
 
     public boolean checkinBook(String bookTitle) {
