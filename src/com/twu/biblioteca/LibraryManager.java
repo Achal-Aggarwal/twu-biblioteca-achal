@@ -9,6 +9,7 @@ public class LibraryManager {
     private MovieLibrary movieLibrary;
     private HashMap issuedMovies = new HashMap();
     private HashMap users = new HashMap();
+    private User currentUser = null;
 
     public LibraryManager(BookLibrary bookLibrary, MovieLibrary movieLibrary) {
         this.bookLibrary = bookLibrary;
@@ -32,6 +33,7 @@ public class LibraryManager {
             return false;
         }
 
+        item.setBorrower(currentUser);
         issuedItems.put(itemTitle, item);
 
         return true;
@@ -47,6 +49,10 @@ public class LibraryManager {
 
         Item item = (Item) issuedItems.get(itemTitle);
         if(item == null){
+            return false;
+        }
+
+        if(item.getBorrower() != currentUser){
             return false;
         }
 
@@ -104,5 +110,14 @@ public class LibraryManager {
         }
 
         return user.getPassword().equals(password);
+    }
+
+    public boolean setCurrentUser(User user) {
+        if(!isUserPresent(user.getLibraryNumber())){
+            return false;
+        }
+
+        currentUser = user;
+        return true;
     }
 }

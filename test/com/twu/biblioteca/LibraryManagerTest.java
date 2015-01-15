@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static junit.framework.Assert.assertSame;
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -19,6 +20,9 @@ public class LibraryManagerTest {
     Movie seven = new Movie("Seven", "1995", "David Fincher", "8");
     Movie darkKnight = new Movie("The Dark Knight", "2008", "Christopher Nolan", "unrated");
 
+    User achal = new User("000-0000", "achal");
+
+    LibraryManager manager;
 
     @Before
     public void setUp() {
@@ -31,25 +35,24 @@ public class LibraryManagerTest {
         movieLibrary = new MovieLibrary();
         movieLibrary.addItem(seven);
         movieLibrary.addItem(darkKnight);
+
+        manager = new LibraryManager(bookLibrary, movieLibrary);
     }
 
     @Test
     public void testCheckingOutABook() {
-        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
         assertTrue(manager.checkoutBook(letusc.getTitle()));
         assertTrue(manager.isBookCheckedOut(letusc.getTitle()));
     }
 
     @Test
     public void testCheckingOutAMovie() {
-        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
         assertTrue(manager.checkoutMovie(seven.getTitle()));
         assertTrue(manager.isMovieCheckedOut(seven.getTitle()));
     }
 
     @Test
     public void testCheckingInABook() {
-        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
         manager.checkoutBook(letusc.getTitle());
 
         assertTrue(manager.checkinBook(letusc.getTitle()));
@@ -58,7 +61,6 @@ public class LibraryManagerTest {
 
     @Test
     public void testCheckingInAMovie() {
-        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
         manager.checkoutMovie(seven.getTitle());
 
         assertTrue(manager.checkinMovie(seven.getTitle()));
@@ -67,7 +69,6 @@ public class LibraryManagerTest {
 
     @Test
     public void testListOfAvailableBooks() {
-        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
 
         List<String> bookList = manager.getListOfAvailableBooks();
         assertTrue(bookList.contains(letusc.getFormattedString()));
@@ -78,7 +79,6 @@ public class LibraryManagerTest {
 
     @Test
     public void testListOfAvailableMovies() {
-        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
 
         List<String> movieList = manager.getListOfAvailableMovies();
         assertTrue(movieList.contains(seven.getFormattedString()));
@@ -87,25 +87,67 @@ public class LibraryManagerTest {
 
     @Test
     public void testRegistrationOfUser(){
-        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
-
-        manager.registerUser(new User("000-0000", "achal"));
+        manager.registerUser(achal);
         assertTrue(manager.isUserPresent("000-0000"));
     }
 
     @Test
     public void testValidationOfValidUser(){
-        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
-
-        manager.registerUser(new User("000-0000", "achal"));
+        manager.registerUser(achal);
         assertTrue(manager.isUserValid("000-0000", "achal"));
     }
 
     @Test
     public void testValidationOfInvalidUser(){
-        LibraryManager manager = new LibraryManager(bookLibrary, movieLibrary);
-
-        manager.registerUser(new User("000-0000", "achal"));
+        manager.registerUser(achal);
         assertFalse(manager.isUserValid("000-0000", "asd"));
+    }
+
+    @Test
+    public void testSettingOfRegisterUserAsCurrentUser(){
+        manager.registerUser(achal);
+        assertTrue(manager.setCurrentUser(achal));
+    }
+
+    @Test
+    public void testSettingOfUnregisterUserAsCurrentUser(){
+        assertFalse(manager.setCurrentUser(achal));
+    }
+
+    @Test
+    public void testTrackingOfUserOnCheckoutOfABook(){
+        manager.registerUser(achal);
+        manager.setCurrentUser(achal);
+        manager.checkoutBook(letusc.getTitle());
+        assertSame(achal, letusc.getBorrower());
+    }
+
+    @Test
+    public void testTrackingOfUserOnCheckoutOfAMovie(){
+        manager.registerUser(achal);
+        manager.setCurrentUser(achal);
+        manager.checkoutMovie(seven.getTitle());
+        assertSame(achal, seven.getBorrower());
+    }
+
+    @Test
+    public void testValidationOfValidUserOnCheckinOfAMovie(){
+        manager.registerUser(achal);
+        manager.setCurrentUser(achal);
+        manager.checkoutBook(letusc.getTitle());
+        assertTrue(manager.checkinBook(letusc.getTitle()));
+    }
+
+    @Test
+    public void testValidationOfInvalidUserOnCheckinOfAMovie(){
+        User abhishek = new User("000-0000", "abhishek");
+        manager.registerUser(achal);
+        manager.registerUser(abhishek);
+
+        manager.setCurrentUser(achal);
+        manager.checkoutBook(letusc.getTitle());
+
+        manager.setCurrentUser(abhishek);
+        assertFalse(manager.checkinBook(letusc.getTitle()));
     }
 }
