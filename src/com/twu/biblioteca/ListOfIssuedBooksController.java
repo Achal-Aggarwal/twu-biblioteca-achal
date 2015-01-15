@@ -17,4 +17,9 @@ public class ListOfIssuedBooksController extends ListOfItemsController {
     public String getTitle() {
         return "List of issued books.";
     }
+
+    @Override
+    public boolean isHidden(){
+        return !(libraryManager.getCurrentUser() instanceof Librarian);
+    }
 }

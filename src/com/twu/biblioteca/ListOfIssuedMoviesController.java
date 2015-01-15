@@ -14,4 +14,9 @@ public class ListOfIssuedMoviesController extends ListOfItemsController {
     public String getTitle() {
         return "List of issued movies.";
     }
+
+    @Override
+    public boolean isHidden(){
+        return !(libraryManager.getCurrentUser() instanceof Librarian);
+    }
 }

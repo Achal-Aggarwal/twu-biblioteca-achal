@@ -11,14 +11,18 @@ public class MenuController extends Controller {
     }
 
     public boolean execute() {
-        Iterator menuItemSet = menuItems.entrySet().iterator();
-        while (menuItemSet.hasNext()) {
-            Map.Entry menuItem = (Map.Entry)menuItemSet.next();
-            view.addMenuItem((String) menuItem.getKey(), ((Controller) menuItem.getValue()).getTitle());
-        }
-
         boolean returnValue = true;
         while(returnValue) {
+            Iterator menuItemSet = menuItems.entrySet().iterator();
+            while (menuItemSet.hasNext()) {
+                Map.Entry menuItem = (Map.Entry)menuItemSet.next();
+                String onInput = (String) menuItem.getKey();
+                Controller controller = (Controller) menuItem.getValue();
+                if(controller.isHidden()){
+                    continue;
+                }
+                view.addMenuItem(onInput, controller.getTitle());
+            }
             view.render();
 
             String selectedAction = view.getSelectedAction();
