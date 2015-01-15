@@ -16,13 +16,7 @@ public class LibraryManager {
         this.movieLibrary = movieLibrary;
     }
 
-    private boolean checkoutItem(String itemTitle, Library library){
-        HashMap issuedItems;
-        if(library instanceof BookLibrary){
-            issuedItems = issuedBooks;
-        } else {
-            issuedItems = issuedMovies;
-        }
+    private boolean checkoutItem(String itemTitle, Library library, HashMap issuedItems){
         Item item = (Item) issuedItems.get(itemTitle);
         if(item != null){
             return false;
@@ -39,14 +33,7 @@ public class LibraryManager {
         return true;
     }
 
-    private boolean checkinItem(String itemTitle, Library library){
-        HashMap issuedItems;
-        if(library instanceof BookLibrary){
-            issuedItems = issuedBooks;
-        } else {
-            issuedItems = issuedMovies;
-        }
-
+    private boolean checkinItem(String itemTitle, Library library, HashMap issuedItems){
         Item item = (Item) issuedItems.get(itemTitle);
         if(item == null){
             return false;
@@ -63,19 +50,19 @@ public class LibraryManager {
     }
 
     public boolean checkoutMovie(String movieName) {
-        return checkoutItem(movieName, movieLibrary);
+        return checkoutItem(movieName, movieLibrary, issuedMovies);
     }
 
     public boolean checkoutBook(String bookTitle) {
-        return checkoutItem(bookTitle, bookLibrary);
+        return checkoutItem(bookTitle, bookLibrary, issuedBooks);
     }
 
     public boolean checkinBook(String bookTitle) {
-        return checkinItem(bookTitle, bookLibrary);
+        return checkinItem(bookTitle, bookLibrary, issuedBooks);
     }
 
     public boolean checkinMovie(String movieName) {
-        return checkinItem(movieName, movieLibrary);
+        return checkinItem(movieName, movieLibrary, issuedMovies);
     }
 
     public List<String> getListOfAvailableBooks() {
