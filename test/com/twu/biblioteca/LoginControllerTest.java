@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertSame;
 import static junit.framework.TestCase.assertTrue;
 
 public class LoginControllerTest {
@@ -75,5 +76,24 @@ public class LoginControllerTest {
         loginVC.execute();
 
         assertTrue(output.toString().contains("Wrong library number or password.\n"));
+    }
+
+    @Test
+    public void shouldPassValidUserInformationToLibraryManager(){
+        String input = achal.getLibraryNumber() + "\n"+ achal.getPassword() +"\n";
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        libraryManager.registerUser(achal);
+
+        LoginController loginVC =
+                new LoginController(libraryManager,
+                        new InputOutputManger(
+                                new ByteArrayInputStream(input.getBytes()),
+                                new PrintStream(output)
+                        )
+                );
+
+        loginVC.execute();
+
+        assertSame(achal, libraryManager.getCurrentUser());
     }
 }
