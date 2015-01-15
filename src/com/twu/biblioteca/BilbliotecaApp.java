@@ -14,7 +14,7 @@ public class BilbliotecaApp {
 
         io.printLine("Welcome and thank you for taking time to visit Biblioteca.");
 
-        mainMenuController.setAction("0", new LoginController(libraryManager, io));
+        mainMenuController.setAction("login", new LoginController(libraryManager, io));
         mainMenuController.setAction("1", new ListOfAvailableBooksController(libraryManager, io));
         mainMenuController.setAction("7", new ListOfIssuedBooksController(libraryManager, io));
         mainMenuController.setAction("2", new CheckoutBookController(libraryManager, io));
@@ -23,9 +23,9 @@ public class BilbliotecaApp {
         mainMenuController.setAction("8", new ListOfIssuedMoviesController(libraryManager, io));
         mainMenuController.setAction("5", new CheckoutMovieController(libraryManager, io));
         mainMenuController.setAction("6", new CheckinMovieController(libraryManager, io));
-        mainMenuController.setAction("9", new LogoutController(libraryManager, io));
-        mainMenuController.setAction("11", new ProfileController(libraryManager, io));
-        mainMenuController.setAction("10", new QuitMenuController(libraryManager, io));
+        mainMenuController.setAction("logout", new LogoutController(libraryManager, io));
+        mainMenuController.setAction("profile", new ProfileController(libraryManager, io));
+        mainMenuController.setAction("quit", new QuitMenuController(libraryManager, io));
         mainMenuController.execute();
 
         return 0;
