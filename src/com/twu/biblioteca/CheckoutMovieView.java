@@ -2,7 +2,7 @@ package com.twu.biblioteca;
 
 public class CheckoutMovieView extends View {
     public enum Status {
-        NONE, CHECKOUT_SUCCESSFUL, CHECKOUT_UNSUCCESSFUL
+        NONE, CHECKOUT_SUCCESSFUL, LOGIN_REQUIRED, CHECKOUT_UNSUCCESSFUL
     }
 
     private Status status = Status.NONE;
