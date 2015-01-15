@@ -134,6 +134,10 @@ public class LibraryManager {
         return true;
     }
 
+    public void unSetCurrentUser() {
+        currentUser = null;
+    }
+
     public User getCurrentUser() {
         return currentUser;
     }

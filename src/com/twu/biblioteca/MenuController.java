@@ -23,8 +23,9 @@ public class MenuController extends Controller {
                 }
                 view.addMenuItem(onInput, controller.getTitle());
             }
-            view.render();
 
+            view.render();
+            view.clearMenuItems();
             String selectedAction = view.getSelectedAction();
             if ((!menuItems.containsKey(selectedAction) && selectedAction.length() > 0) ||
                     selectedAction.length() == 0) {
@@ -32,6 +33,7 @@ public class MenuController extends Controller {
             } else {
                 returnValue = ((Controller) menuItems.get(selectedAction)).execute();
             }
+
         }
 
         return true;

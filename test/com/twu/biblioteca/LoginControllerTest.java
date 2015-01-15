@@ -15,7 +15,6 @@ import static junit.framework.TestCase.assertTrue;
 public class LoginControllerTest {
 
     User achal = new User("000-0000", "achal");
-    User abhishek = new User("000-0001", "abhishek");
     LibraryManager libraryManager;
 
     @Before
@@ -94,5 +93,40 @@ public class LoginControllerTest {
         assertTrue(loginVC.execute());
 
         assertSame(achal, libraryManager.getCurrentUser());
+    }
+
+    @Test
+    public void shouldShowItselfIfNoUserIsLoggedIn(){
+        String input = achal.getLibraryNumber() + "\n"+ achal.getPassword() +"\n";
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        libraryManager.registerUser(achal);
+
+        LoginController loginVC =
+                new LoginController(libraryManager,
+                        new InputOutputManger(
+                                new ByteArrayInputStream(input.getBytes()),
+                                new PrintStream(output)
+                        )
+                );
+
+        assertFalse(loginVC.isHidden());
+    }
+
+    @Test
+    public void shouldHideItselfIfUserIsLoggedInAlready(){
+        String input = achal.getLibraryNumber() + "\n"+ achal.getPassword() +"\n";
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        libraryManager.registerUser(achal);
+
+        LoginController loginVC =
+                new LoginController(libraryManager,
+                        new InputOutputManger(
+                                new ByteArrayInputStream(input.getBytes()),
+                                new PrintStream(output)
+                        )
+                );
+        libraryManager.setCurrentUser(achal.getLibraryNumber());
+
+        assertTrue(loginVC.isHidden());
     }
 }

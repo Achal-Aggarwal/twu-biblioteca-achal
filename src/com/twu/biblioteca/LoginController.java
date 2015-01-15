@@ -42,4 +42,9 @@ public class LoginController extends Controller {
     public void setAction(Controller controller){
         this.controller = controller;
     }
+
+    @Override
+    public boolean isHidden() {
+        return libraryManager.getCurrentUser() != null;
+    }
 }

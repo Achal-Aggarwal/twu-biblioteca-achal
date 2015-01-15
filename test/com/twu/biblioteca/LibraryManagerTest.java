@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.List;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertSame;
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -184,5 +185,13 @@ public class LibraryManagerTest {
 
         manager.setCurrentUser(abhishek.getLibraryNumber());
         assertFalse(manager.checkinBook(letusc.getTitle()));
+    }
+
+    @Test
+    public void testUnsettingOfCurrentUser(){
+        manager.registerUser(achal);
+        manager.setCurrentUser(achal.getLibraryNumber());
+        manager.unSetCurrentUser();
+        assertNull(manager.getCurrentUser());
     }
 }

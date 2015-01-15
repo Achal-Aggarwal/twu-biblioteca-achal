@@ -32,4 +32,8 @@ public class MenuView extends View {
     public void invalidOptionSelected() {
         io.printLine("Select a valid option!");
     }
+
+    public void clearMenuItems() {
+        menuItems.clear();
+    }
 }
