@@ -11,20 +11,24 @@ public class LoginController extends Controller {
 
     @Override
     public boolean execute() {
+        if(libraryManager.getCurrentUser() != null){
+            return true;
+        }
+
         String libraryNumber = view.getLibraryNumber();
         String password = view.getUserPassword();
         boolean isUserValid = libraryManager.isUserValid(libraryNumber, password);
         if (isUserValid) {
             view.setStatus(LoginView.Status.LOGIN_SUCCESSFUL);
             libraryManager.setCurrentUser(libraryNumber);
+            view.render();
+            if (controller != null && isUserValid) {
+                return controller.execute();
+            }
         } else {
             view.setStatus(LoginView.Status.LOGIN_UNSUCCESSFUL);
-        }
-
-        view.render();
-
-        if (controller != null && isUserValid) {
-            return controller.execute();
+            view.render();
+            return false;
         }
 
         return true;

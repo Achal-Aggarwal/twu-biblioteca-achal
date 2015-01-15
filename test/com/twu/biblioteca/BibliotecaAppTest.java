@@ -28,10 +28,10 @@ public class BibliotecaAppTest {
         bookLibrary.addItem(fivePoint);
         manager = new LibraryManager(bookLibrary, new MovieLibrary());
         manager.registerUser(new User("000-0000","achal"));
+        manager.setCurrentUser("000-0000");
     }
 
     private void runApplicationWithInput(String input){
-        input = "000-0000\nachal\n" + input;
         output = new ByteArrayOutputStream();
         application = new BilbliotecaApp(manager,
                 new InputOutputManger(

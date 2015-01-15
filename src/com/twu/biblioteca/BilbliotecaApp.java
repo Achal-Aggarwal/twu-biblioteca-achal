@@ -10,18 +10,21 @@ public class BilbliotecaApp {
     }
 
     public int runApplication() {
-        MenuController mainMenuView = new MenuController(libraryManager, io);
-        mainMenuView.setAction("1", new ListOfBooksController(libraryManager, io));
-        mainMenuView.setAction("2", new CheckoutBookController(libraryManager, io));
-        mainMenuView.setAction("3", new CheckinBookController(libraryManager, io));
-        mainMenuView.setAction("4", new ListOfMoviesController(libraryManager, io));
-        mainMenuView.setAction("5", new CheckoutMovieController(libraryManager, io));
-        mainMenuView.setAction("6", new CheckinMovieController(libraryManager, io));
-        mainMenuView.setAction("10", new QuitMenuController(libraryManager, io));
-
-        libraryManager.registerUser(new User("000-0000","achal"));
+        MenuController mainMenuController = new MenuController(libraryManager, io);
         LoginController loginController = new LoginController(libraryManager, io);
-        loginController.setAction(mainMenuView);
+
+        io.printLine("Welcome and thank you for taking time to visit Biblioteca.");
+
+        mainMenuController.setAction("1", new ListOfBooksController(libraryManager, io));
+        mainMenuController.setAction("2", new CheckoutBookController(libraryManager, io));
+        mainMenuController.setAction("3", new CheckinBookController(libraryManager, io));
+        mainMenuController.setAction("4", new ListOfMoviesController(libraryManager, io));
+        mainMenuController.setAction("5", new CheckoutMovieController(libraryManager, io));
+        mainMenuController.setAction("6", new CheckinMovieController(libraryManager, io));
+        mainMenuController.setAction("10", new QuitMenuController(libraryManager, io));
+        mainMenuController.execute();
+
+        loginController.setAction(mainMenuController);
         loginController.execute();
         return 0;
 
@@ -39,9 +42,11 @@ public class BilbliotecaApp {
         movieLibrary.addItem(seven);
         movieLibrary.addItem(darkKnight);
 
+        LibraryManager libraryManager = new LibraryManager(bookLibrary, movieLibrary);
+        libraryManager.registerUser(new User("000-0000", "achal"));
 
         new BilbliotecaApp(
-                new LibraryManager(bookLibrary, movieLibrary),
+                libraryManager,
                 new InputOutputManger(System.in, System.out)).runApplication();
     }
 }

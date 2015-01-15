@@ -9,6 +9,7 @@ import java.io.PrintStream;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertSame;
+import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
 public class LoginControllerTest {
@@ -36,9 +37,7 @@ public class LoginControllerTest {
                         )
                 );
 
-        loginVC.execute();
-
-        assertEquals(output.toString(), "Welcome and thank you for taking time to visit Biblioteca.\n");
+        assertTrue(loginVC.execute());
     }
 
     @Test
@@ -55,7 +54,7 @@ public class LoginControllerTest {
                         )
                 );
 
-        loginVC.execute();
+        assertFalse(loginVC.execute());
 
         assertEquals(output.toString(), "Wrong library number or password.\n");
     }
@@ -73,7 +72,7 @@ public class LoginControllerTest {
                         )
                 );
 
-        loginVC.execute();
+        assertFalse(loginVC.execute());
 
         assertTrue(output.toString().contains("Wrong library number or password.\n"));
     }
@@ -92,7 +91,7 @@ public class LoginControllerTest {
                         )
                 );
 
-        loginVC.execute();
+        assertTrue(loginVC.execute());
 
         assertSame(achal, libraryManager.getCurrentUser());
     }
