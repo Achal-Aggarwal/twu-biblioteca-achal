@@ -1,14 +1,15 @@
 package com.twu.biblioteca;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class LibraryManager {
-    private HashMap issuedBooks = new HashMap();
+    private HashMap<String, Item> issuedBooks = new HashMap<String, Item>();
     private BookLibrary bookLibrary;
     private MovieLibrary movieLibrary;
-    private HashMap issuedMovies = new HashMap();
-    private HashMap users = new HashMap();
+    private HashMap<String, Item> issuedMovies = new HashMap<String, Item>();
+    private HashMap<String, User> users = new HashMap<String, User>();
     private User currentUser = null;
 
     public LibraryManager(BookLibrary bookLibrary, MovieLibrary movieLibrary) {
@@ -16,8 +17,12 @@ public class LibraryManager {
         this.movieLibrary = movieLibrary;
     }
 
-    private boolean checkoutItem(String itemTitle, Library library, HashMap issuedItems){
-        Item item = (Item) issuedItems.get(itemTitle);
+    private boolean checkoutItem(String itemTitle, Library library, HashMap<String, Item> issuedItems){
+        if(currentUser == null){
+            return false;
+        }
+
+        Item item = issuedItems.get(itemTitle);
         if(item != null){
             return false;
         }
@@ -33,8 +38,21 @@ public class LibraryManager {
         return true;
     }
 
-    private boolean checkinItem(String itemTitle, Library library, HashMap issuedItems){
-        Item item = (Item) issuedItems.get(itemTitle);
+    private List<String> getListOfIssuedItemsFrom(HashMap<String, Item> issuedItemsMap) {
+        List<String> issuedItems = new ArrayList<String>();
+        for (Item item : issuedItemsMap.values()) {
+            issuedItems.add(item.getFormattedString() + " issued by " + item.getBorrower().getLibraryNumber());
+        }
+
+        return issuedItems;
+    }
+
+    private boolean checkinItem(String itemTitle, Library library, HashMap<String, Item> issuedItems){
+        if(currentUser == null){
+            return false;
+        }
+
+        Item item = issuedItems.get(itemTitle);
         if(item == null){
             return false;
         }
@@ -73,6 +91,14 @@ public class LibraryManager {
         return movieLibrary.getListOfAvailableItems();
     }
 
+    public List<String> getListOfIssuedBooks() {
+        return getListOfIssuedItemsFrom(issuedBooks);
+    }
+
+    public List<String> getListOfIssuedMovies() {
+        return getListOfIssuedItemsFrom(issuedMovies);
+    }
+
     public boolean isMovieCheckedOut(String movieName) {
         return issuedMovies.containsKey(movieName);
     }
@@ -90,7 +116,7 @@ public class LibraryManager {
     }
 
     public boolean isUserValid(String libraryNumber, String password) {
-        User user = (User) users.get(libraryNumber);
+        User user = users.get(libraryNumber);
 
         if (user == null){
             return false;
@@ -104,7 +130,7 @@ public class LibraryManager {
             return false;
         }
 
-        currentUser = (User) users.get(userLibraryNumber);
+        currentUser = users.get(userLibraryNumber);
         return true;
     }
 

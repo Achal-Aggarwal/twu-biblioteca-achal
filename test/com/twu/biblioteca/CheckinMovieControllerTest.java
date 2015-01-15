@@ -54,9 +54,10 @@ public class CheckinMovieControllerTest {
 
     @Test
     public void shouldNotCheckinSevenMovieIfUserIsInvalid(){
-        runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), "asd", seven.getTitle()));
+        manager.setCurrentUser(user.getLibraryNumber());
         manager.checkoutMovie(seven.getTitle());
-        seven.setBorrower(user);
+        manager.setCurrentUser(null);
+        runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), "asd", seven.getTitle()));
         checkinMovieVC.execute();
         assertTrue(manager.isMovieCheckedOut(seven.getTitle()));
     }

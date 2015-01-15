@@ -50,7 +50,7 @@ public class BibliotecaAppTest {
         menu += "1. \tList of available books.\n";
         menu += "2. \tCheckout book.\n";
         menu += "3. \tCheckin book.\n";
-        menu += "4. \tList of movies available.\n";
+        menu += "4. \tList of available movies.\n";
         menu += "5. \tCheckout movie.\n";
         menu += "6. \tCheckin movie.\n";
         menu += "10. \tQuit.\n";
@@ -60,7 +60,7 @@ public class BibliotecaAppTest {
     @Test
     public void testRenderedListOfBooksView() {
         runApplicationWithInput("1\n10");
-        String viewTitle = "List of books available.\n";
+        String viewTitle = "List of available books.\n";
         String listOfBooks = "";
         listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
         listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";
@@ -101,7 +101,7 @@ public class BibliotecaAppTest {
         runApplicationWithInput("1\n2\n" + galvin.getTitle() + "\n1\n10");
         String outputString = output.toString();
 
-        String viewTitle = "List of books available.\n";
+        String viewTitle = "List of available books.\n";
         String listOfBooks = "";
         listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
         listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";
@@ -150,7 +150,7 @@ public class BibliotecaAppTest {
         runApplicationWithInput("2\n" + galvin.getTitle() + "\n1\n3\n"+galvin.getTitle()+"\n1\n10");
         String outputString = output.toString();
 
-        String viewTitle = "List of books available.\n";
+        String viewTitle = "List of available books.\n";
         String listOfBooks = "";
         listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
         listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";

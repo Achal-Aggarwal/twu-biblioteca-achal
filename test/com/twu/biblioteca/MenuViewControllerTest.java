@@ -56,7 +56,7 @@ public class MenuViewControllerTest {
         runTestCaseWithInput("1\nq\n");
         menuVC.setAction("1", new ListOfAvailableBooksController(manager, io));
         menuVC.execute();
-        String viewTitle = "List of books available.\n";
+        String viewTitle = "List of available books.\n";
         String listOfBooks = "";
         listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
         listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";

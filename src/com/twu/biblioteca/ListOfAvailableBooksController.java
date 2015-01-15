@@ -2,7 +2,7 @@ package com.twu.biblioteca;
 
 public class ListOfAvailableBooksController extends ListOfItemsController {
     public ListOfAvailableBooksController(LibraryManager libraryManager, InputOutputManger inputOutputManger) {
-        super(libraryManager, new ListOfItemsView(inputOutputManger, "book"));
+        super(libraryManager, new ListOfItemsView(inputOutputManger, "List of available books."));
     }
 
     public boolean execute() {

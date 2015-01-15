@@ -5,17 +5,17 @@ import java.util.List;
 
 public class ListOfItemsView extends View {
     private List<String> listOfItems;
-    private String itemType;
+    private String viewTitle;
 
-    public ListOfItemsView(InputOutputManger inputOutputManger, String itemType) {
+    public ListOfItemsView(InputOutputManger inputOutputManger, String viewTitle) {
         super(inputOutputManger);
         listOfItems =  Arrays.asList();
-        this.itemType = itemType;
+        this.viewTitle = viewTitle;
     }
 
     @Override
     public void render() {
-        io.printLine("List of " + itemType + "s available.");
+        io.printLine(viewTitle);
         for (int i = 0; i < listOfItems.size(); i++) {
             io.printLine((i + 1) + ". \t" + listOfItems.get(i));
         }

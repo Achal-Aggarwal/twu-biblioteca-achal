@@ -9,13 +9,14 @@ import java.io.PrintStream;
 
 import static junit.framework.TestCase.assertTrue;
 
-public class ListOfAvailableBooksControllerTest {
+public class ListOfIssuedBooksControllerTest {
 
     BookLibrary bookLibrary;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
     Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
+    User user = new User("000-0000", "achal");
 
     @Before
     public void setUp() {
@@ -27,26 +28,29 @@ public class ListOfAvailableBooksControllerTest {
     }
 
     @Test
-    public void shouldPrintListOfAvailableBooks(){
+    public void shouldPrintListOfIssuedBooks(){
         String input = "\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-
-        ListOfAvailableBooksController listOfAvailableBooksVC =
-                new ListOfAvailableBooksController(new LibraryManager(bookLibrary, new MovieLibrary()),
+        LibraryManager manager = new LibraryManager(bookLibrary, new MovieLibrary());
+        ListOfIssuedBooksController listOfIssuedBooksVC =
+                new ListOfIssuedBooksController(manager,
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)
                         )
                 );
+        manager.registerUser(user);
+        manager.setCurrentUser(user.getLibraryNumber());
+        manager.checkoutBook(letusc.getTitle());
+        manager.checkoutBook(internetSec.getTitle());
 
-        listOfAvailableBooksVC.execute();
+        listOfIssuedBooksVC.execute();
 
-        String viewTitle = "List of available books.\n";
+        String viewTitle = "List of issued books.\n";
         String listOfBooks = "";
-        listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
-        listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";
-        listOfBooks += "3. \t" + galvin.getFormattedString() + "\n";
-        listOfBooks += "4. \t" + internetSec.getFormattedString() + "\n";
+        listOfBooks += "1. \t" + letusc.getFormattedString() + " issued by 000-0000\n";
+        listOfBooks += "2. \t" + internetSec.getFormattedString() + " issued by 000-0000\n";
+
         assertTrue(output.toString().contains(viewTitle + listOfBooks));
     }
 }

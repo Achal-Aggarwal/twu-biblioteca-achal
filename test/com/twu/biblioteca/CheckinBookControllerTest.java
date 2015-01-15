@@ -57,9 +57,11 @@ public class CheckinBookControllerTest {
 
     @Test
     public void shouldNotCheckinLetUsCBookIfUserIsInvalid(){
-        runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), "asd", letusc.getTitle()));
+        manager.setCurrentUser(user.getLibraryNumber());
         manager.checkoutBook(letusc.getTitle());
-        letusc.setBorrower(user);
+        manager.setCurrentUser(null);
+
+        runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), "asd", letusc.getTitle()));
         checkinBookVC.execute();
         assertTrue(manager.isBookCheckedOut(letusc.getTitle()));
     }

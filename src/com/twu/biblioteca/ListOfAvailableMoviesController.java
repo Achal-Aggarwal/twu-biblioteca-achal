@@ -2,7 +2,7 @@ package com.twu.biblioteca;
 
 public class ListOfAvailableMoviesController extends ListOfItemsController {
     public ListOfAvailableMoviesController(LibraryManager libraryManager, InputOutputManger inputOutputManger) {
-        super(libraryManager, new ListOfItemsView(inputOutputManger, "movie"));
+        super(libraryManager, new ListOfItemsView(inputOutputManger, "List of available movies."));
     }
 
     public boolean execute() {
@@ -11,6 +11,6 @@ public class ListOfAvailableMoviesController extends ListOfItemsController {
     }
 
     public String getTitle() {
-        return "List of movies available.";
+        return "List of available movies.";
     }
 }

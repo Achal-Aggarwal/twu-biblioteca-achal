@@ -11,7 +11,7 @@ public class BilbliotecaApp {
 
     public int runApplication() {
         MenuController mainMenuController = new MenuController(libraryManager, io);
-        LoginController loginController = new LoginController(libraryManager, io);
+        //LoginController loginController = new LoginController(libraryManager, io);
 
         io.printLine("Welcome and thank you for taking time to visit Biblioteca.");
 
@@ -24,8 +24,8 @@ public class BilbliotecaApp {
         mainMenuController.setAction("10", new QuitMenuController(libraryManager, io));
         mainMenuController.execute();
 
-        loginController.setAction(mainMenuController);
-        loginController.execute();
+        //loginController.setAction(mainMenuController);
+        //loginController.execute();
         return 0;
 
     }

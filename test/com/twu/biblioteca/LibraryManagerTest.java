@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertSame;
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -21,6 +22,7 @@ public class LibraryManagerTest {
     Movie darkKnight = new Movie("The Dark Knight", "2008", "Christopher Nolan", "unrated");
 
     User achal = new User("000-0000", "achal");
+    User abhishek = new User("000-0001", "abhishek");
 
     LibraryManager manager;
 
@@ -41,18 +43,24 @@ public class LibraryManagerTest {
 
     @Test
     public void testCheckingOutABook() {
+        manager.registerUser(achal);
+        manager.setCurrentUser(achal.getLibraryNumber());
         assertTrue(manager.checkoutBook(letusc.getTitle()));
         assertTrue(manager.isBookCheckedOut(letusc.getTitle()));
     }
 
     @Test
     public void testCheckingOutAMovie() {
+        manager.registerUser(achal);
+        manager.setCurrentUser(achal.getLibraryNumber());
         assertTrue(manager.checkoutMovie(seven.getTitle()));
         assertTrue(manager.isMovieCheckedOut(seven.getTitle()));
     }
 
     @Test
     public void testCheckingInABook() {
+        manager.registerUser(achal);
+        manager.setCurrentUser(achal.getLibraryNumber());
         manager.checkoutBook(letusc.getTitle());
 
         assertTrue(manager.checkinBook(letusc.getTitle()));
@@ -61,6 +69,8 @@ public class LibraryManagerTest {
 
     @Test
     public void testCheckingInAMovie() {
+        manager.registerUser(achal);
+        manager.setCurrentUser(achal.getLibraryNumber());
         manager.checkoutMovie(seven.getTitle());
 
         assertTrue(manager.checkinMovie(seven.getTitle()));
@@ -69,7 +79,6 @@ public class LibraryManagerTest {
 
     @Test
     public void testListOfAvailableBooks() {
-
         List<String> bookList = manager.getListOfAvailableBooks();
         assertTrue(bookList.contains(letusc.getFormattedString()));
         assertTrue(bookList.contains(galvin.getFormattedString()));
@@ -78,8 +87,34 @@ public class LibraryManagerTest {
     }
 
     @Test
-    public void testListOfAvailableMovies() {
+    public void testListOfIssuedBooks() {
+        manager.registerUser(achal);
+        manager.registerUser(abhishek);
+        manager.setCurrentUser(achal.getLibraryNumber());
+        manager.checkoutBook(letusc.getTitle());
 
+        manager.setCurrentUser(abhishek.getLibraryNumber());
+        manager.checkoutBook(internetSec.getTitle());
+
+        List<String> bookList = manager.getListOfIssuedBooks();
+
+        assertTrue(bookList.contains(letusc.getFormattedString() + " issued by 000-0000"));
+        assertTrue(bookList.contains(internetSec.getFormattedString() + " issued by 000-0001"));
+        assertEquals(2, bookList.size());
+    }
+
+    @Test
+    public void testListOfIssuedMovies() {
+        manager.registerUser(achal);
+        manager.setCurrentUser(achal.getLibraryNumber());
+        manager.checkoutMovie(seven.getTitle());
+        List<String> movieList = manager.getListOfIssuedMovies();
+        assertTrue(movieList.contains(seven.getFormattedString() + " issued by 000-0000"));
+        assertEquals(1, movieList.size());
+    }
+
+    @Test
+    public void testListOfAvailableMovies() {
         List<String> movieList = manager.getListOfAvailableMovies();
         assertTrue(movieList.contains(seven.getFormattedString()));
         assertTrue(movieList.contains(darkKnight.getFormattedString()));
