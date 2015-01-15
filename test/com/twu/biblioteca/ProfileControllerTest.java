@@ -31,7 +31,7 @@ public class ProfileControllerTest {
     }
 
     @Test
-    public void shouldLetValidUserToLogin(){
+    public void shouldDisplayCurrentUserProfile(){
         libraryManager.setCurrentUser(achal.getLibraryNumber());
         profileController.execute();
 

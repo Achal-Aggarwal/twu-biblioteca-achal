@@ -17,7 +17,7 @@ public class BibliotecaAppTest {
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
     Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
-    String quitAction = "quit\n";
+    String quitAction = "11\n";
 
     @Before
     public void setUp() {
