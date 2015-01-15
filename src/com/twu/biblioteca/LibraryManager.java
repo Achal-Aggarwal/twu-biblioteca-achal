@@ -1,86 +1,75 @@
 package com.twu.biblioteca;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class LibraryManager {
-    private HashMap<String, Item> issuedBooks = new HashMap<String, Item>();
     private BookLibrary bookLibrary;
     private MovieLibrary movieLibrary;
-    private HashMap<String, Item> issuedMovies = new HashMap<String, Item>();
-    private SessionManager sessionManager;
+    private SessionManager session;
 
     public LibraryManager(BookLibrary bookLibrary, MovieLibrary movieLibrary) {
         this.bookLibrary = bookLibrary;
         this.movieLibrary = movieLibrary;
-        sessionManager = SessionManager.getSession();
+        session = SessionManager.getSession();
     }
 
-    private boolean checkoutItem(String itemTitle, Library library, HashMap<String, Item> issuedItems){
-        if(sessionManager.getLoggedInUser() == null){
+    private boolean checkoutItem(String itemTitle, Library library){
+        if(session.getLoggedInUser() == null){
             return false;
         }
 
-        Item item = issuedItems.get(itemTitle);
-        if(item != null){
+        if(library.isItemIssued(itemTitle)){
             return false;
         }
 
-        item = library.removeItem(itemTitle);
+        Item item = library.removeFromAvailableItem(itemTitle);
         if(item == null){
             return false;
         }
 
-        item.setBorrower(sessionManager.getLoggedInUser());
-        issuedItems.put(itemTitle, item);
+        item.setBorrower(session.getLoggedInUser());
+        library.addIntoIssuedItem(item);
 
         return true;
     }
 
-    private List<String> getListOfIssuedItemsFrom(HashMap<String, Item> issuedItemsMap) {
-        List<String> issuedItems = new ArrayList<String>();
-        for (Item item : issuedItemsMap.values()) {
-            issuedItems.add(item.getFormattedString() + " issued by " + item.getBorrower().contactInformation());
-        }
-
-        return issuedItems;
+    private List<String> getListOfIssuedItemsFrom(Library library) {
+        return library.getListOfIssuedItems();
     }
 
-    private boolean checkinItem(String itemTitle, Library library, HashMap<String, Item> issuedItems){
-        if(sessionManager.getLoggedInUser() == null){
+    private boolean checkinItem(String itemTitle, Library library){
+        if(session.getLoggedInUser() == null){
             return false;
         }
 
-        Item item = issuedItems.get(itemTitle);
+        Item item = library.removeFromIssuedItem(itemTitle);
         if(item == null){
             return false;
         }
 
-        if(item.getBorrower() != sessionManager.getLoggedInUser()){
+        if(item.getBorrower() != session.getLoggedInUser()){
             return false;
         }
 
-        library.addItem(item);
-        issuedItems.remove(itemTitle);
+        library.addIntoAvailableItem(item);
 
         return true;
     }
 
     public boolean checkoutMovie(String movieName) {
-        return checkoutItem(movieName, movieLibrary, issuedMovies);
+        return checkoutItem(movieName, movieLibrary);
     }
 
     public boolean checkoutBook(String bookTitle) {
-        return checkoutItem(bookTitle, bookLibrary, issuedBooks);
+        return checkoutItem(bookTitle, bookLibrary);
     }
 
     public boolean checkinBook(String bookTitle) {
-        return checkinItem(bookTitle, bookLibrary, issuedBooks);
+        return checkinItem(bookTitle, bookLibrary);
     }
 
     public boolean checkinMovie(String movieName) {
-        return checkinItem(movieName, movieLibrary, issuedMovies);
+        return checkinItem(movieName, movieLibrary);
     }
 
     public List<String> getListOfAvailableBooks() {
@@ -92,18 +81,18 @@ public class LibraryManager {
     }
 
     public List<String> getListOfIssuedBooks() {
-        return getListOfIssuedItemsFrom(issuedBooks);
+        return getListOfIssuedItemsFrom(bookLibrary);
     }
 
     public List<String> getListOfIssuedMovies() {
-        return getListOfIssuedItemsFrom(issuedMovies);
+        return getListOfIssuedItemsFrom(movieLibrary);
     }
 
     public boolean isMovieCheckedOut(String movieName) {
-        return issuedMovies.containsKey(movieName);
+        return movieLibrary.isItemIssued(movieName);
     }
 
     public boolean isBookCheckedOut(String bookTitle) {
-        return issuedBooks.containsKey(bookTitle);
+        return bookLibrary.isItemIssued(bookTitle);
     }
 }

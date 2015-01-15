@@ -25,7 +25,7 @@ public class BookLibraryTest {
     @Test
     public void testAddBookShouldReturnReferenceOfAddedBook() {
         assertSame(letusc, bookLibrary.addItem(letusc));
-        assertTrue(bookLibrary.isItemPresent(letusc.getTitle()));
+        assertTrue(bookLibrary.isItemAvailable(letusc.getTitle()));
     }
 
     @Test
@@ -49,18 +49,18 @@ public class BookLibraryTest {
     @Test
     public void testRemoveBookShouldRemoveBookFromLibrary(){
         bookLibrary.addItem(letusc);
-        bookLibrary.removeItem(letusc.getTitle());
-        assertFalse(bookLibrary.isItemPresent(letusc.getTitle()));
+        bookLibrary.removeFromAvailableItem(letusc.getTitle());
+        assertFalse(bookLibrary.isItemAvailable(letusc.getTitle()));
     }
 
     @Test
     public void testRemoveBookShouldReturnReferenceOfRemovedBook() {
         bookLibrary.addItem(letusc);
-        assertSame(letusc, bookLibrary.removeItem(letusc.getTitle()));
+        assertSame(letusc, bookLibrary.removeFromAvailableItem(letusc.getTitle()));
     }
 
     @Test
     public void testRemoveBookShouldReturnNullIfBookIsNotPresent() {
-        assertNull(bookLibrary.removeItem(letusc.getTitle()));
+        assertNull(bookLibrary.removeFromAvailableItem(letusc.getTitle()));
     }
 }

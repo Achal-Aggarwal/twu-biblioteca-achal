@@ -23,7 +23,7 @@ public class MovieLibraryTest {
     @Test
     public void testAddMovieShouldReturnReferenceOfAddedMovie() {
         assertSame(seven, movieLibrary.addItem(seven));
-        assertTrue(movieLibrary.isItemPresent(seven.getTitle()));
+        assertTrue(movieLibrary.isItemAvailable(seven.getTitle()));
     }
 
     @Test
@@ -45,18 +45,18 @@ public class MovieLibraryTest {
     @Test
     public void testRemoveMovieShouldRemoveMovieFromLibrary(){
         movieLibrary.addItem(seven);
-        movieLibrary.removeItem(seven.getTitle());
-        assertFalse(movieLibrary.isItemPresent(seven.getTitle()));
+        movieLibrary.removeFromAvailableItem(seven.getTitle());
+        assertFalse(movieLibrary.isItemAvailable(seven.getTitle()));
     }
 
     @Test
     public void testRemoveMovieShouldReturnReferenceOfRemovedMovie() {
         movieLibrary.addItem(seven);
-        assertSame(seven, movieLibrary.removeItem(seven.getTitle()));
+        assertSame(seven, movieLibrary.removeFromAvailableItem(seven.getTitle()));
     }
 
     @Test
     public void testRemoveBookShouldReturnNullIfBookIsNotPresent() {
-        assertNull(movieLibrary.removeItem(seven.getTitle()));
+        assertNull(movieLibrary.removeFromAvailableItem(seven.getTitle()));
     }
 }
