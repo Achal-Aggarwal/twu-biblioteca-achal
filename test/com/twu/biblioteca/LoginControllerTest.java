@@ -13,8 +13,7 @@ import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
 
 public class LoginControllerTest {
-
-    User achal = new User("000-0000", "achal");
+    User achal = new User("000-0000", "achal", "", "", "");
     LibraryManager libraryManager;
 
     @Before

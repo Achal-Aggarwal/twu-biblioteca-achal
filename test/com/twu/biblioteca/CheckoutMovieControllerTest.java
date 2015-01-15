@@ -18,7 +18,7 @@ public class CheckoutMovieControllerTest {
     LibraryManager manager;
     Movie seven = new Movie("Seven", "1995", "David Fincher", "8");
     Movie darkKnight = new Movie("The Dark Knight", "2008", "Christopher Nolan", "unrated");
-    User user = new User("000-0000", "achal");
+    User user = new User("000-0000", "achal", "", "", "");
 
     private ByteArrayOutputStream output;
     private InputOutputManger io;

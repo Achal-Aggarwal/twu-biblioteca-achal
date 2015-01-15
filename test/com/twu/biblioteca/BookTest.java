@@ -18,7 +18,7 @@ public class BookTest {
 
     @Test
     public void testGetterAndSetterOfBook(){
-        User user = new User("000-0000", "achal");
+        User user = new User("000-0000", "achal", "", "", "");
         letusc.setBorrower(user);
         assertSame(user, letusc.getBorrower());
     }

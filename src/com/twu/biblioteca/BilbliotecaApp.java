@@ -24,6 +24,7 @@ public class BilbliotecaApp {
         mainMenuController.setAction("5", new CheckoutMovieController(libraryManager, io));
         mainMenuController.setAction("6", new CheckinMovieController(libraryManager, io));
         mainMenuController.setAction("9", new LogoutController(libraryManager, io));
+        mainMenuController.setAction("11", new ProfileController(libraryManager, io));
         mainMenuController.setAction("10", new QuitMenuController(libraryManager, io));
         mainMenuController.execute();
 
@@ -44,8 +45,8 @@ public class BilbliotecaApp {
         movieLibrary.addItem(darkKnight);
 
         LibraryManager libraryManager = new LibraryManager(bookLibrary, movieLibrary);
-        libraryManager.registerUser(new Librarian("000-0000", "achal"));
-        libraryManager.registerUser(new User("000-0001", "abhishek"));
+        libraryManager.registerUser(new Librarian("000-0000", "achal", "", "", ""));
+        libraryManager.registerUser(new User("000-0001", "abhishek", "", "", ""));
 
         new BilbliotecaApp(
                 libraryManager,

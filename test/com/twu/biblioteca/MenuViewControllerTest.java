@@ -54,7 +54,7 @@ public class MenuViewControllerTest {
     @Test
     public void shouldAbleToDisplayOptionBasedOnTypeOfUserLoggedIn(){
         runTestCaseWithInput("q\n");
-        User librarian = new Librarian("000-0000", "achal");
+        User librarian = new Librarian("000-0000", "achal", "", "", "");
         manager.registerUser(librarian);
         manager.setCurrentUser(librarian.getLibraryNumber());
         menuVC.setAction("1", new ListOfIssuedBooksController(manager, io));
@@ -66,7 +66,7 @@ public class MenuViewControllerTest {
     @Test
     public void shouldAbleToHideOptionBasedOnTypeOfUserLoggedIn(){
         runTestCaseWithInput("q\n");
-        User normal_user = new User("000-0000", "achal");
+        User normal_user = new User("000-0000", "achal", "", "", "");
         manager.registerUser(normal_user);
         manager.setCurrentUser(normal_user.getLibraryNumber());
         menuVC.setAction("1", new ListOfIssuedBooksController(manager, io));

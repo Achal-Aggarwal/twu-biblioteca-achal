@@ -7,13 +7,9 @@ public class User {
     private String emailid;
     private String phoneNumber;
 
-    public User(String libraryNumber, String password) {
+    public User(String libraryNumber, String password, String name, String emailid, String phoneNumber) {
         this.libraryNumber = libraryNumber;
         this.password = password;
-    }
-
-    public User(String libraryNumber, String password, String name, String emailid, String phoneNumber) {
-        this(libraryNumber, password);
         this.name = name;
         this.emailid = emailid;
         this.phoneNumber = phoneNumber;

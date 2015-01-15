@@ -20,7 +20,7 @@ public class CheckoutBookControllerTest {
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
     Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
-    User user = new User("000-0000", "achal");
+    User user = new User("000-0000", "achal", "", "", "");
 
     private ByteArrayOutputStream output;
     private InputOutputManger io;

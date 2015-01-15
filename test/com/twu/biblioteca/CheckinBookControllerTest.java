@@ -23,7 +23,7 @@ public class CheckinBookControllerTest {
     private ByteArrayOutputStream output;
     private InputOutputManger io;
     private CheckinBookController checkinBookVC;
-    User user = new User("000-0000", "achal");
+    User user = new User("000-0000", "achal", "", "", "");
 
     @Before
     public void setUp() {

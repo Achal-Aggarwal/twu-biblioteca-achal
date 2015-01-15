@@ -27,7 +27,7 @@ public class BibliotecaAppTest {
         bookLibrary.addItem(internetSec);
         bookLibrary.addItem(fivePoint);
         manager = new LibraryManager(bookLibrary, new MovieLibrary());
-        manager.registerUser(new User("000-0000","achal"));
+        manager.registerUser(new User("000-0000","achal", "", "", ""));
         manager.setCurrentUser("000-0000");
     }
 

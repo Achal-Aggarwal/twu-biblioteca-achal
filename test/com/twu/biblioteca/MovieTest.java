@@ -25,7 +25,7 @@ public class MovieTest {
 
     @Test
     public void testGetterAndSetterOfBook(){
-        User user = new User("000-0000", "achal");
+        User user = new User("000-0000", "achal", "", "", "");
         seven.setBorrower(user);
         assertSame(user, seven.getBorrower());
     }

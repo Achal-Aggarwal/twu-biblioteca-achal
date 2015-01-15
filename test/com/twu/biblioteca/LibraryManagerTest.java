@@ -177,7 +177,7 @@ public class LibraryManagerTest {
 
     @Test
     public void testValidationOfInvalidUserOnCheckinOfAMovie(){
-        User abhishek = new User("000-0001", "abhishek");
+        User abhishek = new User("000-0001", "abhishek", "", "", "");
         manager.registerUser(achal);
         manager.registerUser(abhishek);
 

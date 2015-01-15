@@ -12,7 +12,7 @@ import static junit.framework.TestCase.assertNull;
 import static junit.framework.TestCase.assertTrue;
 
 public class LogoutControllerTest {
-    User achal = new User("000-0000", "achal");
+    User achal = new User("000-0000", "achal", "", "", "");
     LibraryManager libraryManager;
 
     @Before

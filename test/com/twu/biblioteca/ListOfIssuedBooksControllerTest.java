@@ -17,7 +17,7 @@ public class ListOfIssuedBooksControllerTest {
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
     Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
-    User user = new User("000-0000", "achal");
+    User user = new User("000-0000", "achal", "", "", "");
 
     @Before
     public void setUp() {
@@ -67,7 +67,7 @@ public class ListOfIssuedBooksControllerTest {
                                 new PrintStream(output)
                         )
                 );
-        user = new Librarian("000-0010", "abhishek");
+        user = new Librarian("000-0010", "abhishek", "", "", "");
         manager.registerUser(user);
         manager.setCurrentUser(user.getLibraryNumber());
 
