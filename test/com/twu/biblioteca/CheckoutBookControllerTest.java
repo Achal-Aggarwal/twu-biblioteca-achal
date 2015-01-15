@@ -63,14 +63,16 @@ public class CheckoutBookControllerTest {
 
     @Test
     public void shouldPrintSuccessfulMessageOnSuccessfulCheckout(){
-        runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), user.getPassword(), letusc.getTitle()));
+        manager.setCurrentUser(user.getLibraryNumber());
+        runTestCaseWithInput(Arrays.asList(letusc.getTitle()));
         checkoutBookVC.execute();
         assertEquals("Thank you! Enjoy the book\n", output.toString());
     }
 
     @Test
     public void shouldPrintUnSuccessfulMessageOnUnSuccessfulCheckoutIfBookCheckedoutAlready(){
-        runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), user.getPassword(), letusc.getTitle()));
+        manager.setCurrentUser(user.getLibraryNumber());
+        runTestCaseWithInput(Arrays.asList(letusc.getTitle()));
         manager.checkoutBook(letusc.getTitle());
         checkoutBookVC.execute();
         assertEquals("That book is not available.\n", output.toString());
@@ -78,7 +80,8 @@ public class CheckoutBookControllerTest {
 
     @Test
     public void shouldPrintUnSuccessfulMessageOnUnSuccessfulCheckoutIfBookDoesntExist(){
-        runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), user.getPassword(), "Programing C"));
+        manager.setCurrentUser(user.getLibraryNumber());
+        runTestCaseWithInput(Arrays.asList("Programing C"));
         checkoutBookVC.execute();
         assertEquals("That book is not available.\n", output.toString());
     }

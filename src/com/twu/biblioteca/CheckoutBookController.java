@@ -14,8 +14,7 @@ public class CheckoutBookController extends Controller {
         boolean login_successful = loginController.execute();
         if(!login_successful){
             view.setStatus(CheckoutBookView.Status.LOGIN_REQUIRED);
-        }
-        else if(libraryManager.checkoutBook(view.getBookName())){
+        } else if(libraryManager.checkoutBook(view.getBookName())){
             view.setStatus(CheckoutBookView.Status.CHECKOUT_SUCCESSFUL);
         } else {
             view.setStatus(CheckoutBookView.Status.CHECKOUT_UNSUCCESSFUL);
