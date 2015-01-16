@@ -18,7 +18,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class CheckoutBookControllerTest {
-    Library manager;
+    Library library;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
@@ -37,7 +37,7 @@ public class CheckoutBookControllerTest {
         bookLibrary.addItem(galvin);
         bookLibrary.addItem(internetSec);
         bookLibrary.addItem(fivePoint);
-        manager = new Library(bookLibrary, new ItemCollection());
+        library = new Library(bookLibrary, new ItemCollection());
         session = SessionManager.getSession();
         session.registerUser(user);
     }
@@ -55,21 +55,22 @@ public class CheckoutBookControllerTest {
                 new ByteArrayInputStream(input.getBytes()),
                 new PrintStream(output)
         );
-        checkoutBookVC = new CheckoutBookController(io, manager);
+        checkoutBookVC = new CheckoutBookController(io, library);
     }
 
     @Test
     public void shouldCheckoutLetUsCBook(){
         runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), user.getPassword(), letusc.getTitle()));
         checkoutBookVC.execute();
-        assertSame(letusc.getBorrower(), user);
+        assertFalse(library.getListOfAvailableBooks().contains(letusc));
     }
 
     @Test
     public void shouldNotCheckoutLetUsCBookIfUserIsInValid(){
         runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), "asd", letusc.getTitle()));
         checkoutBookVC.execute();
-        assertNull(letusc.getBorrower());
+        assertTrue(library.getListOfAvailableBooks().contains(letusc));
+
     }
 
     @Test
@@ -84,7 +85,7 @@ public class CheckoutBookControllerTest {
     public void shouldPrintUnSuccessfulMessageOnUnSuccessfulCheckoutIfBookCheckedoutAlready(){
         session.login(user.getLibraryNumber());
         runTestCaseWithInput(Arrays.asList(letusc.getTitle()));
-        manager.checkoutBook(letusc.getTitle());
+        library.checkoutBook(letusc.getTitle());
         checkoutBookVC.execute();
         assertEquals("That book is not available.\n", output.toString());
     }

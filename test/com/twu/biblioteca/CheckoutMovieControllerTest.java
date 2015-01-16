@@ -18,7 +18,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class CheckoutMovieControllerTest {
-    Library manager;
+    Library library;
     Movie seven = new Movie("Seven", "1995", "David Fincher", "8");
     Movie darkKnight = new Movie("The Dark Knight", "2008", "Christopher Nolan", "unrated");
     User user = new User("000-0000", "achal", "", "", "");
@@ -33,7 +33,7 @@ public class CheckoutMovieControllerTest {
         ItemCollection movieLibrary = new ItemCollection();
         movieLibrary.addItem(seven);
         movieLibrary.addItem(darkKnight);
-        manager = new Library(new ItemCollection(), movieLibrary);
+        library = new Library(new ItemCollection(), movieLibrary);
         session = SessionManager.getSession();
         session.registerUser(user);
     }
@@ -51,21 +51,22 @@ public class CheckoutMovieControllerTest {
                 new ByteArrayInputStream(input.getBytes()),
                 new PrintStream(output)
         );
-        checkoutMovieVC = new CheckoutMovieController(io, manager);
+        checkoutMovieVC = new CheckoutMovieController(io, library);
     }
 
     @Test
     public void shouldCheckoutSevenMovie(){
         runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), user.getPassword(), seven.getTitle()));
         checkoutMovieVC.execute();
-        assertSame(seven.getBorrower(), user);
+        assertFalse(library.getListOfAvailableMovies().contains(seven));
+
     }
 
     @Test
     public void shouldNotCheckoutSevenMovieIfUserIsInValid(){
         runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), "asd", seven.getTitle()));
         checkoutMovieVC.execute();
-        assertNull(seven.getBorrower());
+        assertTrue(library.getListOfAvailableMovies().contains(seven));
     }
 
     @Test
@@ -80,7 +81,7 @@ public class CheckoutMovieControllerTest {
     public void shouldPrintUnSuccessfulMessageOnUnSuccessfulCheckoutIfMovieCheckedoutAlready(){
         session.login(user.getLibraryNumber());
         runTestCaseWithInput(Arrays.asList(seven.getTitle()));
-        manager.checkoutMovie(seven.getTitle());
+        library.checkoutMovie(seven.getTitle());
         checkoutMovieVC.execute();
         assertEquals("That movie is not available.\n", output.toString());
     }

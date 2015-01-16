@@ -1,11 +1,10 @@
 package com.twu.biblioteca;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class MenuView extends View {
-    private LinkedHashMap menuItems = new LinkedHashMap();
+    private LinkedHashMap<String,String> menuItems = new LinkedHashMap<String,String>();
     public MenuView(InputOutputManger inputOutputManger) {
         super(inputOutputManger);
     }
@@ -13,9 +12,7 @@ public class MenuView extends View {
     @Override
     public void render() {
         io.printLine("Main Menu.");
-        Iterator menuItemSet = menuItems.entrySet().iterator();
-        while (menuItemSet.hasNext()) {
-            Map.Entry menuItem = (Map.Entry)menuItemSet.next();
+        for (Map.Entry<String,String> menuItem : menuItems.entrySet()) {
             io.printLine(menuItem.getKey() + ". \t" + menuItem.getValue());
         }
     }

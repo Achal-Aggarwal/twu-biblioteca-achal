@@ -18,10 +18,7 @@ public class ItemCollectionTest {
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
     User user = new User("000-0000", "achal", "", "", "");
-    @Before
-    public void setUp() {
 
-    }
 
     @Test
     public void testGetListOfAvailableBooks() {

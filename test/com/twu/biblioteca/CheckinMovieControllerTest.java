@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CheckinMovieControllerTest {
-    Library manager;
+    Library library;
     Movie seven = new Movie("Seven", "1995", "David Fincher", "8");
     Movie darkKnight = new Movie("The Dark Knight", "2008", "Christopher Nolan", "unrated");
     User user = new User("000-0000", "achal", "", "", "");
@@ -33,7 +33,7 @@ public class CheckinMovieControllerTest {
         ItemCollection movieLibrary = new ItemCollection();
         movieLibrary.addItem(seven);
         movieLibrary.addItem(darkKnight);
-        manager = new Library(new ItemCollection(), movieLibrary);
+        library = new Library(new ItemCollection(), movieLibrary);
         session = SessionManager.getSession();
         session.registerUser(user);
     }
@@ -51,34 +51,36 @@ public class CheckinMovieControllerTest {
                 new ByteArrayInputStream(input.getBytes()),
                 new PrintStream(output)
         );
-        checkinMovieVC = new CheckinMovieController(io, manager);
+        checkinMovieVC = new CheckinMovieController(io, library);
     }
 
     @Test
     public void shouldCheckinSevenMovie(){
         runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), user.getPassword(), seven.getTitle()));
         session.login(user.getLibraryNumber());
-        manager.checkoutMovie(seven.getTitle());
+        library.checkoutMovie(seven.getTitle());
         session.logout();
         checkinMovieVC.execute();
-        assertNull(seven.getBorrower());
+
+        assertTrue(library.getListOfAvailableMovies().contains(seven));
     }
 
     @Test
     public void shouldNotCheckinSevenMovieIfUserIsInvalid(){
         session.login(user.getLibraryNumber());
-        manager.checkoutMovie(seven.getTitle());
+        library.checkoutMovie(seven.getTitle());
         session.logout();
         runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), "asd", seven.getTitle()));
         checkinMovieVC.execute();
-        assertSame(user, seven.getBorrower());
+
+        assertFalse(library.getListOfAvailableMovies().contains(seven));
     }
 
     @Test
     public void shouldPrintSuccessfulMessageOnSuccessfulCheckin(){
         session.login(user.getLibraryNumber());
         runTestCaseWithInput(Arrays.asList(seven.getTitle()));
-        manager.checkoutMovie(seven.getTitle());
+        library.checkoutMovie(seven.getTitle());
         checkinMovieVC.execute();
         assertEquals("Thank you for returning the movie.\n", output.toString());
     }

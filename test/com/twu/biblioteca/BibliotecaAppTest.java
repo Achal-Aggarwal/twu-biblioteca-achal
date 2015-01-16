@@ -15,7 +15,7 @@ import static org.junit.Assert.assertNotEquals;
 public class BibliotecaAppTest {
     BilbliotecaApp application;
     ByteArrayOutputStream output;
-    Library manager;
+    Library library;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
@@ -30,7 +30,7 @@ public class BibliotecaAppTest {
         bookLibrary.addItem(galvin);
         bookLibrary.addItem(internetSec);
         bookLibrary.addItem(fivePoint);
-        manager = new Library(bookLibrary, new ItemCollection());
+        library = new Library(bookLibrary, new ItemCollection());
         SessionManager.getSession().registerUser(new User("000-0000", "achal", "", "", ""));
         SessionManager.getSession().login("000-0000");
     }
@@ -51,7 +51,7 @@ public class BibliotecaAppTest {
 
     private void runApplicationWithInput(String input){
         output = new ByteArrayOutputStream();
-        application = new BilbliotecaApp(manager,
+        application = new BilbliotecaApp(library,
                 new InputOutputManger(
                         new ByteArrayInputStream(input.getBytes()),
                         new PrintStream(output)
@@ -104,7 +104,8 @@ public class BibliotecaAppTest {
     @Test
     public void testCheckingOutOfABook() {
         runApplicationWithInput("2\n" + galvin.getTitle() + "\n" + quitAction);
-        assertNotNull(galvin.getBorrower());
+
+        assertFalse(library.getListOfAvailableBooks().contains(galvin));
     }
 
     @Test
@@ -153,7 +154,7 @@ public class BibliotecaAppTest {
     @Test
     public void testReturnOfABook() {
         runApplicationWithInput("2\n" + galvin.getTitle() + "\n3\n" + galvin.getTitle() + "\n" + quitAction);
-        assertNull(galvin.getBorrower());
+        assertTrue(library.getListOfAvailableBooks().contains(galvin));
     }
 
     @Test

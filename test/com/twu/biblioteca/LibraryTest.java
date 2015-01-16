@@ -53,7 +53,6 @@ public class LibraryTest {
         sessionManager.registerUser(achal);
         sessionManager.login(achal.getLibraryNumber());
         assertTrue(library.checkoutBook(letusc.getTitle()));
-        assertSame(achal, letusc.getBorrower());
     }
 
     @Test
@@ -61,7 +60,6 @@ public class LibraryTest {
         sessionManager.registerUser(achal);
         sessionManager.login(achal.getLibraryNumber());
         assertTrue(library.checkoutMovie(seven.getTitle()));
-        assertSame(achal, seven.getBorrower());
     }
 
     @Test
@@ -71,7 +69,6 @@ public class LibraryTest {
         library.checkoutBook(letusc.getTitle());
 
         assertTrue(library.checkinBook(letusc.getTitle()));
-        assertNull(letusc.getBorrower());
     }
 
     @Test
@@ -81,7 +78,6 @@ public class LibraryTest {
         library.checkoutMovie(seven.getTitle());
 
         assertTrue(library.checkinMovie(seven.getTitle()));
-        assertNull(seven.getBorrower());
     }
 
     @Test
@@ -162,22 +158,6 @@ public class LibraryTest {
     @Test
     public void testSettingOfUnregisterUserAsCurrentUser(){
         assertFalse(sessionManager.login(achal.getLibraryNumber()));
-    }
-
-    @Test
-    public void testTrackingOfUserOnCheckoutOfABook(){
-        sessionManager.registerUser(achal);
-        sessionManager.login(achal.getLibraryNumber());
-        library.checkoutBook(letusc.getTitle());
-        assertSame(achal, letusc.getBorrower());
-    }
-
-    @Test
-    public void testTrackingOfUserOnCheckoutOfAMovie(){
-        sessionManager.registerUser(achal);
-        sessionManager.login(achal.getLibraryNumber());
-        library.checkoutMovie(seven.getTitle());
-        assertSame(achal, seven.getBorrower());
     }
 
     @Test

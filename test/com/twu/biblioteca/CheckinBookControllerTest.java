@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CheckinBookControllerTest {
-    Library manager;
+    Library library;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
@@ -36,7 +36,7 @@ public class CheckinBookControllerTest {
         bookLibrary.addItem(galvin);
         bookLibrary.addItem(internetSec);
         bookLibrary.addItem(fivePoint);
-        manager = new Library(bookLibrary, new ItemCollection());
+        library = new Library(bookLibrary, new ItemCollection());
         session = SessionManager.getSession();
         session.registerUser(user);
     }
@@ -54,7 +54,7 @@ public class CheckinBookControllerTest {
                 new ByteArrayInputStream(input.getBytes()),
                 new PrintStream(output)
         );
-        checkinBookVC = new CheckinBookController(io, manager);
+        checkinBookVC = new CheckinBookController(io, library);
     }
 
     @Test
@@ -62,31 +62,33 @@ public class CheckinBookControllerTest {
         runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), user.getPassword(), letusc.getTitle()));
 
         session.login(user.getLibraryNumber());
-        manager.checkoutBook(letusc.getTitle());
+        library.checkoutBook(letusc.getTitle());
         session.logout();
 
-        letusc.setBorrower(user);
         checkinBookVC.execute();
-        assertNull(letusc.getBorrower());
+
+        List<Item> books = library.getListOfAvailableBooks();
+        assertTrue(books.contains(letusc));
     }
 
     @Test
     public void shouldNotCheckinLetUsCBookIfUserIsInvalid(){
         session.login(user.getLibraryNumber());
-        manager.checkoutBook(letusc.getTitle());
+        library.checkoutBook(letusc.getTitle());
         session.logout();
 
         runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), "asd", letusc.getTitle()));
         checkinBookVC.execute();
-        assertSame(user, letusc.getBorrower());
+
+        List<Item> books = library.getListOfAvailableBooks();
+        assertFalse(books.contains(letusc));
     }
 
     @Test
     public void shouldPrintSuccessfulMessageOnSuccessfulCheckin(){
         session.login(user.getLibraryNumber());
         runTestCaseWithInput(Arrays.asList(letusc.getTitle()));
-        manager.checkoutBook(letusc.getTitle());
-        letusc.setBorrower(user);
+        library.checkoutBook(letusc.getTitle());
         checkinBookVC.execute();
         assertEquals("Thank you for returning the book.\n", output.toString());
     }

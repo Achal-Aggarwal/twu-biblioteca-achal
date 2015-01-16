@@ -6,8 +6,8 @@ import java.util.List;
 
 public class ItemCollection {
 
-    protected HashMap<String, Item> availableItems = new HashMap();
-    protected HashMap<String, Issue> issues = new HashMap();
+    protected HashMap<String, Item> availableItems = new HashMap<String, Item>();
+    protected HashMap<String, Issue> issues = new HashMap<String, Issue>();
 
     public ItemCollection(){}
 
@@ -28,8 +28,6 @@ public class ItemCollection {
 
         Item item = availableItems.remove(itemTitle);
 
-        item.setBorrower(user);
-
         Issue issuedItem = new Issue(item, user);
         issues.put(itemTitle, issuedItem);
 
@@ -46,8 +44,6 @@ public class ItemCollection {
         if(issuedItem.getIssuer() != user){
             return false;
         }
-
-        issuedItem.getIssuedItem().setBorrower(null);
 
         availableItems.put(itemTitle, issuedItem.getIssuedItem());
 

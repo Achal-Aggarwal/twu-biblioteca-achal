@@ -17,10 +17,6 @@ public class Library {
         return itemCollection.issueItem(itemTitle, session.getLoggedInUser());
     }
 
-    private List<Issue> getListOfIssuedItemsFrom(ItemCollection itemCollection) {
-        return itemCollection.getListOfIssuedItems();
-    }
-
     private boolean checkinItem(String itemTitle, ItemCollection itemCollection){
         return itemCollection.returnItem(itemTitle, session.getLoggedInUser());
     }
@@ -50,10 +46,10 @@ public class Library {
     }
 
     public List<Issue> getListOfIssuedBooks() {
-        return getListOfIssuedItemsFrom(bookCollection);
+        return bookCollection.getListOfIssuedItems();
     }
 
     public List<Issue> getListOfIssuedMovies() {
-        return getListOfIssuedItemsFrom(movieCollection);
+        return movieCollection.getListOfIssuedItems();
     }
 }

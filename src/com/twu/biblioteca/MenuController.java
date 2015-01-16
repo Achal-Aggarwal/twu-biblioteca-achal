@@ -12,20 +12,19 @@ public class MenuController extends Controller {
     public boolean execute() {
         boolean returnValue = true;
         while(returnValue) {
-            Iterator menuItemSet = menuItems.entrySet().iterator();
-            while (menuItemSet.hasNext()) {
-                Map.Entry menuItem = (Map.Entry) menuItemSet.next();
-                String onInput = (String) menuItem.getKey();
-                Controller controller = (Controller) menuItem.getValue();
+            for (Map.Entry<String,Controller> menuItem : menuItems.entrySet()) {
+                Controller controller =  menuItem.getValue();
                 if (controller.isHidden()) {
                     continue;
                 }
-                view.addMenuItem(onInput, controller.getTitle());
+                view.addMenuItem(menuItem.getKey(), controller.getTitle());
             }
 
             view.render();
             view.clearMenuItems();
+
             String selectedAction = view.getSelectedAction();
+
             if ((!menuItems.containsKey(selectedAction) && selectedAction.length() > 0) ||
                     selectedAction.length() == 0) {
                 view.invalidOptionSelected();

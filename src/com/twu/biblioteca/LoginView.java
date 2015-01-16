@@ -22,7 +22,6 @@ public class LoginView extends View {
     @Override
     public void render() {
         if(status == Status.LOGIN_SUCCESSFUL){
-//            io.printLine("Welcome and thank you for taking time to visit Biblioteca.");
         } else if(status == Status.LOGIN_UNSUCCESSFUL){
             io.printLine("Wrong library number or password.");
         }

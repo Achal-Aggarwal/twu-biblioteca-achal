@@ -14,6 +14,7 @@ public class User {
         this.name = name;
         this.emailid = emailid;
         this.phoneNumber = phoneNumber;
+        this.isLibrarian = false;
     }
 
     public User(String libraryNumber, String password, String name, String emailid, String phoneNumber, boolean isLibrarian) {
@@ -42,9 +43,5 @@ public class User {
 
     public boolean isLibrarian() {
         return isLibrarian;
-    }
-
-    public String contactInformation() {
-        return name + " | " + emailid + " | " + phoneNumber;
     }
 }
