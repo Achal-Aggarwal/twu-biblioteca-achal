@@ -9,5 +9,6 @@ public class QuitMenuView extends View {
 
     @Override
     public void render() {
+        printMessage("Bye. Have an nice day!");
     }
 }

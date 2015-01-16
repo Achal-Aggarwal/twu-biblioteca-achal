@@ -13,13 +13,15 @@ public class MenuView extends View {
 
     @Override
     public void render() {
-        io.printLine("Main Menu.");
+        io.printLine(io.formatLine("Main Menu.", 50));
+        io.printLine(io.buildLine('-', 50));
         for (Map.Entry<String,String> menuItem : menuItems.entrySet()) {
-            io.printLine(menuItem.getKey() + ". \t" + menuItem.getValue());
+            io.printLine(io.formatLine(new String[]{menuItem.getKey(), menuItem.getValue()}, 5, ""));
         }
     }
 
     public String getSelectedAction(){
+        io.printString("Enter your selected option : ");
         return io.readLine();
     }
 
@@ -29,7 +31,8 @@ public class MenuView extends View {
     }
 
     public void invalidOptionSelected() {
-        io.printLine("Select a valid option!");
+        printMessage("Select a valid option!");
+        io.printLine(io.buildLine('=', 50));
     }
 
     public void clearMenuItems() {

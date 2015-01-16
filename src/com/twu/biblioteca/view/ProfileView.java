@@ -15,12 +15,17 @@ public class ProfileView extends View {
 
     @Override
     public void render() {
-        if(user != null){
-            io.printLine("Profile.");
-            io.printLine("Library Number \t: \t" + user.getLibraryNumber());
-            io.printLine("Name \t: \t" + user.getName());
-            io.printLine("Email Id \t: \t" + user.getEmailid());
-            io.printLine("Phone Number \t: \t" + user.getPhoneNumber());
-        }
+        io.printLine(io.buildLine('-', 65));
+        io.printLine(io.formatLine("Profile.", 65));
+        io.printLine(io.buildLine('-', 65));
+        io.printLine(io.formatLine(new String[]{"Library Number", user.getLibraryNumber()}, 20, ""));
+        io.printLine("");
+        io.printLine(io.formatLine(new String[]{"Name", user.getName()}, 20, ""));
+        io.printLine("");
+        io.printLine(io.formatLine(new String[]{"Email Id", user.getEmailid()}, 20, ""));
+        io.printLine("");
+        io.printLine(io.formatLine(new String[]{"Phone Number", user.getPhoneNumber()}, 20, ""));
+        io.printLine("");
+        io.printLine(io.buildLine('-', 65));
     }
 }

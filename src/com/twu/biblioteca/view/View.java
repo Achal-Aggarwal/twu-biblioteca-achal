@@ -10,4 +10,10 @@ abstract public class View {
     }
 
     abstract public void render();
+
+    protected void printMessage(String message){
+        io.printLine(io.buildLine('=', 50));
+        io.printLine(io.formatLine(message, 46, "||"));
+        io.printLine(io.buildLine('=', 50));
+    }
 }

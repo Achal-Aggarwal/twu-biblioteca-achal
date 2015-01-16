@@ -20,13 +20,14 @@ public class CheckoutBookView extends View {
     @Override
     public void render() {
         if(status == Status.CHECKOUT_SUCCESSFUL){
-            io.printLine("Thank you! Enjoy the book");
+            printMessage("Thank you! Enjoy the book");
         } else if(status == Status.CHECKOUT_UNSUCCESSFUL){
-            io.printLine("That book is not available.");
+            printMessage("That book is not available.");
         }
     }
 
     public String getBookName() {
+        io.printString("Enter book name : ");
         return io.readLine();
     }
 }

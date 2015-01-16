@@ -1,6 +1,7 @@
 package com.twu.biblioteca.view;
 
 import com.twu.biblioteca.io.InputOutputManger;
+import com.twu.biblioteca.library.Item;
 import com.twu.biblioteca.session.User;
 import com.twu.biblioteca.library.Book;
 import com.twu.biblioteca.library.Issue;
@@ -22,20 +23,33 @@ public class ListOfIssuedBooksView extends View {
         Book book = (Book) issue.getIssuedItem();
         User issuer = issue.getIssuer();
 
-        String string = book.getTitle() + "|\t|";
-        string += book.getAuthor() + "|\t|";
-        string += book.getPublicationDate() + "|\t|";
-        string += "issued by " + issuer.getLibraryNumber() + "|";
-
-        return string;
+        String strings[] = new String[]{
+                book.getTitle(),
+                book.getAuthor(),
+                book.getPublicationDate(),
+                issuer.getLibraryNumber()
+        };
+        return io.formatLine(strings, 25, "|");
     }
 
     @Override
     public void render() {
-        io.printLine(viewTitle);
+        io.printLine(io.buildLine('-', 104));
+        io.printLine(io.formatLine(viewTitle, 103));
+        io.printLine(io.buildLine('-', 104));
+        String headers[] = new String[]{"Title", "Author", "Publication Date", "Issuer"};
+        io.printLine(io.formatLine(headers, 25, "|"));
+        String underline = io.buildLine('-',25);
+        io.printLine(io.formatLine(new String[]{underline, underline, underline, underline}, 25, "|"));
+
+        if(listOfIssues.size() == 0){
+            io.printLine(io.formatLine("Empty", 104));
+        }
+
         for (Issue issue : listOfIssues) {
             io.printLine(formatBookInfo(issue));
         }
+        io.printLine(io.buildLine('-', 104));
     }
 
     public void setItems(List<Issue> listOfItems) {

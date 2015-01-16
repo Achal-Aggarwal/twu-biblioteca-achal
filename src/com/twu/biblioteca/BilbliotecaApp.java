@@ -28,6 +28,7 @@ public class BilbliotecaApp {
         menuController.setAction("2", new CheckoutBookController(io, library));
         menuController.setAction("3", new CheckinBookController(io, library));
         menuController.setAction("4", new ListOfAvailableMoviesController(io, library));
+        menuController.setAction("7", new ListOfIssuedBooksController(io, library));
         menuController.setAction("8", new ListOfIssuedMoviesController(io, library));
         menuController.setAction("5", new CheckoutMovieController(io, library));
         menuController.setAction("6", new CheckinMovieController(io, library));

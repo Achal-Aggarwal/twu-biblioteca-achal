@@ -18,25 +18,38 @@ public class ListOfIssuedMoviesView extends View {
         this.viewTitle = viewTitle;
     }
 
-    private String formatBookInfo(Issue issue){
+    private String formatMovieInfo(Issue issue){
         Movie movie = (Movie) issue.getIssuedItem();
         User issuer = issue.getIssuer();
 
-        String string = movie.getTitle() + "|\t|";
-        string += movie.getYear() + "|\t|";
-        string += movie.getDirector() + "|\t|";
-        string += movie.getRating() + "|\t|";
-        string += "issued by " + issuer.getLibraryNumber() + "|";
-
-        return string;
+        String strings[] = new String[]{
+                movie.getTitle(),
+                movie.getYear(),
+                movie.getDirector(),
+                movie.getRating(),
+                issuer.getLibraryNumber()
+        };
+        return io.formatLine(strings, 25, "|");
     }
 
     @Override
     public void render() {
-        io.printLine(viewTitle);
-        for (Issue issue : listOfIssues) {
-            io.printLine(formatBookInfo(issue));
+        io.printLine(io.buildLine('-', 131));
+        io.printLine(io.formatLine(viewTitle, 130));
+        io.printLine(io.buildLine('-', 131));
+        String headers[] = new String[]{"Title", "Year", "Director", "Rating", "Issuer"};
+        io.printLine(io.formatLine(headers, 25, "|"));
+        String underline = io.buildLine('-',25);
+        io.printLine(io.formatLine(new String[]{underline, underline, underline, underline, underline}, 25, "|"));
+
+        if(listOfIssues.size() == 0){
+            io.printLine(io.formatLine("Empty", 131));
         }
+
+        for (Issue issue : listOfIssues) {
+            io.printLine(formatMovieInfo(issue));
+        }
+        io.printLine(io.buildLine('-', 131));
     }
 
     public void setItems(List<Issue> listOfIssues) {

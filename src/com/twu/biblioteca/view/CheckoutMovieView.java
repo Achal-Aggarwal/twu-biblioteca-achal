@@ -20,13 +20,14 @@ public class CheckoutMovieView extends View {
     @Override
     public void render() {
         if(status == Status.CHECKOUT_SUCCESSFUL){
-            io.printLine("Thank you! Enjoy the movie");
+            printMessage("Thank you! Enjoy the movie");
         } else if(status == Status.CHECKOUT_UNSUCCESSFUL){
-            io.printLine("That movie is not available.");
+            printMessage("That movie is not available.");
         }
     }
 
     public String getMovieName() {
+        io.printString("Enter movie name : ");
         return io.readLine();
     }
 }

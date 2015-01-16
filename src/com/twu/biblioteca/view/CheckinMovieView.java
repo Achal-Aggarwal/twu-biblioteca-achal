@@ -20,13 +20,14 @@ public class CheckinMovieView extends View {
     @Override
     public void render() {
         if(status == Status.CHECKIN_SUCCESSFUL){
-            io.printLine("Thank you for returning the movie.");
+            printMessage("Thank you for returning the movie.");
         } else if(status == Status.CHECKIN_UNSUCCESSFUL){
-            io.printLine("That is not a valid movie to return.");
+            printMessage("That is not a valid movie to return.");
         }
     }
 
     public String getMovieName() {
+        io.printString("Enter movie name : ");
         return io.readLine();
     }
 }

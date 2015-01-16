@@ -25,6 +25,7 @@ public class ListOfIssuedMoviesController extends ListOfItemsController {
 
     @Override
     public boolean isHidden() {
-        return !(SessionManager.getSession().getLoggedInUser().isLibrarian());
+        return !(SessionManager.getSession().getLoggedInUser() != null &&
+                SessionManager.getSession().getLoggedInUser().isLibrarian());
     }
 }
