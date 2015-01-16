@@ -1,5 +1,11 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.io.InputOutputManger;
+import com.twu.biblioteca.library.Book;
+import com.twu.biblioteca.library.ItemCollection;
+import com.twu.biblioteca.library.Library;
+import com.twu.biblioteca.session.SessionManager;
+import com.twu.biblioteca.session.User;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,5 +1,14 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.controller.*;
+import com.twu.biblioteca.io.InputOutputManger;
+import com.twu.biblioteca.library.Book;
+import com.twu.biblioteca.library.ItemCollection;
+import com.twu.biblioteca.library.Library;
+import com.twu.biblioteca.library.Movie;
+import com.twu.biblioteca.session.SessionManager;
+import com.twu.biblioteca.session.User;
+
 public class BilbliotecaApp {
     private Library library;
     private InputOutputManger io;
