@@ -12,11 +12,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertNull;
+import static junit.framework.TestCase.assertSame;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CheckinBookControllerTest {
-    LibraryManager manager;
+    Library manager;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
@@ -29,12 +31,12 @@ public class CheckinBookControllerTest {
 
     @Before
     public void setUp() {
-        BookLibrary bookLibrary = new BookLibrary();
+        ItemCollection bookLibrary = new ItemCollection();
         bookLibrary.addItem(letusc);
         bookLibrary.addItem(galvin);
         bookLibrary.addItem(internetSec);
         bookLibrary.addItem(fivePoint);
-        manager = new LibraryManager(bookLibrary, new MovieLibrary());
+        manager = new Library(bookLibrary, new ItemCollection());
         session = SessionManager.getSession();
         session.registerUser(user);
     }
@@ -58,10 +60,14 @@ public class CheckinBookControllerTest {
     @Test
     public void shouldCheckinLetUsCBook(){
         runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), user.getPassword(), letusc.getTitle()));
+
+        session.login(user.getLibraryNumber());
         manager.checkoutBook(letusc.getTitle());
+        session.logout();
+
         letusc.setBorrower(user);
         checkinBookVC.execute();
-        assertFalse(manager.isBookCheckedOut(letusc.getTitle()));
+        assertNull(letusc.getBorrower());
     }
 
     @Test
@@ -72,7 +78,7 @@ public class CheckinBookControllerTest {
 
         runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), "asd", letusc.getTitle()));
         checkinBookVC.execute();
-        assertTrue(manager.isBookCheckedOut(letusc.getTitle()));
+        assertSame(user, letusc.getBorrower());
     }
 
     @Test

@@ -12,11 +12,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertNull;
+import static junit.framework.TestCase.assertSame;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class CheckinMovieControllerTest {
-    LibraryManager manager;
+    Library manager;
     Movie seven = new Movie("Seven", "1995", "David Fincher", "8");
     Movie darkKnight = new Movie("The Dark Knight", "2008", "Christopher Nolan", "unrated");
     User user = new User("000-0000", "achal", "", "", "");
@@ -28,10 +30,10 @@ public class CheckinMovieControllerTest {
 
     @Before
     public void setUp() {
-        MovieLibrary movieLibrary = new MovieLibrary();
+        ItemCollection movieLibrary = new ItemCollection();
         movieLibrary.addItem(seven);
         movieLibrary.addItem(darkKnight);
-        manager = new LibraryManager(new BookLibrary(), movieLibrary);
+        manager = new Library(new ItemCollection(), movieLibrary);
         session = SessionManager.getSession();
         session.registerUser(user);
     }
@@ -55,10 +57,11 @@ public class CheckinMovieControllerTest {
     @Test
     public void shouldCheckinSevenMovie(){
         runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), user.getPassword(), seven.getTitle()));
+        session.login(user.getLibraryNumber());
         manager.checkoutMovie(seven.getTitle());
-        seven.setBorrower(user);
+        session.logout();
         checkinMovieVC.execute();
-        assertFalse(manager.isMovieCheckedOut(seven.getTitle()));
+        assertNull(seven.getBorrower());
     }
 
     @Test
@@ -68,7 +71,7 @@ public class CheckinMovieControllerTest {
         session.logout();
         runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), "asd", seven.getTitle()));
         checkinMovieVC.execute();
-        assertTrue(manager.isMovieCheckedOut(seven.getTitle()));
+        assertSame(user, seven.getBorrower());
     }
 
     @Test

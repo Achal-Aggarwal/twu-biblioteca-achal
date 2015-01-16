@@ -3,11 +3,11 @@ package com.twu.biblioteca;
 public class CheckinMovieController extends Controller {
     private CheckinMovieView view;
     private LoginController loginController;
-    private LibraryManager libraryManager;
+    private Library library;
 
-    public CheckinMovieController(InputOutputManger inputOutputManger, LibraryManager libraryManger) {
+    public CheckinMovieController(InputOutputManger inputOutputManger, Library libraryManger) {
         view = new CheckinMovieView(inputOutputManger);
-        this.libraryManager = libraryManger;
+        this.library = libraryManger;
         loginController = new LoginController(inputOutputManger);
     }
 
@@ -16,7 +16,7 @@ public class CheckinMovieController extends Controller {
         boolean login_successful = loginController.execute();
         if(!login_successful){
             view.setStatus(CheckinMovieView.Status.LOGIN_REQUIRED);
-        } else if(libraryManager.checkinMovie(view.getMovieName())){
+        } else if(library.checkinMovie(view.getMovieName())){
             view.setStatus(CheckinMovieView.Status.CHECKIN_SUCCESSFUL);
         } else {
             view.setStatus(CheckinMovieView.Status.CHECKIN_UNSUCCESSFUL);

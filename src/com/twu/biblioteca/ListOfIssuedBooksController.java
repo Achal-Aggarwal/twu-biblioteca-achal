@@ -1,12 +1,12 @@
 package com.twu.biblioteca;
 
 public class ListOfIssuedBooksController extends ListOfItemsController {
-    public ListOfIssuedBooksController(InputOutputManger inputOutputManger, LibraryManager libraryManager) {
-        super(new ListOfItemsView(inputOutputManger, "List of issued books."), libraryManager);
+    public ListOfIssuedBooksController(InputOutputManger inputOutputManger, Library library) {
+        super(new ListOfItemsView(inputOutputManger, "List of issued books."), library);
     }
 
     public boolean execute() {
-        view.setItems(libraryManager.getListOfIssuedBooks());
+        view.setItems(library.getListOfIssuedBooks());
         return super.execute();
     }
 

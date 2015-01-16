@@ -15,12 +15,10 @@ import static junit.framework.TestCase.assertTrue;
 
 public class LoginControllerTest {
     User achal = new User("000-0000", "achal", "", "", "");
-    LibraryManager libraryManager;
     SessionManager session;
 
     @Before
     public void setUp() {
-        libraryManager = new LibraryManager(new BookLibrary(), new MovieLibrary());
         session = SessionManager.getSession();
     }
 

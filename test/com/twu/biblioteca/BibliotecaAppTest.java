@@ -6,14 +6,16 @@ import org.junit.Test;
 
 import java.io.*;
 
+import static junit.framework.Assert.assertNotNull;
 import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertNull;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertNotEquals;
 
 public class BibliotecaAppTest {
     BilbliotecaApp application;
     ByteArrayOutputStream output;
-    LibraryManager manager;
+    Library manager;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
@@ -22,13 +24,13 @@ public class BibliotecaAppTest {
 
     @Before
     public void setUp() {
-        BookLibrary bookLibrary;
-        bookLibrary = new BookLibrary();
+        ItemCollection bookLibrary;
+        bookLibrary = new ItemCollection();
         bookLibrary.addItem(letusc);
         bookLibrary.addItem(galvin);
         bookLibrary.addItem(internetSec);
         bookLibrary.addItem(fivePoint);
-        manager = new LibraryManager(bookLibrary, new MovieLibrary());
+        manager = new Library(bookLibrary, new ItemCollection());
         SessionManager.getSession().registerUser(new User("000-0000", "achal", "", "", ""));
         SessionManager.getSession().login("000-0000");
     }
@@ -94,7 +96,7 @@ public class BibliotecaAppTest {
     @Test
     public void testCheckingOutOfABook() {
         runApplicationWithInput("2\n" + galvin.getTitle() + "\n" + quitAction);
-        assertTrue(manager.isBookCheckedOut(galvin.getTitle()));
+        assertNotNull(galvin.getBorrower());
     }
 
     @Test
@@ -143,7 +145,7 @@ public class BibliotecaAppTest {
     @Test
     public void testReturnOfABook() {
         runApplicationWithInput("2\n" + galvin.getTitle() + "\n3\n" + galvin.getTitle() + "\n" + quitAction);
-        assertFalse(manager.isBookCheckedOut(galvin.getTitle()));
+        assertNull(galvin.getBorrower());
     }
 
     @Test

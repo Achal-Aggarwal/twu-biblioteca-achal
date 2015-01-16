@@ -13,7 +13,7 @@ import static junit.framework.TestCase.assertTrue;
 
 public class ListOfIssuedBooksControllerTest {
 
-    BookLibrary bookLibrary;
+    ItemCollection bookLibrary;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
@@ -23,7 +23,7 @@ public class ListOfIssuedBooksControllerTest {
 
     @Before
     public void setUp() {
-        bookLibrary = new BookLibrary();
+        bookLibrary = new ItemCollection();
         bookLibrary.addItem(letusc);
         bookLibrary.addItem(galvin);
         bookLibrary.addItem(internetSec);
@@ -40,7 +40,7 @@ public class ListOfIssuedBooksControllerTest {
     public void shouldPrintListOfIssuedBooks(){
         String input = "\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        LibraryManager manager = new LibraryManager(bookLibrary, new MovieLibrary());
+        Library manager = new Library(bookLibrary, new ItemCollection());
         ListOfIssuedBooksController listOfIssuedBooksVC =
                 new ListOfIssuedBooksController(
                         new InputOutputManger(
@@ -67,7 +67,7 @@ public class ListOfIssuedBooksControllerTest {
     public void shouldShowItselfForLibrarian(){
         String input = "\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        LibraryManager manager = new LibraryManager(bookLibrary, new MovieLibrary());
+        Library manager = new Library(bookLibrary, new ItemCollection());
         ListOfIssuedBooksController listOfIssuedBooksVC =
                 new ListOfIssuedBooksController(
                         new InputOutputManger(
@@ -86,7 +86,7 @@ public class ListOfIssuedBooksControllerTest {
     public void shouldHideItselfForAllUsersOtherThanLibrarian(){
         String input = "\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        LibraryManager manager = new LibraryManager(bookLibrary, new MovieLibrary());
+        Library manager = new Library(bookLibrary, new ItemCollection());
         ListOfIssuedBooksController listOfIssuedBooksVC =
                 new ListOfIssuedBooksController(
                         new InputOutputManger(

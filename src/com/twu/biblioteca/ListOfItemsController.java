@@ -2,10 +2,10 @@ package com.twu.biblioteca;
 
 public abstract class ListOfItemsController extends Controller {
     protected ListOfItemsView view;
-    protected LibraryManager libraryManager;
-    protected ListOfItemsController(ListOfItemsView view, LibraryManager libraryManager) {
+    protected Library library;
+    protected ListOfItemsController(ListOfItemsView view, Library library) {
         this.view = view;
-        this.libraryManager = libraryManager;
+        this.library = library;
     }
 
     public boolean execute() {

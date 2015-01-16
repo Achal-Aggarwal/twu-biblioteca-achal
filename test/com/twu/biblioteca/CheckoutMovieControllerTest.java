@@ -11,12 +11,14 @@ import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
+import static junit.framework.TestCase.assertNull;
+import static junit.framework.TestCase.assertSame;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class CheckoutMovieControllerTest {
-    LibraryManager manager;
+    Library manager;
     Movie seven = new Movie("Seven", "1995", "David Fincher", "8");
     Movie darkKnight = new Movie("The Dark Knight", "2008", "Christopher Nolan", "unrated");
     User user = new User("000-0000", "achal", "", "", "");
@@ -28,10 +30,10 @@ public class CheckoutMovieControllerTest {
 
     @Before
     public void setUp() {
-        MovieLibrary movieLibrary = new MovieLibrary();
+        ItemCollection movieLibrary = new ItemCollection();
         movieLibrary.addItem(seven);
         movieLibrary.addItem(darkKnight);
-        manager = new LibraryManager(new BookLibrary(), movieLibrary);
+        manager = new Library(new ItemCollection(), movieLibrary);
         session = SessionManager.getSession();
         session.registerUser(user);
     }
@@ -56,14 +58,14 @@ public class CheckoutMovieControllerTest {
     public void shouldCheckoutSevenMovie(){
         runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), user.getPassword(), seven.getTitle()));
         checkoutMovieVC.execute();
-        assertTrue(manager.isMovieCheckedOut(seven.getTitle()));
+        assertSame(seven.getBorrower(), user);
     }
 
     @Test
     public void shouldNotCheckoutSevenMovieIfUserIsInValid(){
         runTestCaseWithInput(Arrays.asList(user.getLibraryNumber(), "asd", seven.getTitle()));
         checkoutMovieVC.execute();
-        assertFalse(manager.isBookCheckedOut(seven.getTitle()));
+        assertNull(seven.getBorrower());
     }
 
     @Test

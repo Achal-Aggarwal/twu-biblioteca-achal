@@ -1,73 +1,59 @@
 package com.twu.biblioteca;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-abstract public class Library {
+public class Library {
+    private ItemCollection bookCollection;
+    private ItemCollection movieCollection;
+    private SessionManager session;
 
-    protected HashMap<String, Item> availableItems = new HashMap();
-    protected HashMap<String, Item> issuedItems = new HashMap();
-
-    public boolean isItemAvailable(String itemTitle) {
-        return availableItems.containsKey(itemTitle);
+    public Library(ItemCollection bookCollection, ItemCollection movieCollection) {
+        this.bookCollection = bookCollection;
+        this.movieCollection = movieCollection;
+        session = SessionManager.getSession();
     }
 
-    public boolean isItemIssued(String itemTitle) {
-        return issuedItems.containsKey(itemTitle);
+    private boolean checkoutItem(String itemTitle, ItemCollection itemCollection){
+        return itemCollection.issueItem(itemTitle, session.getLoggedInUser());
     }
 
-    public Item addIntoAvailableItem(Item item) {
-        if(isItemAvailable(item.getTitle())){
-            return null;
-        }
-
-        availableItems.put(item.getTitle(), item);
-
-        return item;
-    }
-    public Item addIntoIssuedItem(Item item) {
-        if(isItemIssued(item.getTitle())){
-            return null;
-        }
-
-        issuedItems.put(item.getTitle(), item);
-
-        return item;
+    private List<String> getListOfIssuedItemsFrom(ItemCollection itemCollection) {
+        return itemCollection.getListOfIssuedItems();
     }
 
-    public List<String> getListOfAvailableItems() {
-
-        List<String> availableItemsList = new ArrayList<String>();
-        for (Item item : availableItems.values()) {
-            availableItemsList.add(item.getFormattedString());
-        }
-
-        return availableItemsList;
+    private boolean checkinItem(String itemTitle, ItemCollection itemCollection){
+        return itemCollection.returnItem(itemTitle, session.getLoggedInUser());
     }
 
-    public List<String> getListOfIssuedItems() {
-
-        List<String> issuedItemsList = new ArrayList<String>();
-        for (Item item : issuedItems.values()) {
-            issuedItemsList.add(item.getFormattedString() + " issued by " + item.getBorrower().contactInformation());
-        }
-
-        return issuedItemsList;
+    public boolean checkoutMovie(String movieName) {
+        return checkoutItem(movieName, movieCollection);
     }
 
-    public Item removeFromAvailableItem(String itemName) {
-        if(!isItemAvailable(itemName)){
-            return null;
-        }
-
-        return availableItems.remove(itemName);
+    public boolean checkoutBook(String bookTitle) {
+        return checkoutItem(bookTitle, bookCollection);
     }
-    public Item removeFromIssuedItem(String itemName) {
-        if(!isItemIssued(itemName)){
-            return null;
-        }
 
-        return issuedItems.remove(itemName);
+    public boolean checkinBook(String bookTitle) {
+        return checkinItem(bookTitle, bookCollection);
+    }
+
+    public boolean checkinMovie(String movieName) {
+        return checkinItem(movieName, movieCollection);
+    }
+
+    public List<String> getListOfAvailableBooks() {
+        return bookCollection.getListOfAvailableItems();
+    }
+
+    public List<String> getListOfAvailableMovies() {
+        return movieCollection.getListOfAvailableItems();
+    }
+
+    public List<String> getListOfIssuedBooks() {
+        return getListOfIssuedItemsFrom(bookCollection);
+    }
+
+    public List<String> getListOfIssuedMovies() {
+        return getListOfIssuedItemsFrom(movieCollection);
     }
 }

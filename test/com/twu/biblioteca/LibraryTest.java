@@ -6,24 +6,22 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNull;
-import static junit.framework.Assert.assertSame;
+import static junit.framework.Assert.*;
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-public class LibraryManagerTest {
-    BookLibrary bookLibrary;
+public class LibraryTest {
+    ItemCollection bookCollection;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
     Book fivePoint = new Book("Five Point Someone", "Chetan Bhagat", "2012");
 
-    MovieLibrary movieLibrary;
+    ItemCollection movieCollection;
     Movie seven = new Movie("Seven", "1995", "David Fincher", "8");
     Movie darkKnight = new Movie("The Dark Knight", "2008", "Christopher Nolan", "unrated");
 
-    LibraryManager manager;
+    Library library;
 
     SessionManager sessionManager;
     User achal = new User("000-0000", "achal", "Achal", "achal@gmail.com", "1234567890");
@@ -31,17 +29,17 @@ public class LibraryManagerTest {
 
     @Before
     public void setUp() {
-        bookLibrary = new BookLibrary();
-        bookLibrary.addItem(letusc);
-        bookLibrary.addItem(galvin);
-        bookLibrary.addItem(internetSec);
-        bookLibrary.addItem(fivePoint);
+        bookCollection = new ItemCollection();
+        bookCollection.addItem(letusc);
+        bookCollection.addItem(galvin);
+        bookCollection.addItem(internetSec);
+        bookCollection.addItem(fivePoint);
 
-        movieLibrary = new MovieLibrary();
-        movieLibrary.addItem(seven);
-        movieLibrary.addItem(darkKnight);
+        movieCollection = new ItemCollection();
+        movieCollection.addItem(seven);
+        movieCollection.addItem(darkKnight);
 
-        manager = new LibraryManager(bookLibrary, movieLibrary);
+        library = new Library(bookCollection, movieCollection);
         sessionManager = SessionManager.getSession();
     }
 
@@ -54,41 +52,41 @@ public class LibraryManagerTest {
     public void testCheckingOutABook() {
         sessionManager.registerUser(achal);
         sessionManager.login(achal.getLibraryNumber());
-        assertTrue(manager.checkoutBook(letusc.getTitle()));
-        assertTrue(manager.isBookCheckedOut(letusc.getTitle()));
+        assertTrue(library.checkoutBook(letusc.getTitle()));
+        assertSame(achal, letusc.getBorrower());
     }
 
     @Test
     public void testCheckingOutAMovie() {
         sessionManager.registerUser(achal);
         sessionManager.login(achal.getLibraryNumber());
-        assertTrue(manager.checkoutMovie(seven.getTitle()));
-        assertTrue(manager.isMovieCheckedOut(seven.getTitle()));
+        assertTrue(library.checkoutMovie(seven.getTitle()));
+        assertSame(achal, seven.getBorrower());
     }
 
     @Test
     public void testCheckingInABook() {
         sessionManager.registerUser(achal);
         sessionManager.login(achal.getLibraryNumber());
-        manager.checkoutBook(letusc.getTitle());
+        library.checkoutBook(letusc.getTitle());
 
-        assertTrue(manager.checkinBook(letusc.getTitle()));
-        assertFalse(manager.isBookCheckedOut(letusc.getTitle()));
+        assertTrue(library.checkinBook(letusc.getTitle()));
+        assertNull(letusc.getBorrower());
     }
 
     @Test
     public void testCheckingInAMovie() {
         sessionManager.registerUser(achal);
         sessionManager.login(achal.getLibraryNumber());
-        manager.checkoutMovie(seven.getTitle());
+        library.checkoutMovie(seven.getTitle());
 
-        assertTrue(manager.checkinMovie(seven.getTitle()));
-        assertFalse(manager.isMovieCheckedOut(seven.getTitle()));
+        assertTrue(library.checkinMovie(seven.getTitle()));
+        assertNull(seven.getBorrower());
     }
 
     @Test
     public void testListOfAvailableBooks() {
-        List<String> bookList = manager.getListOfAvailableBooks();
+        List<String> bookList = library.getListOfAvailableBooks();
         assertTrue(bookList.contains(letusc.getFormattedString()));
         assertTrue(bookList.contains(galvin.getFormattedString()));
         assertTrue(bookList.contains(internetSec.getFormattedString()));
@@ -101,12 +99,12 @@ public class LibraryManagerTest {
         sessionManager.registerUser(abhishek);
 
         sessionManager.login(achal.getLibraryNumber());
-        manager.checkoutBook(letusc.getTitle());
+        library.checkoutBook(letusc.getTitle());
 
         sessionManager.login(abhishek.getLibraryNumber());
-        manager.checkoutBook(internetSec.getTitle());
+        library.checkoutBook(internetSec.getTitle());
 
-        List<String> bookList = manager.getListOfIssuedBooks();
+        List<String> bookList = library.getListOfIssuedBooks();
 
         assertTrue(bookList.contains(letusc.getFormattedString() + " issued by " + achal.contactInformation()));
         assertTrue(bookList.contains(internetSec.getFormattedString() + " issued by " + abhishek.contactInformation()));
@@ -117,15 +115,15 @@ public class LibraryManagerTest {
     public void testListOfIssuedMovies() {
         sessionManager.registerUser(achal);
         sessionManager.login(achal.getLibraryNumber());
-        manager.checkoutMovie(seven.getTitle());
-        List<String> movieList = manager.getListOfIssuedMovies();
+        library.checkoutMovie(seven.getTitle());
+        List<String> movieList = library.getListOfIssuedMovies();
         assertTrue(movieList.contains(seven.getFormattedString() + " issued by " + achal.contactInformation()));
         assertEquals(1, movieList.size());
     }
 
     @Test
     public void testListOfAvailableMovies() {
-        List<String> movieList = manager.getListOfAvailableMovies();
+        List<String> movieList = library.getListOfAvailableMovies();
         assertTrue(movieList.contains(seven.getFormattedString()));
         assertTrue(movieList.contains(darkKnight.getFormattedString()));
     }
@@ -163,7 +161,7 @@ public class LibraryManagerTest {
     public void testTrackingOfUserOnCheckoutOfABook(){
         sessionManager.registerUser(achal);
         sessionManager.login(achal.getLibraryNumber());
-        manager.checkoutBook(letusc.getTitle());
+        library.checkoutBook(letusc.getTitle());
         assertSame(achal, letusc.getBorrower());
     }
 
@@ -171,7 +169,7 @@ public class LibraryManagerTest {
     public void testTrackingOfUserOnCheckoutOfAMovie(){
         sessionManager.registerUser(achal);
         sessionManager.login(achal.getLibraryNumber());
-        manager.checkoutMovie(seven.getTitle());
+        library.checkoutMovie(seven.getTitle());
         assertSame(achal, seven.getBorrower());
     }
 
@@ -179,8 +177,8 @@ public class LibraryManagerTest {
     public void testValidationOfValidUserOnCheckinOfAMovie(){
         sessionManager.registerUser(achal);
         sessionManager.login(achal.getLibraryNumber());
-        manager.checkoutBook(letusc.getTitle());
-        assertTrue(manager.checkinBook(letusc.getTitle()));
+        library.checkoutBook(letusc.getTitle());
+        assertTrue(library.checkinBook(letusc.getTitle()));
     }
 
     @Test
@@ -190,10 +188,10 @@ public class LibraryManagerTest {
         sessionManager.registerUser(abhishek);
 
         sessionManager.login(achal.getLibraryNumber());
-        manager.checkoutBook(letusc.getTitle());
+        library.checkoutBook(letusc.getTitle());
 
         sessionManager.login(abhishek.getLibraryNumber());
-        assertFalse(manager.checkinBook(letusc.getTitle()));
+        assertFalse(library.checkinBook(letusc.getTitle()));
     }
 
     @Test

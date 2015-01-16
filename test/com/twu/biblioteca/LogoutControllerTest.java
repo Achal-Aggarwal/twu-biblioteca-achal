@@ -14,12 +14,10 @@ import static org.junit.Assert.assertTrue;
 
 public class LogoutControllerTest {
     User achal = new User("000-0000", "achal", "", "", "");
-    LibraryManager libraryManager;
     SessionManager session;
 
     @Before
     public void setUp() {
-        libraryManager = new LibraryManager(new BookLibrary(), new MovieLibrary());
         session = SessionManager.getSession();
     }
 

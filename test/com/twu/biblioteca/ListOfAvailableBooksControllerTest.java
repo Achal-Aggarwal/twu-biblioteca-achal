@@ -11,7 +11,7 @@ import static junit.framework.TestCase.assertTrue;
 
 public class ListOfAvailableBooksControllerTest {
 
-    BookLibrary bookLibrary;
+    ItemCollection bookLibrary;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
@@ -19,7 +19,7 @@ public class ListOfAvailableBooksControllerTest {
 
     @Before
     public void setUp() {
-        bookLibrary = new BookLibrary();
+        bookLibrary = new ItemCollection();
         bookLibrary.addItem(letusc);
         bookLibrary.addItem(galvin);
         bookLibrary.addItem(internetSec);
@@ -36,7 +36,7 @@ public class ListOfAvailableBooksControllerTest {
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)
-                        ), new LibraryManager(bookLibrary, new MovieLibrary())
+                        ), new Library(bookLibrary, new ItemCollection())
                 );
 
         listOfAvailableBooksVC.execute();

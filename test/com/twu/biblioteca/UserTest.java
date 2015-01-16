@@ -3,6 +3,7 @@ package com.twu.biblioteca;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class UserTest {
     String libraryNumber = "000-0000";
@@ -25,5 +26,12 @@ public class UserTest {
     public void testContactInformation(){
         String info = name + " | " + emailid + " | " + phoneNumber;
         assertEquals(info, user.contactInformation());
+    }
+
+    @Test
+    public void testValidateLibrarianCreation(){
+        String libraryNumber = "000-0000";
+        User user = new User(libraryNumber, "achal", "", "", "", true);
+        assertTrue(user instanceof User);
     }
 }

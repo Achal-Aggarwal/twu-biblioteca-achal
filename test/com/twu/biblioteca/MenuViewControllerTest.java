@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class MenuViewControllerTest {
-    LibraryManager manager;
+    Library manager;
     Book letusc = new Book("Let Us C", "Yashwant Kanetkar", "2000");
     Book galvin = new Book("Operating System", "Galvin", "2005");
     Book internetSec = new Book("Internet Security", "Ankit Fadia", "1995");
@@ -25,13 +25,13 @@ public class MenuViewControllerTest {
 
     @Before
     public void setUp() {
-        BookLibrary bookLibrary = new BookLibrary();
+        ItemCollection bookLibrary = new ItemCollection();
         bookLibrary.addItem(letusc);
         bookLibrary.addItem(galvin);
         bookLibrary.addItem(internetSec);
         bookLibrary.addItem(fivePoint);
 
-        manager = new LibraryManager(bookLibrary, new MovieLibrary());
+        manager = new Library(bookLibrary, new ItemCollection());
         session = SessionManager.getSession();
     }
 

@@ -2,12 +2,12 @@ package com.twu.biblioteca;
 
 public class CheckoutBookController extends Controller {
     private CheckoutBookView view;
-    private LibraryManager libraryManager;
+    private Library library;
     LoginController loginController;
 
-    public CheckoutBookController(InputOutputManger inputOutputManger, LibraryManager libraryManager) {
+    public CheckoutBookController(InputOutputManger inputOutputManger, Library library) {
         view = new CheckoutBookView(inputOutputManger);
-        this.libraryManager = libraryManager;
+        this.library = library;
         loginController = new LoginController(inputOutputManger);
     }
 
@@ -16,7 +16,7 @@ public class CheckoutBookController extends Controller {
         boolean login_successful = loginController.execute();
         if(!login_successful){
             view.setStatus(CheckoutBookView.Status.LOGIN_REQUIRED);
-        } else if(libraryManager.checkoutBook(view.getBookName())){
+        } else if(library.checkoutBook(view.getBookName())){
             view.setStatus(CheckoutBookView.Status.CHECKOUT_SUCCESSFUL);
         } else {
             view.setStatus(CheckoutBookView.Status.CHECKOUT_UNSUCCESSFUL);

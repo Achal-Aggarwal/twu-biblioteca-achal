@@ -13,7 +13,7 @@ import static junit.framework.TestCase.assertTrue;
 
 public class ListOfIssuedMoviesControllerTest {
 
-    MovieLibrary movieLibrary;
+    ItemCollection movieLibrary;
     Movie seven = new Movie("Seven", "1995", "David Fincher", "8");
     Movie darkKnight = new Movie("The Dark Knight", "2008", "Christopher Nolan", "unrated");
     User user = new User("000-0000", "achal", "", "", "");
@@ -21,7 +21,7 @@ public class ListOfIssuedMoviesControllerTest {
 
     @Before
     public void setUp() {
-        movieLibrary = new MovieLibrary();
+        movieLibrary = new ItemCollection();
         movieLibrary.addItem(seven);
         movieLibrary.addItem(darkKnight);
         session = SessionManager.getSession();
@@ -36,7 +36,7 @@ public class ListOfIssuedMoviesControllerTest {
     public void shouldPrintListOfIssuedBooks(){
         String input = "\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        LibraryManager manager = new LibraryManager(new BookLibrary(), movieLibrary);
+        Library manager = new Library(new ItemCollection(), movieLibrary);
         ListOfIssuedMoviesController listOfIssuedMoviesVC =
                 new ListOfIssuedMoviesController(
                         new InputOutputManger(
@@ -62,7 +62,7 @@ public class ListOfIssuedMoviesControllerTest {
     public void shouldShowItselfForLibrarian(){
         String input = "\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        LibraryManager manager = new LibraryManager(new BookLibrary(), movieLibrary);
+        Library manager = new Library(new ItemCollection(), movieLibrary);
         ListOfIssuedMoviesController listOfIssuedMoviesVC =
                 new ListOfIssuedMoviesController(
                         new InputOutputManger(
@@ -81,7 +81,7 @@ public class ListOfIssuedMoviesControllerTest {
     public void shouldHideItselfForAllUsersOtherThanLibrarian(){
         String input = "\n";
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        LibraryManager manager = new LibraryManager(new BookLibrary(), movieLibrary);
+        Library manager = new Library(new ItemCollection(), movieLibrary);
         ListOfIssuedMoviesController listOfIssuedMoviesVC =
                 new ListOfIssuedMoviesController(
                         new InputOutputManger(

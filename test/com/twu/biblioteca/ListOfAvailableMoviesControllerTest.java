@@ -10,13 +10,13 @@ import java.io.PrintStream;
 import static junit.framework.TestCase.assertTrue;
 
 public class ListOfAvailableMoviesControllerTest {
-    MovieLibrary movieLibrary;
+    ItemCollection movieLibrary;
     Movie seven = new Movie("Seven", "1995", "David Fincher", "8");
     Movie darkKnight = new Movie("The Dark Knight", "2008", "Christopher Nolan", "unrated");
 
     @Before
     public void setUp() {
-        movieLibrary = new MovieLibrary();
+        movieLibrary = new ItemCollection();
         movieLibrary.addItem(seven);
         movieLibrary.addItem(darkKnight);
     }
@@ -31,7 +31,7 @@ public class ListOfAvailableMoviesControllerTest {
                         new InputOutputManger(
                                 new ByteArrayInputStream(input.getBytes()),
                                 new PrintStream(output)
-                        ), new LibraryManager(new BookLibrary(), movieLibrary)
+                        ), new Library(new ItemCollection(), movieLibrary)
                 );
 
         listOfMoviesVC.execute();
