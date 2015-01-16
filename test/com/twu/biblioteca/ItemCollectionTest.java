@@ -27,10 +27,10 @@ public class ItemCollectionTest {
     public void testGetListOfAvailableBooks() {
         bookCollection = new ItemCollection(new Item[]{letusc, galvin, internetSec});
 
-        List<String> bookList = bookCollection.getListOfAvailableItems();
-        assertTrue(bookList.contains(letusc.getFormattedString()));
-        assertTrue(bookList.contains(galvin.getFormattedString()));
-        assertTrue(bookList.contains(internetSec.getFormattedString()));
+        List<Item> bookList = bookCollection.getListOfAvailableItems();
+        assertTrue(bookList.contains(letusc));
+        assertTrue(bookList.contains(galvin));
+        assertTrue(bookList.contains(internetSec));
         assertEquals(3, bookList.size());
     }
 
@@ -39,8 +39,8 @@ public class ItemCollectionTest {
         bookCollection = new ItemCollection(new Item[]{letusc, galvin, internetSec});
         assertTrue(bookCollection.issueItem(letusc.getTitle(), user));
 
-        List<String> bookList = bookCollection.getListOfAvailableItems();
-        assertFalse(bookList.contains(letusc.getFormattedString()));
+        List<Item> bookList = bookCollection.getListOfAvailableItems();
+        assertFalse(bookList.contains(letusc));
     }
 
     @Test
@@ -54,8 +54,8 @@ public class ItemCollectionTest {
         bookCollection = new ItemCollection(new Item[]{letusc, galvin, internetSec});
         bookCollection.issueItem(letusc.getTitle(), user);
         bookCollection.returnItem(letusc.getTitle(), user);
-        List<String> bookList = bookCollection.getListOfAvailableItems();
-        assertTrue(bookList.contains(letusc.getFormattedString()));
+        List<Item> bookList = bookCollection.getListOfAvailableItems();
+        assertTrue(bookList.contains(letusc));
     }
 
     @Test

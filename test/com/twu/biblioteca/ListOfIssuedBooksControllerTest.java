@@ -36,6 +36,15 @@ public class ListOfIssuedBooksControllerTest {
         SessionManager.clearSession();
     }
 
+    private String formatBookInfo(Book book, User issuer){
+        String string = book.getTitle() + "|\t|";
+        string += book.getAuthor() + "|\t|";
+        string += book.getPublicationDate() + "|\t|";
+        string += "issued by " + issuer.getLibraryNumber() + "|";
+
+        return string + "\n";
+    }
+
     @Test
     public void shouldPrintListOfIssuedBooks(){
         String input = "\n";
@@ -57,8 +66,8 @@ public class ListOfIssuedBooksControllerTest {
 
         String viewTitle = "List of issued books.\n";
         String listOfBooks = "";
-        listOfBooks += "1. \t" + letusc.getFormattedString() + " issued by " + user.contactInformation() + "\n";
-        listOfBooks += "2. \t" + internetSec.getFormattedString() + " issued by " + user.contactInformation() + "\n";
+        listOfBooks += formatBookInfo(letusc, user);
+        listOfBooks += formatBookInfo(internetSec, user);
 
         assertTrue(output.toString().contains(viewTitle + listOfBooks));
     }

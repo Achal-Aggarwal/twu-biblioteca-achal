@@ -17,7 +17,7 @@ public class Library {
         return itemCollection.issueItem(itemTitle, session.getLoggedInUser());
     }
 
-    private List<String> getListOfIssuedItemsFrom(ItemCollection itemCollection) {
+    private List<Issue> getListOfIssuedItemsFrom(ItemCollection itemCollection) {
         return itemCollection.getListOfIssuedItems();
     }
 
@@ -41,19 +41,19 @@ public class Library {
         return checkinItem(movieName, movieCollection);
     }
 
-    public List<String> getListOfAvailableBooks() {
+    public List<Item> getListOfAvailableBooks() {
         return bookCollection.getListOfAvailableItems();
     }
 
-    public List<String> getListOfAvailableMovies() {
+    public List<Item> getListOfAvailableMovies() {
         return movieCollection.getListOfAvailableItems();
     }
 
-    public List<String> getListOfIssuedBooks() {
+    public List<Issue> getListOfIssuedBooks() {
         return getListOfIssuedItemsFrom(bookCollection);
     }
 
-    public List<String> getListOfIssuedMovies() {
+    public List<Issue> getListOfIssuedMovies() {
         return getListOfIssuedItemsFrom(movieCollection);
     }
 }

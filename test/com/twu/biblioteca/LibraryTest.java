@@ -86,11 +86,11 @@ public class LibraryTest {
 
     @Test
     public void testListOfAvailableBooks() {
-        List<String> bookList = library.getListOfAvailableBooks();
-        assertTrue(bookList.contains(letusc.getFormattedString()));
-        assertTrue(bookList.contains(galvin.getFormattedString()));
-        assertTrue(bookList.contains(internetSec.getFormattedString()));
-        assertTrue(bookList.contains(fivePoint.getFormattedString()));
+        List<Item> bookList = library.getListOfAvailableBooks();
+        assertTrue(bookList.contains(letusc));
+        assertTrue(bookList.contains(galvin));
+        assertTrue(bookList.contains(internetSec));
+        assertTrue(bookList.contains(fivePoint));
     }
 
     @Test
@@ -104,11 +104,15 @@ public class LibraryTest {
         sessionManager.login(abhishek.getLibraryNumber());
         library.checkoutBook(internetSec.getTitle());
 
-        List<String> bookList = library.getListOfIssuedBooks();
+        List<Issue> bookIssueList = library.getListOfIssuedBooks();
 
-        assertTrue(bookList.contains(letusc.getFormattedString() + " issued by " + achal.contactInformation()));
-        assertTrue(bookList.contains(internetSec.getFormattedString() + " issued by " + abhishek.contactInformation()));
-        assertEquals(2, bookList.size());
+        assertSame(letusc, bookIssueList.get(0).getIssuedItem());
+        assertSame(achal, bookIssueList.get(0).getIssuer());
+
+        assertSame(internetSec, bookIssueList.get(1).getIssuedItem());
+        assertSame(abhishek, bookIssueList.get(1).getIssuer());
+
+        assertEquals(2, bookIssueList.size());
     }
 
     @Test
@@ -116,16 +120,19 @@ public class LibraryTest {
         sessionManager.registerUser(achal);
         sessionManager.login(achal.getLibraryNumber());
         library.checkoutMovie(seven.getTitle());
-        List<String> movieList = library.getListOfIssuedMovies();
-        assertTrue(movieList.contains(seven.getFormattedString() + " issued by " + achal.contactInformation()));
-        assertEquals(1, movieList.size());
+        List<Issue> movieIssueList = library.getListOfIssuedMovies();
+
+        assertSame(seven, movieIssueList.get(0).getIssuedItem());
+        assertSame(achal, movieIssueList.get(0).getIssuer());
+
+        assertEquals(1, movieIssueList.size());
     }
 
     @Test
     public void testListOfAvailableMovies() {
-        List<String> movieList = library.getListOfAvailableMovies();
-        assertTrue(movieList.contains(seven.getFormattedString()));
-        assertTrue(movieList.contains(darkKnight.getFormattedString()));
+        List<Item> movieList = library.getListOfAvailableMovies();
+        assertTrue(movieList.contains(seven));
+        assertTrue(movieList.contains(darkKnight));
     }
 
     @Test

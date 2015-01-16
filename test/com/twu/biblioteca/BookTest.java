@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import junit.framework.Assert;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertSame;
@@ -12,14 +13,9 @@ public class BookTest {
     Book letusc = new Book(title,author,publicationDate);
 
     @Test
-    public void testStringRepresentationOfBookWithAuthorPresent(){
-        assertEquals("|" + title + "|\t|" + author + "|\t|" + publicationDate + "|", letusc.getFormattedString());
-    }
-
-    @Test
-    public void testGetterAndSetterOfBook(){
-        User user = new User("000-0000", "achal", "", "", "");
-        letusc.setBorrower(user);
-        assertSame(user, letusc.getBorrower());
+    public void testGetterOfBook(){
+        assertEquals(title, letusc.getTitle());
+        assertEquals(author, letusc.getAuthor());
+        assertEquals(publicationDate, letusc.getPublicationDate());
     }
 }

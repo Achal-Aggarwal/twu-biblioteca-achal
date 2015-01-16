@@ -26,6 +26,14 @@ public class ListOfAvailableBooksControllerTest {
         bookLibrary.addItem(fivePoint);
     }
 
+    private String formatBookInfo(Book book){
+        String string = book.getTitle() + "|\t|";
+        string += book.getAuthor() + "|\t|";
+        string += book.getPublicationDate() + "|";
+
+        return string + "\n";
+    }
+
     @Test
     public void shouldPrintListOfAvailableBooks(){
         String input = "\n";
@@ -43,10 +51,10 @@ public class ListOfAvailableBooksControllerTest {
 
         String viewTitle = "List of available books.\n";
         String listOfBooks = "";
-        listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
-        listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";
-        listOfBooks += "3. \t" + galvin.getFormattedString() + "\n";
-        listOfBooks += "4. \t" + internetSec.getFormattedString() + "\n";
+        listOfBooks += formatBookInfo(fivePoint);
+        listOfBooks += formatBookInfo(letusc);
+        listOfBooks += formatBookInfo(galvin);
+        listOfBooks += formatBookInfo(internetSec);
         assertTrue(output.toString().contains(viewTitle + listOfBooks));
     }
 }

@@ -4,20 +4,28 @@ public class Movie extends Item {
     private String name;
     private String year;
     private String director;
-    private String movieRating;
+    private String rating;
 
     public Movie(String name, String year, String director, String movieRating) {
         this.name = name;
         this.year = year;
         this.director = director;
-        this.movieRating = movieRating;
+        this.rating = movieRating;
     }
 
     public String getTitle() {
         return name;
     }
 
-    public String getFormattedString() {
-        return "|" + name + "|\t|" + year + "|\t|" + director + "|\t|" + movieRating + "|";
+    public String getYear() {
+        return year;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public String getRating() {
+        return rating;
     }
 }

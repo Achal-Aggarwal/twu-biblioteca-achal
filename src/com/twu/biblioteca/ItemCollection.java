@@ -7,7 +7,7 @@ import java.util.List;
 public class ItemCollection {
 
     protected HashMap<String, Item> availableItems = new HashMap();
-    protected HashMap<String, Item> issuedItems = new HashMap();
+    protected HashMap<String, Issue> issues = new HashMap();
 
     public ItemCollection(){}
 
@@ -27,46 +27,48 @@ public class ItemCollection {
         }
 
         Item item = availableItems.remove(itemTitle);
+
         item.setBorrower(user);
-        issuedItems.put(itemTitle, item);
+
+        Issue issuedItem = new Issue(item, user);
+        issues.put(itemTitle, issuedItem);
 
         return true;
     }
 
     public boolean returnItem(String itemTitle, User user){
-        if(!issuedItems.containsKey(itemTitle)){
+        if(!issues.containsKey(itemTitle)){
             return false;
         }
 
+        Issue issuedItem = issues.remove(itemTitle);
 
-        if(issuedItems.get(itemTitle).getBorrower() != user){
+        if(issuedItem.getIssuer() != user){
             return false;
         }
 
-        Item item = issuedItems.remove(itemTitle);
-        item.setBorrower(null);
+        issuedItem.getIssuedItem().setBorrower(null);
 
-        availableItems.put(itemTitle, item);
+        availableItems.put(itemTitle, issuedItem.getIssuedItem());
 
         return true;
     }
 
 
-    public List<String> getListOfAvailableItems() {
-
-        List<String> availableItemsList = new ArrayList<String>();
+    public List<Item> getListOfAvailableItems() {
+        List<Item> items = new ArrayList<Item>();
         for (Item item : availableItems.values()) {
-            availableItemsList.add(item.getFormattedString());
+            items.add(item);
         }
 
-        return availableItemsList;
+        return items;
     }
 
-    public List<String> getListOfIssuedItems() {
+    public List<Issue> getListOfIssuedItems() {
 
-        List<String> issuedItemsList = new ArrayList<String>();
-        for (Item item : issuedItems.values()) {
-            issuedItemsList.add(item.getFormattedString() + " issued by " + item.getBorrower().contactInformation());
+        List<Issue> issuedItemsList = new ArrayList<Issue>();
+        for (Issue issue : issues.values()) {
+            issuedItemsList.add(issue);
         }
 
         return issuedItemsList;

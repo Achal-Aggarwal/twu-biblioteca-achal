@@ -32,6 +32,16 @@ public class ListOfIssuedMoviesControllerTest {
         SessionManager.clearSession();
     }
 
+    private String formatMovieInfo(Movie movie, User issuer){
+        String string = movie.getTitle() + "|\t|";
+        string += movie.getYear() + "|\t|";
+        string += movie.getDirector() + "|\t|";
+        string += movie.getRating() + "|\t|";
+        string += "issued by " + issuer.getLibraryNumber() + "|";
+
+        return string + "\n";
+    }
+
     @Test
     public void shouldPrintListOfIssuedBooks(){
         String input = "\n";
@@ -53,8 +63,8 @@ public class ListOfIssuedMoviesControllerTest {
 
         String viewTitle = "List of issued movies.\n";
         String listOfMovies = "";
-        listOfMovies += "1. \t" + darkKnight.getFormattedString() + " issued by " + user.contactInformation() + "\n";
-        listOfMovies += "2. \t" + seven.getFormattedString() + " issued by " + user.contactInformation() + "\n";
+        listOfMovies += formatMovieInfo(darkKnight, user);
+        listOfMovies += formatMovieInfo(seven, user);
         assertTrue(output.toString().contains(viewTitle + listOfMovies));
     }
 

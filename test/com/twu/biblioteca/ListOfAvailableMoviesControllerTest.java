@@ -21,6 +21,15 @@ public class ListOfAvailableMoviesControllerTest {
         movieLibrary.addItem(darkKnight);
     }
 
+    private String formatMovieInfo(Movie movie){
+        String string = movie.getTitle() + "|\t|";
+        string += movie.getYear() + "|\t|";
+        string += movie.getDirector() + "|\t|";
+        string += movie.getRating() + "|";
+
+        return string + "\n";
+    }
+
     @Test
     public void shouldPrintListOfAvailableMovies(){
         String input = "\n";
@@ -38,8 +47,8 @@ public class ListOfAvailableMoviesControllerTest {
 
         String viewTitle = "List of available movies.\n";
         String listOfMovies = "";
-        listOfMovies += "1. \t" + darkKnight.getFormattedString() + "\n";
-        listOfMovies += "2. \t" + seven.getFormattedString() + "\n";
+        listOfMovies += formatMovieInfo(darkKnight);
+        listOfMovies += formatMovieInfo(seven);
         assertTrue(output.toString().contains(viewTitle + listOfMovies));
     }
 }

@@ -40,6 +40,14 @@ public class BibliotecaAppTest {
         SessionManager.clearSession();
     }
 
+    private String formatBookInfo(Book book){
+        String string = book.getTitle() + "|\t|";
+        string += book.getAuthor() + "|\t|";
+        string += book.getPublicationDate() + "|";
+
+        return string + "\n";
+    }
+
 
     private void runApplicationWithInput(String input){
         output = new ByteArrayOutputStream();
@@ -65,10 +73,10 @@ public class BibliotecaAppTest {
         runApplicationWithInput("1\n" + quitAction);
         String viewTitle = "List of available books.\n";
         String listOfBooks = "";
-        listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
-        listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";
-        listOfBooks += "3. \t" + galvin.getFormattedString() + "\n";
-        listOfBooks += "4. \t" + internetSec.getFormattedString() + "\n";
+        listOfBooks += formatBookInfo(fivePoint);
+        listOfBooks += formatBookInfo(letusc);
+        listOfBooks += formatBookInfo(galvin);
+        listOfBooks += formatBookInfo(internetSec);
         assertTrue(output.toString().contains(viewTitle + listOfBooks));
     }
 
@@ -106,10 +114,10 @@ public class BibliotecaAppTest {
 
         String viewTitle = "List of available books.\n";
         String listOfBooks = "";
-        listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
-        listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";
-        listOfBooks += "3. \t" + galvin.getFormattedString() + "\n";
-        listOfBooks += "4. \t" + internetSec.getFormattedString() + "\n";
+        listOfBooks += formatBookInfo(fivePoint);
+        listOfBooks += formatBookInfo(letusc);
+        listOfBooks += formatBookInfo(galvin);
+        listOfBooks += formatBookInfo(internetSec);
 
         int offset = outputString.lastIndexOf(viewTitle + listOfBooks);
 
@@ -118,9 +126,9 @@ public class BibliotecaAppTest {
         outputString = outputString.substring(offset + (viewTitle + listOfBooks).length());
 
         listOfBooks = "";
-        listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
-        listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";
-        listOfBooks += "3. \t" + internetSec.getFormattedString() + "\n";
+        listOfBooks += formatBookInfo(fivePoint);
+        listOfBooks += formatBookInfo(letusc);
+        listOfBooks += formatBookInfo(internetSec);
         assertTrue(outputString.contains(viewTitle + listOfBooks));
     }
 
@@ -155,9 +163,9 @@ public class BibliotecaAppTest {
 
         String viewTitle = "List of available books.\n";
         String listOfBooks = "";
-        listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
-        listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";
-        listOfBooks += "3. \t" + internetSec.getFormattedString() + "\n";
+        listOfBooks += formatBookInfo(fivePoint);
+        listOfBooks += formatBookInfo(letusc);
+        listOfBooks += formatBookInfo(internetSec);
 
         int offset = outputString.lastIndexOf(viewTitle + listOfBooks);
 
@@ -166,10 +174,10 @@ public class BibliotecaAppTest {
         outputString = outputString.substring(offset + (viewTitle + listOfBooks).length());
 
         listOfBooks = "";
-        listOfBooks += "1. \t" + fivePoint.getFormattedString() + "\n";
-        listOfBooks += "2. \t" + letusc.getFormattedString() + "\n";
-        listOfBooks += "3. \t" + galvin.getFormattedString() + "\n";
-        listOfBooks += "4. \t" + internetSec.getFormattedString() + "\n";
+        listOfBooks += formatBookInfo(fivePoint);
+        listOfBooks += formatBookInfo(letusc);
+        listOfBooks += formatBookInfo(galvin);
+        listOfBooks += formatBookInfo(internetSec);
         assertTrue(outputString.contains(viewTitle + listOfBooks));
     }
 

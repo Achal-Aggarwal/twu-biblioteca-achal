@@ -11,11 +11,15 @@ public class Book extends Item {
         this.publicationDate = publicationDate;
     }
 
-    public String getFormattedString() {
-        return "|" + title + "|\t|" + author + "|\t|" + publicationDate + "|";
-    }
-
     public String getTitle() {
         return title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getPublicationDate() {
+        return publicationDate;
     }
 }
