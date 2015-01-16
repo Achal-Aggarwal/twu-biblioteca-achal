@@ -1,13 +1,16 @@
 package com.twu.biblioteca;
 
 public class ListOfAvailableMoviesController extends ListOfItemsController {
+    protected ListOfAvailableMoviesView view;
     public ListOfAvailableMoviesController(InputOutputManger inputOutputManger, Library library) {
-        super(new ListOfItemsView(inputOutputManger, "List of available movies."), library);
+        super(library);
+        view = new ListOfAvailableMoviesView(inputOutputManger, "List of available movies.");
     }
 
     public boolean execute() {
         view.setItems(library.getListOfAvailableMovies());
-        return super.execute();
+        view.render();
+        return true;
     }
 
     public String getTitle() {

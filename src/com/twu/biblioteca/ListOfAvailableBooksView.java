@@ -3,11 +3,11 @@ package com.twu.biblioteca;
 import java.util.Arrays;
 import java.util.List;
 
-public class ListOfItemsView extends View {
+public class ListOfAvailableBooksView extends View {
     private List<String> listOfItems;
     private String viewTitle;
 
-    public ListOfItemsView(InputOutputManger inputOutputManger, String viewTitle) {
+    public ListOfAvailableBooksView(InputOutputManger inputOutputManger, String viewTitle) {
         super(inputOutputManger);
         listOfItems =  Arrays.asList();
         this.viewTitle = viewTitle;

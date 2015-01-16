@@ -15,7 +15,6 @@ public class ItemCollection {
         for (Item item : items) {
             availableItems.put(item.getTitle(), item);
         }
-
     }
 
     public void addItem(Item item){
